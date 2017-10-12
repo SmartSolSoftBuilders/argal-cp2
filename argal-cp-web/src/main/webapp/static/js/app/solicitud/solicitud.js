@@ -1,5 +1,6 @@
 $(document).ready(function() {
   $("#accordion").accordion();
+  $("#tabs").tabs();
   $('#contact-form').validate({
     rules: {
       name: {
@@ -65,10 +66,10 @@ function cargarIcdCpt(){
 			async:false,
 			url: "mvc/icd/geticds"
 	   	}).done(function(data) {
-	   		console.log(data)
+	   		//console.log(data)
 	   		$("#tablaGridIcds").DataTable( {
 	        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
-	        "data": data,"bDestroy": true
+	        "data": data,"bDestroy": false
 	   		});
 	   	});
 	   	$.ajax({
@@ -78,22 +79,25 @@ function cargarIcdCpt(){
 		   	}).done(function(data) {   		   		   			   			   		   	
 		   		$("#tablaGridCpts").DataTable( {
 		        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
-		        "data": data,"bDestroy": true
+		        "data": data,"bDestroy": false
 		 });
 	});
 }
 
 function loadWindowIcd(numIcd){
+	$( "#icdSelHidden").val(numIcd);
 	$( "#gridIcd" ).dialog({
 		 resizable: false,
 	      height: 700,
 	      width: 1200,
-	      position: { my: "top", at: "top", of: window  },
+	      position: { my: "top", at: "top", of: window },
 	      modal: true		     
 	});					
 }
 
-function selectIcd(id){
+function selectIcd(valor,valor2){
+	$( "#idIcd1"+$( "#icdSelHidden").val()).val(valor);
+	$( "#icd"+$( "#icdSelHidden").val()).val(valor2);
 	$( "#gridIcd" ).dialog('close');		 
 }
 

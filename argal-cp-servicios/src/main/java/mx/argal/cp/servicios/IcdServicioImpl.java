@@ -28,7 +28,7 @@ public class IcdServicioImpl implements IcdServicio {
 			icd.add(icds.get(i).getIdIcd());
 			icd.add(icds.get(i).getDescripcion());
 			icd.add(icds.get(i).getClave());
-			icd.add("<a href='#' onclick='selectIcd()'>Seleccionar</a>");
+			icd.add("<a href='#' onclick='selectIcd("+icds.get(i).getIdIcd()+",\""+icds.get(i).getDescripcion().replace(" ",".")+"\")'>Seleccionar</a>");
 			returnIcdsList.add(icd);
 		}
 		return returnIcdsList; 
