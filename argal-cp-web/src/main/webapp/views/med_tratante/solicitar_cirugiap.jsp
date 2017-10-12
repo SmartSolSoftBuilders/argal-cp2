@@ -9,6 +9,7 @@
 <script src="static/js/lib/form/bootstrap.min.js"></script>
 <script src="static/js/lib/form/additional-methods.js"></script>
 <script src="static/js/app/solicitud/solicitud.js"></script>
+<link rel="stylesheet" href="static/css/v2.0/jquery.dataTables.min.css" />
 <table style="background-color:rgba(0, 0, 0, 0.13);">
 	<tr>
 		<td width="20%" align="center">
@@ -241,10 +242,10 @@
 			</div>
 		</fieldset>
 	</div>
-	<div id="gridIcd">
+	<div id="gridIcd" style="display:none;">
 		<jsp:include page="../icd/grid_icds.jsp"></jsp:include>
 	</div>
-	<div id="gridCpt">
+	<div id="gridCpt" style="display:none;">
 		<jsp:include page="../cpt/grid_cpts.jsp"></jsp:include>
 	</div>
 </div>	

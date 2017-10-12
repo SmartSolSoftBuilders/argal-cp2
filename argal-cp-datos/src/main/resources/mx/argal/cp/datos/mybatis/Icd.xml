@@ -9,7 +9,7 @@
 		<result property="clave" column="CVE_ICD" />    		
 	</resultMap>
 	
-	<select id="obtenerIcds"  resultType="icdResult">		 
+	<select id="obtenerIcds"  resultMap="icdResult">		 
 		select * from "ICD"
 	</select>
 	

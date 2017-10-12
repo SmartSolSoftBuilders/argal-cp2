@@ -77,14 +77,14 @@ public class IcdController {
 		
 	@RequestMapping(value="/geticds",method = RequestMethod.POST)
     @ResponseBody
-    public List<Icd> obtenerIcds(){
+    public List obtenerIcds(){
 		System.out.println("<OTIKA>GetIcds");
 		try{
 			return this.icdServicio.obtenerIcds();
 		}
 		catch(Exception e){
 		}
-		return new ArrayList<Icd>();		
+		return new ArrayList();		
 	}
 
 }

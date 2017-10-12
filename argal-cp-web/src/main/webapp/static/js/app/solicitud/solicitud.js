@@ -92,3 +92,8 @@ function loadWindowIcd(numIcd){
 	      modal: true		     
 	});					
 }
+
+function selectIcd(id){
+	$( "#gridIcd" ).dialog('close');		 
+}
+

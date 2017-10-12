@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/mx/estrategas/seguridad/seguridad-config.xml")
+@ContextConfiguration("classpath:/mx/argal/seguridad/seguridad-config.xml")
 @ActiveProfiles("testing")
 @TransactionConfiguration(transactionManager="txManagerSeguridad", defaultRollback=true)
 @Transactional

@@ -9,7 +9,7 @@
 		<result property="clave" column="CVE_CPT" />    		
 	</resultMap>
 				
-	<select id="obtenerCpts" resultType="cptResult">		 
+	<select id="obtenerCpts" resultMap="cptResult">		 
 		SELECT "ID_CPT", "DESCRIPCION", "CVE_CPT"
 			FROM "CPT";
 	</select>
