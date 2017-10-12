@@ -21,7 +21,11 @@
 <style>
 #accordion .ui-accordion-content {
     max-height: 300px;
+    line-height: 20px;
+    font-size: 10pt;
+    text-indent: 10px;      
 }
+
 </style>
 	
 <div id="accordion">
@@ -141,8 +145,8 @@
 	<div style="max-height: 400px;">
 		<div id="tabs">
 			<ul>
-    			<li><a href="#tabs-1">Cirugía Solicitada 1</a></li>
-    			<li><a href="#tabs-2">Cirugía Solicitada 2</a></li>    
+    			<li><a href="#tabs-1">CIRUGÍA SOLICITADA (1)</a></li>
+    			<li><a href="#tabs-2">CIRUGÍA SOLICITADA (2)</a></li>    
   			</ul>		
 			<div id="tabs-1">		
 				<fieldset style="height: 90%;">
@@ -159,7 +163,7 @@
 									<td>
 										<div class="control-group">
 											<div class="controls">
-												<label class="control-label" for="name" style="width:200px;">Diagnóstico de Ingreso:</label>
+												<label class="control-label" for="name" style="width:300px;">Diagnóstico de Ingreso (Cirugía 1):</label>
 												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridIcd(1)">																						
 												<input type="text" id="icd1" name="icd1" onclick="loadWindowIcd(1)" data-validation="required" readonly style="width:400px;">
 							                    <input type="hidden" id="idIcd1" name="idIcd1" data-validation="required">												
@@ -239,8 +243,11 @@
 			</div>
 			<div id="tabs-2">
 	    		<fieldset style="height: 90%;">
-					<input type="hidden" id="icdSelHidden" name="icdSelHidden"/>					
-					<legend>Datos de la Cirugia por Solicitar</legend>
+					<input type="hidden" id="icdSelHidden" name="icdSelHidden"/>
+					<input type="hidden" id="icdHidden" name="icdHidden"/>
+					<input type="hidden" id="cptHidden" name="cptHidden"/>
+					<input type="hidden" id="idCptHidden" name="icCptHidden"/>
+					<input type="hidden" id="idIcdHidden" name="icIcdHidden"/>
 					<div class="form-group">
 						<form method="POST" action="contact-form-submission.php"
 							class="form-horizontal" id="contact-form">
@@ -248,35 +255,47 @@
 								<tr>
 									<td>
 										<div class="control-group">
-											<label class="control-label" for="name">Diagnóstico de Ingreso:</label>
 											<div class="controls">
-												<input type="text" id="icd4" name="icd4" onclick="loadWindowIcd(4)" data-validation="required" readonly style="width:400px;">
-							                    <input type="hidden" id="idIcd4" name="idIcd4" data-validation="required">
-												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridIcd(1)">
+												<label class="control-label" for="name" style="width:300px;">Diagnóstico de Ingreso (Cirugía 2):</label>
+												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridIcd(1)">																						
+												<input type="text" id="icd1" name="icd1" onclick="loadWindowIcd(1)" data-validation="required" readonly style="width:400px;">
+							                    <input type="hidden" id="idIcd1" name="idIcd1" data-validation="required">												
 											</div>
 										</div>
 									</td>
 								</tr>
 							</table>
-							<table border=1>
+							<table border=1 style="width:100%">
 								<tr>
 									<td>
-										Procedimiento 1:
-										<input type="text" id="cpt1" name="cpt1" onclick="showGridCpt(1)" data-validation="required" readonly size="50px">
-									    <input type="hidden" id="idCpt1" name="idCpt1" data-validation="required">
-										<img src="static/img/buscar.jpg"  style="cursor: pointer; " height="25" width="25" onclick="showGridCpt(1)">
+										<div class="control-group">
+											<div class="controls">
+												<label class="control-label" for="name" style="width:200px;">Procedimiento 1:</label>
+												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridCpt(1)">																						
+												<input type="text" id="cpt1" name="cpt1" onclick="loadWindowCpt(1)" data-validation="required" readonly style="width:400px;">
+							                    <input type="hidden" id="idCpt1" name="idCpt1" data-validation="required">												
+											</div>
+										</div>
 									</td>
 									<td>
-										Procedimiento 2:
-										<input type="text" id="cpt1" name="cpt1" onclick="showGridCpt(1)" data-validation="required" readonly size="50px">
-									    <input type="hidden" id="idCpt1" name="idCpt1" data-validation="required">
-										<img src="static/img/buscar.jpg"  style="cursor: pointer; " height="25" width="25" onclick="showGridCpt(1)">
+										<div class="control-group">
+											<div class="controls">
+												<label class="control-label" for="name" style="width:200px;">Procedimiento 2:</label>
+												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridCpt(1)">																						
+												<input type="text" id="cpt1" name="cpt1" onclick="loadWindowCpt(1)" data-validation="required" readonly style="width:400px;">
+							                    <input type="hidden" id="idCpt1" name="idCpt1" data-validation="required">												
+											</div>
+										</div>
 									</td>
 									<td>
-										Procedimiento 3:
-										<input type="text" id="cpt1" name="cpt1" onclick="showGridCpt(1)" data-validation="required" readonly size="50px">
-									    <input type="hidden" id="idCpt1" name="idCpt1" data-validation="required">
-										<img src="static/img/buscar.jpg"  style="cursor: pointer; " height="25" width="25" onclick="showGridCpt(1)">
+										<div class="control-group">
+											<div class="controls">
+												<label class="control-label" for="name" style="width:200px;">Procedimiento 3:</label>
+												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridCpt(1)">																						
+												<input type="text" id="cpt1" name="cpt1" onclick="loadWindowCpt(1)" data-validation="required" readonly style="width:400px;">
+							                    <input type="hidden" id="idCpt1" name="idCpt1" data-validation="required">												
+											</div>
+										</div>
 									</td>
 								</tr>
 							</table>
@@ -289,32 +308,22 @@
 								                <textarea name="message" id="message" rows="8" class="span5" placeholder="The message you want to send to us."></textarea>
 								            </div>
 								        </div>
-									</td>
-									<td>								
-									</td>						
-									<td>								
-									</td>	
-								</tr>
-							</table>
-							Otras Enfermedades
-							<table>
-								<tr>
+									</td>									
 									<td>
+										Otras Enfermedades									
 										<div class="control-group">
 											<label class="control-label" for="name">Diagnóstico 1:</label>
 											<div class="controls">
-												<input type="text" id="icd5" name="icd5" onclick="loadWindowIcd(5)" data-validation="required" readonly style="width:400px;">
-							                    <input type="hidden" id="idIcd5" name="idIcd5" data-validation="required">
+												<input type="text" id="icd2" name="icd2" onclick="loadWindowIcd(2)" data-validation="required" readonly style="width:350px;">
+							                    <input type="hidden" id="idIcd2" name="idIcd2" data-validation="required">
 												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridIcd(1)">
 											</div>
-										</div>
-									</td>
-									<td>
+										</div>									
 										<div class="control-group">
 											<label class="control-label" for="name">Diagnóstico 2:</label>
 											<div class="controls">
-												<input type="text" id="icd6" name="icd6" onclick="loadWindowIcd(6)" data-validation="required" readonly style="width:400px;">
-							                    <input type="hidden" id="idIcd6" name="idIcd6" data-validation="required">
+												<input type="text" id="icd3" name="icd3" onclick="loadWindowIcd(3)" data-validation="required" readonly style="width:350px;">
+							                    <input type="hidden" id="idIcd3" name="idIcd3" data-validation="required">
 												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridIcd(1)">
 											</div>
 										</div>														
@@ -345,11 +354,11 @@
 		<button type="submit" class="btn btn-primary">Guardar Sección</button>
 		<button type="submit" class="btn btn-primary">Continuar</button>
 	</div>
-	<h3><img src="static/img/documents.png" width="25px" />5)Documentación</h3>
+	<h3><img src="static/img/documents.png" width="25px" />4)Documentación</h3>
 	<div>
 		<jsp:include page="secciones/sec_documentacion.jsp"></jsp:include>
 	</div>
-	<h3><img src="static/img/person.png" width="25px" />6)Riesgos y Personal Requerido Adicional</h3>
+	<h3><img src="static/img/person.png" width="25px" />5)Riesgos y Personal Requerido Adicional</h3>
 	<div>
 		<jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>
 		<button type="submit" class="btn btn-primary">Guardar Sección</button>
