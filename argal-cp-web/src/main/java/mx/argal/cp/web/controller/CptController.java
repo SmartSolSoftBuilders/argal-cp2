@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mx.argal.cp.modelo.Cpt;
+import mx.argal.cp.servicios.CptServicio;
 import mx.argal.seguridad.modelo.UsuarioSeguridad;
 import mx.argal.seguridad.util.SeguridadUtil;
 import org.slf4j.Logger;
@@ -67,8 +68,8 @@ import com.itextpdf.text.pdf.codec.Base64.InputStream;
 @RequestMapping("/cpt")
 public class CptController {
 	
-	//@Autowired
-	//public CptServicio cptServicio;
+	@Autowired
+	public CptServicio cptServicio;
 	
 	public final String ROLE_ADMINISTRADOR="ROLE_ADMINISTRADOR";
 	public final String ROLE_IMPLANT="ROLE_IMPLANT";
@@ -76,16 +77,16 @@ public class CptController {
 		
 	@RequestMapping(value="/getcpts",method = RequestMethod.POST)
     @ResponseBody
-    public List<Cpt> obtenerIcds(){
+    public List obtenerCpts(){
 		System.out.println("<OTIKA>GetCpts");
 		try{
-			//return this.cptServicio.obtenerCpts();
-			return new ArrayList<Cpt>();
+			return this.cptServicio.obtenerCpts();
+			//return new ArrayList<Cpt>();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		return new ArrayList<Cpt>();
+		return new ArrayList();
 	}	
 
 }

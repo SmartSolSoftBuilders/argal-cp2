@@ -95,9 +95,26 @@ function loadWindowIcd(numIcd){
 	});					
 }
 
+function loadWindowCpt(numCpt){
+	$( "#cptSelHidden").val(numCpt);
+	$( "#gridCpt" ).dialog({
+		 resizable: false,
+	      height: 700,
+	      width: 1200,
+	      position: { my: "top", at: "top", of: window },
+	      modal: true		     
+	});					
+}
+
 function selectIcd(valor,valor2){
 	$( "#idIcd1"+$( "#icdSelHidden").val()).val(valor);
 	$( "#icd"+$( "#icdSelHidden").val()).val(valor2);
 	$( "#gridIcd" ).dialog('close');		 
 }
 
+
+function selectCpt(valor,valor2){
+	$( "#idCpt1"+$( "#cptSelHidden").val()).val(valor);
+	$( "#cpt"+$( "#cptSelHidden").val()).val(valor2);
+	$( "#gridCpt" ).dialog('close');		 
+}

@@ -6,7 +6,7 @@
 	<resultMap id="cptResult" type="Cpt">
     	<id property="idCpt" column="ID_CPT" />
     	<result property="descripcion" column="DESCRIPCION" />    	
-		<result property="clave" column="CVE_CPT" />    		
+		<result property="cveCpt" column="CVE_CPT" />    		
 	</resultMap>
 				
 	<select id="obtenerCpts" resultMap="cptResult">		 

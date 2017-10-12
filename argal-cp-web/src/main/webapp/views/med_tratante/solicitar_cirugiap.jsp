@@ -151,10 +151,11 @@
 			<div id="tabs-1">		
 				<fieldset style="height: 90%;">
 					<input type="hidden" id="icdSelHidden" name="icdSelHidden"/>
+					<input type="hidden" id="cptSelHidden" name="cptSelHidden"/>
 					<input type="hidden" id="icdHidden" name="icdHidden"/>
 					<input type="hidden" id="cptHidden" name="cptHidden"/>
-					<input type="hidden" id="idCptHidden" name="icCptHidden"/>
-					<input type="hidden" id="idIcdHidden" name="icIcdHidden"/>
+					<input type="hidden" id="idCptHidden" name="idCptHidden"/>
+					<input type="hidden" id="idIcdHidden" name="idIcdHidden"/>
 					<div class="form-group">
 						<form method="POST" action="contact-form-submission.php"
 							class="form-horizontal" id="contact-form">
@@ -170,10 +171,6 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-							</table>
-							<table border=1 style="width:100%">
-								<tr>
 									<td>
 										<div class="control-group">
 											<div class="controls">
@@ -184,13 +181,17 @@
 											</div>
 										</div>
 									</td>
+								</tr>
+							</table>
+							<table border=1 style="width:50%">
+								<tr>									
 									<td>
 										<div class="control-group">
 											<div class="controls">
 												<label class="control-label" for="name" style="width:200px;">Procedimiento 2:</label>
 												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridCpt(1)">																						
-												<input type="text" id="cpt1" name="cpt1" onclick="loadWindowCpt(1)" data-validation="required" readonly style="width:400px;">
-							                    <input type="hidden" id="idCpt1" name="idCpt1" data-validation="required">												
+												<input type="text" id="cpt2" name="cpt2" onclick="loadWindowCpt(2)" data-validation="required" readonly style="width:400px;">
+							                    <input type="hidden" id="idCpt2" name="idCpt2" data-validation="required">												
 											</div>
 										</div>
 									</td>
@@ -199,8 +200,8 @@
 											<div class="controls">
 												<label class="control-label" for="name" style="width:200px;">Procedimiento 3:</label>
 												<img src="static/img/buscar-filtrar.png"  style="cursor: pointer;float:left; " height="25" width="25" onclick="showGridCpt(1)">																						
-												<input type="text" id="cpt1" name="cpt1" onclick="loadWindowCpt(1)" data-validation="required" readonly style="width:400px;">
-							                    <input type="hidden" id="idCpt1" name="idCpt1" data-validation="required">												
+												<input type="text" id="cpt3" name="cpt3" onclick="loadWindowCpt(3)" data-validation="required" readonly style="width:400px;">
+							                    <input type="hidden" id="idCpt3" name="idCpt3" data-validation="required">												
 											</div>
 										</div>
 									</td>
