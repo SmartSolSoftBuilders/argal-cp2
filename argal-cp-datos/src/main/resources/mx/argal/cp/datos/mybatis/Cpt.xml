@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.argal.cp.dao.CptDao">
+
+	<resultMap id="cptResult" type="Cpt">
+    	<id property="idCpt" column="ID_CPT" />
+    	<result property="descripcion" column="DESCRIPCION" />    	
+		<result property="clave" column="CVE_CPT" />    		
+	</resultMap>
+				
+	<select id="obtenerCpts" resultType="cptResult">		 
+		SELECT "ID_CPT", "DESCRIPCION", "CVE_CPT"
+			FROM "CPT";
+	</select>
+	
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.argal.cp.dao.SolicitudDao">
+
+	<resultMap type="SolicitudCirugiaProgramada" id="solicitudCirugiaProgramadaResult">
+		<id property="idSolicitudCirugiaProgramada" column="ID_SOLICITUD_CIRUGIA_PROGRAMADA"/>
+		<result property="nombreBeneficiarioSolicitudCirugiaProgramada" column="NOMBRE_BENEFICIARIO"/>
+		<result property="apPBeneficiarioSolicitudCirugiaProgramada" column="APP_BENEFICIARIO"/>
+		<result property="apMBeneficiarioSolicitudCirugiaProgramada" column="APM_BENEFICIARIO"/>
+		<result property="edadBeneficiarioSolicitudCirugiaProgramada" column="EDAD_BENEFICIARIO"/>
+		<result property="sexoBeneficiarioSolicitudCirugiaProgramada" column="SEXO_BENEFICIARIO"/>		
+		<result property="numNominaBeneficiarioSolicitudCirugiaProgramada" column="NUM_NOMINA_BENEFICIARIO"/>
+		<result property="fechaSolicitudCirugiaProgramada" column="FECHA_SOLICITUD"/>
+		<result property="tipoSolicitudCirugiaProgramada" column="TIPO_CIRUGIA_PROGRAMADA"/>			
+	</resultMap>
+
+	<select id="obtenerSolicitudes" resultMap="solicitudCirugiaProgramadaResult">
+		select * from "SOLICITUD_CIRUGIA_PROGRAMADA";
+	</select>
+		
+	<insert id="guardarSolicitud" parameterType="SolicitudCirugiaProgramada">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+  		   	SELECT nextVal('sec_solicitud_c_p')
+  		</selectKey>	
+		INSERT INTO "SOLICITUD_CIRUGIA_PROGRAMADA"(
+		"ID_SOLICITUD_CIRUGIA_PROGRAMADA", "NOMBRE_BENEFICIARIO", "APP_BENEFICIARIO", 
+		"APM_BENEFICIARIO", "EMPRESA_BENEFICIARIO", "NUM_NOMINA_BENEFICIARIO", 
+		"FECHA_SOLICITUD", "TIPO_CIRUGIA_PROGRAMADA")
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?);		
+	</insert>
+	
+</mapper>
