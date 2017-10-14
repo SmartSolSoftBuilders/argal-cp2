@@ -135,8 +135,12 @@
 							</td>
 						</tr>
 					</table>
-					<button type="submit" class="btn btn-primary">Guardar Sección</button>
-					<button type="submit" class="btn btn-primary">Continuar</button>
+					<table width="1200px">
+						<tr>						
+							<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>
+							<td><button type="submit" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
+						</tr>
+					</table>
 				</form>
 			</div>
 		</fieldset>
