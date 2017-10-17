@@ -25,6 +25,10 @@
  	function loadPage(pagina){
  		$("#mainContent").load(pagina+".jsp");
  	}
+ 	function loadPageData(pagina,param){
+ 		$("#mainContent").load(pagina+".jsp?page="+pagina+"&param="+param);
+ 	}
+ 	
  </script>
 </head>
 <body>

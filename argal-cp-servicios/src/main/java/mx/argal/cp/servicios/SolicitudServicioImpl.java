@@ -19,13 +19,25 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 	@Override
 	public Integer guardarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
 		// TODO Auto-generated method stub
-		return this.solicitudDao.guardarSolicitud(solicitudCirugiaProgramada);
+		try {
+			this.solicitudDao.guardarSolicitud(solicitudCirugiaProgramada);
+			Integer idSolicitudGenerado = solicitudCirugiaProgramada.getId().intValue();		
+			solicitudCirugiaProgramada.setIdSolicitudCirugiaProgramada(idSolicitudGenerado);
+			this.solicitudDao.guardarSolicitudByParams(solicitudCirugiaProgramada);
+			return idSolicitudGenerado;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	@Override
-	public Integer actualizarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
+	public Boolean actualizarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
 		// TODO Auto-generated method stub
-		return this.solicitudDao.actualizarSolicitud(solicitudCirugiaProgramada);
+		if (this.solicitudDao.guardarSolicitudByParams(solicitudCirugiaProgramada)!=0)
+			return true;
+		return false;
 	}
 	
 }

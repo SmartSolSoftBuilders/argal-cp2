@@ -58,15 +58,18 @@ public class SolicitudController {
 			
 	@RequestMapping(value="/guardar_solicitud",method = RequestMethod.POST)
     @ResponseBody
-    public boolean guardarSolicitud(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada){
+    public SolicitudCirugiaProgramada guardarSolicitud(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada){
 		System.out.println("<OTIKA>Guardando!!!"+solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());
     	System.out.println("<OTIKA>Guardando!!!"+solicitudCirugiaProgramada.getNombreBeneficiarioSolicitudCirugiaProgramada());
+    	Integer idSolicitudGuardada = 0;
     	if (solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada()==null || solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada()==0){
-    		this.solicitudServicio.guardarSolicitud(solicitudCirugiaProgramada);	
+    		idSolicitudGuardada = this.solicitudServicio.guardarSolicitud(solicitudCirugiaProgramada);    		
     	}
-    	else
-    		this.solicitudServicio.actualizarSolicitud(solicitudCirugiaProgramada);    	
-    	return true;    	  
+    	else{
+    		this.solicitudServicio.actualizarSolicitud(solicitudCirugiaProgramada);
+    	}
+    	System.out.println("Guardada la solicitud:"+idSolicitudGuardada);
+    	return solicitudCirugiaProgramada;    	  
 	}
 
 

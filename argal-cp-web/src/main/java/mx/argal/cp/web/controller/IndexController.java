@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -98,6 +99,36 @@ public class IndexController {
     			break;
     		}    		
     	}    	
+    	if (page.equals("2")){				
+			return new ModelAndView("v2.0/reportes/versus/repo1");
+		}
+		return new ModelAndView("index");
+	}
+	
+	@RequestMapping(value="/getpagecontent",method = RequestMethod.GET)  
+    public ModelAndView loadPageContent(@RequestParam String page,@RequestParam String param,HttpServletRequest request){
+		//System.out.println(page);
+		UsuarioSeguridad usuario = SeguridadUtil.getUsuarioActual();    	
+    	String rol="";
+    	//System.out.println("<OTIKA>RFCenLogin:"+usuario.getNombre());
+    	usuario.setNombre(usuario.getNombre().toUpperCase());
+    	usuario.setPassword(usuario.getPassword().toUpperCase());
+    	//System.out.println("<OTIKA>Login!"+((SecurityContextImpl)request.getSession().getAttribute("SPRING_SECURITY_CONTEXT")).getAuthentication().getPrincipal().toString());    	
+    	if ( ((SecurityContextImpl)request.getSession().getAttribute("SPRING_SECURITY_CONTEXT")).getAuthentication().getAuthorities().size()>0){
+    		Iterator it = ((SecurityContextImpl)request.getSession().getAttribute("SPRING_SECURITY_CONTEXT")).getAuthentication().getAuthorities().iterator();
+    		while (it.hasNext()){
+    			rol=it.next().toString();
+    			request.getSession().setAttribute("rolUser",rol);
+    			request.getSession().setAttribute("userSession",usuario.getUsername());    			
+    			request.getSession().setAttribute("msj","Bienvenido "+usuario.getNombre());
+    			break;
+    		}    		
+    	}    	
+    	if (page.equals("100")){    		
+    		ModelMap modelo = new ModelMap();
+    		modelo.addAttribute("idSolicitud", param);    		
+			return new ModelAndView("med_tratante/solicitar_cirugiap",modelo);
+		}
 		return new ModelAndView("index");
 	}
 	

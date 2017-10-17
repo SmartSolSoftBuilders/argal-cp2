@@ -32,12 +32,20 @@ $(document).ready(function() {
   cargarIcdCpt();
 });
 
-function guardar(){	
+function guardar(){
+	console.log($("#sexobenefradiobutton").val());
 	$.ajax({
 		async : false,
 		data : {
 			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),
-			"nombreBeneficiarioSolicitudCirugiaProgramada" : $("#nombrePaciente").val()
+			"nombreBeneficiarioSolicitudCirugiaProgramada" : $("#nombrePaciente").val(),
+			"apPBeneficiarioSolicitudCirugiaProgramada" : $("#apellidoP").val(),
+			"apMBeneficiarioSolicitudCirugiaProgramada" : $("#apellidoM").val(),
+			"edadBeneficiarioSolicitudCirugiaProgramada" : $("#edad").val(),
+			"sexoBeneficiarioSolicitudCirugiaProgramada" : $("#sexobenefradiobutton").val(),
+			"numNominaBeneficiarioSolicitudCirugiaProgramada" : $("#numNomina").val(),
+			"tipoSolicitudCirugiaProgramada" : $("#tipoCirugiaSel").val(),
+			"empresaBeneficiarioSolicitudCirugiaProgramada" : $("#empresa").val()
 		},
 		dataType : 'json',
 		url : 'mvc/solicitud/guardar_solicitud',
@@ -48,6 +56,8 @@ function guardar(){
 		},
 		success : function(response) {
 			alert(response)
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
+			$("#idSolicitud").val(response.idSolicitudCirugiaProgramada);
 			// console.log(response)
 		},
 		error : function(response) {
@@ -117,4 +127,8 @@ function selectCpt(valor,valor2){
 	$( "#idCpt1"+$( "#cptSelHidden").val()).val(valor);
 	$( "#cpt"+$( "#cptSelHidden").val()).val(valor2);
 	$( "#gridCpt" ).dialog('close');		 
+}
+
+function nextTab(id){
+	$( "#accordion" ).accordion({ active: id });
 }

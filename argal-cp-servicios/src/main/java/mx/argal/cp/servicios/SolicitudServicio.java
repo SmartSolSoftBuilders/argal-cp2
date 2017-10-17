@@ -6,6 +6,6 @@ import mx.argal.cp.modelo.Usuario;
 public interface SolicitudServicio {
 	
 	public Integer guardarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
-	public Integer actualizarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public Boolean actualizarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	
 }

@@ -15,6 +15,7 @@
 		<td>
 		<font size="4">Solicitar una Cirugia Programada. </font><font size="2">Por favor llene cada sección de la información solicitada.
 		Puede llenar una sección y guardarla para enviarla después</font>
+		<div id="idSolDiv"></div>
 		</td>
 	</tr>
 </table>
@@ -82,10 +83,10 @@
 								<div class="control-group">
 									<div class="control-group">
 										Sexo <input type="radio" class="form-check-input"
-											name="optionsRadios1" id="optionsRadios1" value="option1"
+											name="sexobenefradiobutton" id="sexobenefradiobutton" value="MASCULINO"
 											checked> Masculino <input type="radio"
-											class="form-check-input" name="optionsRadios1"
-											id="optionsRadios1" value="option1" checked> Femenino										
+											class="form-check-input" name="sexobenefradiobutton"
+											id="sexobenefradiobutton" value="FEMENINO" checked> Femenino										
 									</div>
 								</div>
 							</td>						
@@ -111,16 +112,7 @@
 										data-error="empresa" required>
 								      </div>
 								</div>
-							</td>
-							<td>
-								<div class="control-group" align="center">
-									<label for="fechaSolicitud" class="control-label">Fecha Solicitud</label> 
-									<div class="controls">
-								        	<input type="date" class="form-control" id="fechaSolicitud"
-											placeholder="fecha solicitud" required>
-								      </div>
-								</div>														
-							</td>
+							</td>							
 							<td>
 								<div class="control-group" align="center">
 									<label for="tipoCirugiaSel" class="control-label">Tipo Cirugía</label> 
@@ -133,12 +125,14 @@
 								      </div>
 								</div>								
 							</td>
+							<td>																					
+							</td>
 						</tr>
 					</table>
 					<table width="1200px">
 						<tr>						
 							<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>
-							<td><button type="submit" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
+							<td><button type="button" onclick="nextTab(1)" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
 						</tr>
 					</table>
 				</form>

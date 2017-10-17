@@ -13,9 +13,16 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	private String numNominaBeneficiarioSolicitudCirugiaProgramada;
 	private Date fechaSolicitudCirugiaProgramada;
 	private Integer tipoSolicitudCirugiaProgramada;
-	
+	private String empresaBeneficiarioSolicitudCirugiaProgramada;
+			
 	public Integer getIdSolicitudCirugiaProgramada() {
 		return idSolicitudCirugiaProgramada;
+	}	
+	public String getEmpresaBeneficiarioSolicitudCirugiaProgramada() {
+		return empresaBeneficiarioSolicitudCirugiaProgramada;
+	}
+	public void setEmpresaBeneficiarioSolicitudCirugiaProgramada(String empresaBeneficiarioSolicitudCirugiaProgramada) {
+		this.empresaBeneficiarioSolicitudCirugiaProgramada = empresaBeneficiarioSolicitudCirugiaProgramada;
 	}
 	public void setIdSolicitudCirugiaProgramada(Integer idSolicitudCirugiaProgramada) {
 		this.idSolicitudCirugiaProgramada = idSolicitudCirugiaProgramada;
@@ -77,7 +84,7 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 			String nombreBeneficiarioSolicitudCirugiaProgramada, String apPBeneficiarioSolicitudCirugiaProgramada,
 			String apMBeneficiarioSolicitudCirugiaProgramada, String edadBeneficiarioSolicitudCirugiaProgramada,
 			String sexoBeneficiarioSolicitudCirugiaProgramada, String numNominaBeneficiarioSolicitudCirugiaProgramada,
-			Date fechaSolicitudCirugiaProgramada, Integer tipoSolicitudCirugiaProgramada) {
+			Date fechaSolicitudCirugiaProgramada, Integer tipoSolicitudCirugiaProgramada, String empresaBeneficiarioSolicitudCirugiaProgramada) {
 		super();
 		this.idSolicitudCirugiaProgramada = idSolicitudCirugiaProgramada;
 		this.nombreBeneficiarioSolicitudCirugiaProgramada = nombreBeneficiarioSolicitudCirugiaProgramada;
@@ -88,6 +95,7 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 		this.numNominaBeneficiarioSolicitudCirugiaProgramada = numNominaBeneficiarioSolicitudCirugiaProgramada;
 		this.fechaSolicitudCirugiaProgramada = fechaSolicitudCirugiaProgramada;
 		this.tipoSolicitudCirugiaProgramada = tipoSolicitudCirugiaProgramada;
+		this.empresaBeneficiarioSolicitudCirugiaProgramada = empresaBeneficiarioSolicitudCirugiaProgramada;
 	}
 		
 }

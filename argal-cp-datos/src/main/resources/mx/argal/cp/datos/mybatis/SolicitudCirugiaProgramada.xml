@@ -12,6 +12,7 @@
 		<result property="sexoBeneficiarioSolicitudCirugiaProgramada" column="SEXO_BENEFICIARIO"/>		
 		<result property="numNominaBeneficiarioSolicitudCirugiaProgramada" column="NUM_NOMINA_BENEFICIARIO"/>
 		<result property="fechaSolicitudCirugiaProgramada" column="FECHA_SOLICITUD"/>
+		<result property="empresaBeneficiarioSolicitudCirugiaProgramada" column="EMPRESA_BENEFICIARIO"/>		
 		<result property="tipoSolicitudCirugiaProgramada" column="TIPO_CIRUGIA_PROGRAMADA"/>			
 	</resultMap>
 
@@ -19,15 +20,47 @@
 		select * from "SOLICITUD_CIRUGIA_PROGRAMADA";
 	</select>
 		
-	<insert id="guardarSolicitud" parameterType="SolicitudCirugiaProgramada">
+	<insert id="guardarSolicitud" parameterType="SolicitudCirugiaProgramada"  keyProperty="id">
 		<selectKey keyProperty="id" resultType="long" order="BEFORE">
   		   	SELECT nextVal('sec_solicitud_c_p')
   		</selectKey>	
 		INSERT INTO "SOLICITUD_CIRUGIA_PROGRAMADA"(
-		"ID_SOLICITUD_CIRUGIA_PROGRAMADA", "NOMBRE_BENEFICIARIO", "APP_BENEFICIARIO", 
-		"APM_BENEFICIARIO", "EMPRESA_BENEFICIARIO", "NUM_NOMINA_BENEFICIARIO", 
-		"FECHA_SOLICITUD", "TIPO_CIRUGIA_PROGRAMADA")
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?);		
+		"ID_SOLICITUD_CIRUGIA_PROGRAMADA") VALUES (#{id})
 	</insert>
+	
+	<update id="guardarSolicitudByParams" parameterType="SolicitudCirugiaProgramada">
+			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET
+		<if test="nombreBeneficiarioSolicitudCirugiaProgramada != null">
+			"ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada} 
+		</if>
+		<if test="nombreBeneficiarioSolicitudCirugiaProgramada != null">
+			,"NOMBRE_BENEFICIARIO"=#{nombreBeneficiarioSolicitudCirugiaProgramada}
+		</if>
+		<if test="apPBeneficiarioSolicitudCirugiaProgramada != null">
+			,"APP_BENEFICIARIO"=#{apPBeneficiarioSolicitudCirugiaProgramada}
+		</if>
+		<if test="apMBeneficiarioSolicitudCirugiaProgramada != null">
+			,"APM_BENEFICIARIO"=#{apMBeneficiarioSolicitudCirugiaProgramada}
+		</if>
+		<if test="empresaBeneficiarioSolicitudCirugiaProgramada != null">	
+			,"EMPRESA_BENEFICIARIO"=#{empresaBeneficiarioSolicitudCirugiaProgramada}
+		</if>
+		<if test="numNominaBeneficiarioSolicitudCirugiaProgramada != null">	
+			,"NUM_NOMINA_BENEFICIARIO"=#{numNominaBeneficiarioSolicitudCirugiaProgramada}
+		</if>
+		<if test="fechaSolicitudCirugiaProgramada != null">	
+			,"FECHA_SOLICITUD"=date(#{fechaSolicitudCirugiaProgramada})
+		</if>
+		<if test="tipoSolicitudCirugiaProgramada != null">
+			,"TIPO_CIRUGIA_PROGRAMADA"=#{tipoSolicitudCirugiaProgramada}
+		</if>
+		<if test="edadBeneficiarioSolicitudCirugiaProgramada != null">	
+			,"EDAD_BENEFICIARIO"=cast(#{edadBeneficiarioSolicitudCirugiaProgramada} as int)
+		</if>
+		<if test="sexoBeneficiarioSolicitudCirugiaProgramada != null">
+			,"SEXO_BENEFICIARIO"=#{sexoBeneficiarioSolicitudCirugiaProgramada}
+		</if>	
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
+	</update>
 	
 </mapper>

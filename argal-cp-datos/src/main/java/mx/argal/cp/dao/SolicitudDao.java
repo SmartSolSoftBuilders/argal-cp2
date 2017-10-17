@@ -7,5 +7,6 @@ public interface SolicitudDao {
 	
 	public Integer guardarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public Integer actualizarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public Integer guardarSolicitudByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada);	
 
 }
