@@ -26,7 +26,7 @@
  		$("#mainContent").load(pagina+".jsp");
  	}
  	function loadPageData(pagina,param){
- 		$("#mainContent").load(pagina+".jsp?page="+pagina+"&param="+param);
+ 		$("#mainContent").load("mvc/index/getpagecontent?page="+pagina+"&param="+param);
  	}
  	
  </script>

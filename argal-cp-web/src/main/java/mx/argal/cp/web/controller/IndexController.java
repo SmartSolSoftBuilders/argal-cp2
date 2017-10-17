@@ -110,7 +110,7 @@ public class IndexController {
 		//System.out.println(page);
 		UsuarioSeguridad usuario = SeguridadUtil.getUsuarioActual();    	
     	String rol="";
-    	//System.out.println("<OTIKA>RFCenLogin:"+usuario.getNombre());
+    	System.out.println("<OTIKA>RFCenLogin:"+usuario.getNombre());
     	usuario.setNombre(usuario.getNombre().toUpperCase());
     	usuario.setPassword(usuario.getPassword().toUpperCase());
     	//System.out.println("<OTIKA>Login!"+((SecurityContextImpl)request.getSession().getAttribute("SPRING_SECURITY_CONTEXT")).getAuthentication().getPrincipal().toString());    	

@@ -30,7 +30,7 @@
                 <td>Procedimiento 1</td>
                 <td>2017/02/02</td>
                 <td>PENDIENTE</td>
-                <td><a href="#" onclick="loadPageData(50,17)">Editar</a></td>                
+                <td><a href="#" onclick="loadPageData(100,17)">Editar</a></td>                
             </tr>
             <tr>
                 <td>Tiger Nixon</td>
