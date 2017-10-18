@@ -16,10 +16,19 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	private Integer tipoSolicitudCirugiaProgramada;
 	private Integer status;
 	private String empresaBeneficiarioSolicitudCirugiaProgramada;
+	private MedicoTratante medicoTratante;
 			
 	public Integer getIdSolicitudCirugiaProgramada() {
 		return idSolicitudCirugiaProgramada;
 	}	
+	
+	
+	public MedicoTratante getMedicoTratante() {
+		return medicoTratante;
+	}
+	public void setMedicoTratante(MedicoTratante medicoTratante) {
+		this.medicoTratante = medicoTratante;
+	}
 	public String getEmpresaBeneficiarioSolicitudCirugiaProgramada() {
 		return empresaBeneficiarioSolicitudCirugiaProgramada;
 	}
@@ -101,7 +110,7 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 			String apMBeneficiarioSolicitudCirugiaProgramada, String edadBeneficiarioSolicitudCirugiaProgramada,
 			String sexoBeneficiarioSolicitudCirugiaProgramada, String numNominaBeneficiarioSolicitudCirugiaProgramada,
 			Date fechaSolicitudCirugiaProgramada, Date fechaSolicitudElaboracion, Integer tipoSolicitudCirugiaProgramada, String empresaBeneficiarioSolicitudCirugiaProgramada,
-			Integer status) {
+			Integer status,MedicoTratante medicoTratante) {
 		super();
 		this.idSolicitudCirugiaProgramada = idSolicitudCirugiaProgramada;
 		this.nombreBeneficiarioSolicitudCirugiaProgramada = nombreBeneficiarioSolicitudCirugiaProgramada;
@@ -115,6 +124,7 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 		this.tipoSolicitudCirugiaProgramada = tipoSolicitudCirugiaProgramada;
 		this.empresaBeneficiarioSolicitudCirugiaProgramada = empresaBeneficiarioSolicitudCirugiaProgramada;
 		this.status = status;
+		this.medicoTratante = medicoTratante;
 	}
 		
 }

@@ -15,8 +15,17 @@
 		<result property="fechaSolicitudElaboracion" column="FECHA_SOLICITUD_CREACION"/>		
 		<result property="empresaBeneficiarioSolicitudCirugiaProgramada" column="EMPRESA_BENEFICIARIO"/>		
 		<result property="tipoSolicitudCirugiaProgramada" column="TIPO_CIRUGIA_PROGRAMADA"/>
-		<result property="status" column="STATUS"/>			
+		<result property="status" column="STATUS"/>	
+		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>				
 	</resultMap>
+
+	<resultMap id="medicoTratanteResult" type="MedicoTratante">
+	    	<id property="idMedicoTratante" column="ID_MEDICO_TRATANTE" />
+	</resultMap>
+
+	<select id="selectMedicoTratante" parameterType="int" resultMap="medicoTratanteResult" resultType="MedicoTratante">		 
+		select "ID_MEDICO_TRATANTE" from "MEDICO_TRATANTE" where "ID_MEDICO_TRATANTE"=#{idMedicoTratante} 	
+	</select> 
 
 	<select id="obtenerSolicitudes" resultMap="solicitudCirugiaProgramadaResult">
 		select * from "SOLICITUD_CIRUGIA_PROGRAMADA";
@@ -36,7 +45,7 @@
   		   	SELECT nextVal('sec_solicitud_c_p')
   		</selectKey>	
 		INSERT INTO "SOLICITUD_CIRUGIA_PROGRAMADA"(
-		"ID_SOLICITUD_CIRUGIA_PROGRAMADA","STATUS") VALUES (#{id},1)
+			"ID_SOLICITUD_CIRUGIA_PROGRAMADA","STATUS","ID_MEDICO_TRATANTE") VALUES (#{id},1,#{medicoTratante.idMedicoTratante})
 	</insert>
 	
 	<update id="guardarSolicitudByParams" parameterType="SolicitudCirugiaProgramada">
