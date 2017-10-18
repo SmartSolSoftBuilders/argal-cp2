@@ -5,20 +5,21 @@
 <script src="static/js/lib/form/jquery.validate.js"></script>
 <script src="static/js/lib/form/bootstrap.min.js"></script>
 <script src="static/js/lib/form/additional-methods.js"></script>
-<script src="static/js/app/solicitud/solicitud.js"></script>
+<script src="static/js/app/solicitud/solicitudes.js"></script>
 <link rel="stylesheet" href="static/css/v2.0/jquery.dataTables.min.css" />
 <form>
 	<h2>Cirugías Programadas</h2>
 	Todas <input type="radio">Pendientes <input type="radio">
 	<br>
 	<br>
-	<table id="example" class="display" cellspacing="0" width="100%">
+	<table id="solicitudesTable" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>NOMBRE</th>
+            	<th>FOLIO</th>
+                <th>PACIENTE</th>
                 <th>HOSPITAL</th>
                 <th>PROCEDIMIENTO</th>
-                <th>FECHA</th>
+                <th>FECHA ELABORACIÓN</th>
                 <th>ESTATUS</th>
                 <th>EDITAR</th>                
             </tr>
@@ -59,8 +60,3 @@
        </tbody>
      </table>
 </form>
-<script>
- $(document).ready(function() {
-	    $('#example').DataTable();
-	} );
- </script>

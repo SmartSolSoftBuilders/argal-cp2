@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() {  
   $("#accordion").accordion();
   $("#tabs").tabs();
   $('#contact-form').validate({
@@ -30,6 +30,8 @@ $(document).ready(function() {
      }
   });
   cargarIcdCpt();
+  if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!="") 
+	  cargarSolicitud($("#idSolicitud").val());
 });
 
 function guardar(){
@@ -66,6 +68,43 @@ function guardar(){
 		}
 	});	
 }
+
+function cargarSolicitud(){
+	$.ajax({
+		async : false,
+		data : {
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val()
+		},
+		dataType : 'json',
+		url : 'mvc/solicitud/getsolicitudbyid',
+		type : 'post',
+		beforeSend : function() {
+			// $("#resultado").html("Procesando, espere por favor..."),
+			// alert("OK!")
+		},
+		success : function(response) {
+			console.log(response)
+			$("#nombrePaciente").val(response.nombreBeneficiarioSolicitudCirugiaProgramada);
+			$("#apellidoP").val(response.apPBeneficiarioSolicitudCirugiaProgramada);
+			$("#apellidoM").val(response.apMBeneficiarioSolicitudCirugiaProgramada);
+			$("#edad").val(response.edadBeneficiarioSolicitudCirugiaProgramada);
+			console.log($("input[name='sexobenefradiobutton'][value=" + response.sexoBeneficiarioSolicitudCirugiaProgramada + "]"));
+			$("input[name='sexobenefradiobutton'][value=" + response.sexoBeneficiarioSolicitudCirugiaProgramada + "]").attr('checked', 'checked');
+			$('input[name="sexobenefradiobutton"]').filter("[value='"+response.sexoBeneficiarioSolicitudCirugiaProgramada+"']").attr('checked', true);
+			$("#numNomina").val(response.numNominaBeneficiarioSolicitudCirugiaProgramada);
+			$("#tipoCirugiaSel").val(response.tipoSolicitudCirugiaProgramada);
+			$("#empresa").val(response.empresaBeneficiarioSolicitudCirugiaProgramada);
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
+			$("#idSolicitud").val(response.idSolicitudCirugiaProgramada);
+			// console.log(response)
+		},
+		error : function(response) {
+			alert("error!")
+			// console.log(response)
+		}
+	});	
+}
+
 
 function cargarIcdCpt(){			  	
 	/*	$(window).resize(function() {

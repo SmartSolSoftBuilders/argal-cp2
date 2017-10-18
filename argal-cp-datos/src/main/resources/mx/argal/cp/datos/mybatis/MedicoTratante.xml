@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.argal.cp.dao.MedicoTratanteDao">
+
+	<resultMap type="MedicoTratante" id="medicoTratanteResult">
+		<id property="idMedicoTratante" column="ID_MEDICO_TRATANTE"/>			
+		<result property="nombreMedicoTratante" column="NOMBRE_MEDICO_TRATANTE"/>
+		<result property="appMedicoTratante" column="APP_MEDICO_TRATANTE"/>		
+		<result property="apmMedicoTratante" column="APM_MEDICO_TRATANTE"/>
+		<result property="idTUsuario" column="id_t_usuario"/>	
+	</resultMap>
+
+	<select id="obtenerMedicoTratante" resultMap="medicoTratanteResult">
+		select * from "MEDICO_TRATANTE";
+	</select>
+	
+	<select id="obtenerMedicoTratanteByIdTUs" resultMap="medicoTratanteResult">
+		select * from "MEDICO_TRATANTE" where "id_t_usuario" = #{idTUsuario};
+	</select>
+	
+</mapper>

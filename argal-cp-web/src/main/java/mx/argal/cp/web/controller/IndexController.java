@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import mx.argal.seguridad.modelo.UsuarioSeguridad;
 import mx.argal.seguridad.servicios.MttoSeguridadServicio;
 import mx.argal.seguridad.util.SeguridadUtil;
+import mx.argal.cp.modelo.MedicoTratante;
+import mx.argal.cp.servicios.MedicoTratanteServicio;
 import mx.argal.cp.servicios.UsuarioServicio;
 
 import org.slf4j.Logger;
@@ -48,11 +50,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 	
 	public final String ROLE_ADMINISTRADOR="ROLE_ADMINISTRADOR";
-	public final String ROLE_IMPLANT="ROLE_IMPLANT";
+	public final String ROLE_MEDICO_TRATANTE="ROLE_MEDICO_TRATANTE";
 	public final String ROLE_CLIENTE="ROLE_CLIENTE";
 			
 	@Autowired
 	private MttoSeguridadServicio mttoSeguridadServicio;
+	@Autowired
+	private MedicoTratanteServicio medicoTratanteServicio;
 
 	//Test commit 
 	@RequestMapping(method = RequestMethod.GET)
@@ -69,11 +73,17 @@ public class IndexController {
     			rol=it.next().toString();
     			request.getSession().setAttribute("rolUser",rol);
     			request.getSession().setAttribute("userSession",usuario.getUsername());    			
-    			request.getSession().setAttribute("msj","Bienvenido "+usuario.getNombre());
+    			request.getSession().setAttribute("msj","Bienvenido "+usuario.getNombre());    			
     			break;
     		}   	 		
     	}     	
-    	if ( rol.equals(ROLE_ADMINISTRADOR)) {    		    		
+    	if ( rol.equals(ROLE_MEDICO_TRATANTE)) {    	
+    		
+    		MedicoTratante medicoTratante = new MedicoTratante();
+    		medicoTratante.setIdTUsuario(mttoSeguridadServicio.consultarUsuariosByUser(usuario).get(0).getId().intValue());
+    		System.out.println("Buscando medtrat"+medicoTratante.getIdTUsuario());
+    		medicoTratante=this.medicoTratanteServicio.obtenerMedicoTratanteByIdTUs(medicoTratante);
+			request.getSession().setAttribute("idMedicoTratanteSession",medicoTratante.getIdTUsuario());
     		return new ModelAndView("main", "usuario", usuario);
     	}
     	    	    	    	  
@@ -148,7 +158,7 @@ public class IndexController {
     			userTmp.get(0).setTipoUsuario(3);
     		if (request.getSession().getAttribute("rolUser").equals(ROLE_CLIENTE))
     			userTmp.get(0).setTipoUsuario(2);
-    		if (request.getSession().getAttribute("rolUser").equals(ROLE_IMPLANT))
+    		if (request.getSession().getAttribute("rolUser").equals(ROLE_MEDICO_TRATANTE))
     			userTmp.get(0).setTipoUsuario(1);
     		return userTmp.get(0);
     	}

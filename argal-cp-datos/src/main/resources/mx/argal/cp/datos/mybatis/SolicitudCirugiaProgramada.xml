@@ -12,12 +12,23 @@
 		<result property="sexoBeneficiarioSolicitudCirugiaProgramada" column="SEXO_BENEFICIARIO"/>		
 		<result property="numNominaBeneficiarioSolicitudCirugiaProgramada" column="NUM_NOMINA_BENEFICIARIO"/>
 		<result property="fechaSolicitudCirugiaProgramada" column="FECHA_SOLICITUD"/>
+		<result property="fechaSolicitudElaboracion" column="FECHA_SOLICITUD_CREACION"/>		
 		<result property="empresaBeneficiarioSolicitudCirugiaProgramada" column="EMPRESA_BENEFICIARIO"/>		
-		<result property="tipoSolicitudCirugiaProgramada" column="TIPO_CIRUGIA_PROGRAMADA"/>			
+		<result property="tipoSolicitudCirugiaProgramada" column="TIPO_CIRUGIA_PROGRAMADA"/>
+		<result property="status" column="STATUS"/>			
 	</resultMap>
 
 	<select id="obtenerSolicitudes" resultMap="solicitudCirugiaProgramadaResult">
 		select * from "SOLICITUD_CIRUGIA_PROGRAMADA";
+	</select>
+	
+	<select id="getSolicitudById" resultMap="solicitudCirugiaProgramadaResult">
+		select * from "SOLICITUD_CIRUGIA_PROGRAMADA" where "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada};
+	</select>
+	
+	<select id="obtenerSolicitudesByMedTrat" parameterType="map" resultMap="solicitudCirugiaProgramadaResult">
+		select * from "SOLICITUD_CIRUGIA_PROGRAMADA" where "ID_MEDICO_TRATANTE"=
+		(select "ID_MEDICO_TRATANTE" FROM "MEDICO_TRATANTE" WHERE "id_t_usuario"=#{idMedicoTratante});
 	</select>
 		
 	<insert id="guardarSolicitud" parameterType="SolicitudCirugiaProgramada"  keyProperty="id">
@@ -25,7 +36,7 @@
   		   	SELECT nextVal('sec_solicitud_c_p')
   		</selectKey>	
 		INSERT INTO "SOLICITUD_CIRUGIA_PROGRAMADA"(
-		"ID_SOLICITUD_CIRUGIA_PROGRAMADA") VALUES (#{id})
+		"ID_SOLICITUD_CIRUGIA_PROGRAMADA","STATUS") VALUES (#{id},1)
 	</insert>
 	
 	<update id="guardarSolicitudByParams" parameterType="SolicitudCirugiaProgramada">

@@ -4,7 +4,7 @@
 	<li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
 	<li><a href="#" onclick="loadPage('views/med_tratante/solicitar_cirugiap')">Solicitar
 			Cirugía Programada</a></li>
-<li><a href="#" onclick="loadPage('views/med_tratante/cirugias_programadas')">Ver
+<li><a href="#" onclick="loadPage('views/med_tratante/solicitudes')">Ver
 			Mis Solicitudes</a></li>
 	<li class="dropdown"><a class="dropdown-toggle"
 		data-toggle="dropdown" href="#">Mi Perfil<b class="caret"></b></a>

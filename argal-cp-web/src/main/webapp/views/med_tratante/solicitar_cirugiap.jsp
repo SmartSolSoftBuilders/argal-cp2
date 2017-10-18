@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="static/css_acc/reset.min.css" rel="stylesheet" type="text/css" />
 <link href="static/css_acc/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="static/css_acc/style_acc.css">
@@ -15,7 +16,15 @@
 		<td>
 		<font size="4">Solicitar una Cirugia Programada. </font><font size="2">Por favor llene cada sección de la información solicitada.
 		Puede llenar una sección y guardarla para enviarla después</font>
-		<div id="idSolDiv"></div>
+		<div id="idSolDiv">
+			<c:if test="${idSolicitud!=null}">
+				<input type="hidden" id="idSolicitud" name="idSolicitud" value="<c:out value="${idSolicitud}"/>"/>
+				<c:out value="${idSolicitud}"/>
+			</c:if>
+			<c:if test="${idSolicitud==null}">
+				<input type="hidden" id="idSolicitud" name="idSolicitud"/>				
+			</c:if>
+		</div>
 		</td>
 	</tr>
 </table>
@@ -31,8 +40,7 @@
 	
 <div id="accordion">
 	<h3><img src="static/img/benef.png" width="25px" />1)Registro del Beneficiario</h3>
-	<div style="height:400px;">
-		<input type="hidden" id="idSolicitud" name="idSolicitud"/>		
+	<div style="height:400px;">			
 		<fieldset style="height:90%;">
 			<div class="form-group">
 				<form method="POST" action="contact-form-submission.php"
@@ -83,10 +91,10 @@
 								<div class="control-group">
 									<div class="control-group">
 										Sexo <input type="radio" class="form-check-input"
-											name="sexobenefradiobutton" id="sexobenefradiobutton" value="MASCULINO"
-											checked> Masculino <input type="radio"
+											name="sexobenefradiobutton" id="sexobenefradiobutton" value="MASCULINO">
+											Masculino <input type="radio"
 											class="form-check-input" name="sexobenefradiobutton"
-											id="sexobenefradiobutton" value="FEMENINO" checked> Femenino										
+											id="sexobenefradiobutton" value="FEMENINO"> Femenino										
 									</div>
 								</div>
 							</td>						

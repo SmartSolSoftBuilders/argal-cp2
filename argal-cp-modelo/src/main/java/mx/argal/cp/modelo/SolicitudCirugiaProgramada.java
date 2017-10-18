@@ -12,7 +12,9 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	private String sexoBeneficiarioSolicitudCirugiaProgramada;
 	private String numNominaBeneficiarioSolicitudCirugiaProgramada;
 	private Date fechaSolicitudCirugiaProgramada;
+	private Date fechaSolicitudElaboracion; 
 	private Integer tipoSolicitudCirugiaProgramada;
+	private Integer status;
 	private String empresaBeneficiarioSolicitudCirugiaProgramada;
 			
 	public Integer getIdSolicitudCirugiaProgramada() {
@@ -69,11 +71,25 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	public void setFechaSolicitudCirugiaProgramada(Date fechaSolicitudCirugiaProgramada) {
 		this.fechaSolicitudCirugiaProgramada = fechaSolicitudCirugiaProgramada;
 	}
+	public Date getFechaSolicitudElaboracion() {
+		return fechaSolicitudElaboracion;
+	}
+	public void setFechaSolicitudElaboracion(Date fechaSolicitudElaboracion) {
+		this.fechaSolicitudElaboracion = fechaSolicitudElaboracion;
+	}
 	public Integer getTipoSolicitudCirugiaProgramada() {
 		return tipoSolicitudCirugiaProgramada;
 	}
 	public void setTipoSolicitudCirugiaProgramada(Integer tipoSolicitudCirugiaProgramada) {
 		this.tipoSolicitudCirugiaProgramada = tipoSolicitudCirugiaProgramada;
+	}	
+	
+	public void setStatus(Integer status) {
+		this.status = status; 
+	}
+	
+	public Integer getStatus() {
+		return this.status;
 	}
 	
 	public SolicitudCirugiaProgramada(){
@@ -84,7 +100,8 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 			String nombreBeneficiarioSolicitudCirugiaProgramada, String apPBeneficiarioSolicitudCirugiaProgramada,
 			String apMBeneficiarioSolicitudCirugiaProgramada, String edadBeneficiarioSolicitudCirugiaProgramada,
 			String sexoBeneficiarioSolicitudCirugiaProgramada, String numNominaBeneficiarioSolicitudCirugiaProgramada,
-			Date fechaSolicitudCirugiaProgramada, Integer tipoSolicitudCirugiaProgramada, String empresaBeneficiarioSolicitudCirugiaProgramada) {
+			Date fechaSolicitudCirugiaProgramada, Date fechaSolicitudElaboracion, Integer tipoSolicitudCirugiaProgramada, String empresaBeneficiarioSolicitudCirugiaProgramada,
+			Integer status) {
 		super();
 		this.idSolicitudCirugiaProgramada = idSolicitudCirugiaProgramada;
 		this.nombreBeneficiarioSolicitudCirugiaProgramada = nombreBeneficiarioSolicitudCirugiaProgramada;
@@ -94,8 +111,10 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 		this.sexoBeneficiarioSolicitudCirugiaProgramada = sexoBeneficiarioSolicitudCirugiaProgramada;
 		this.numNominaBeneficiarioSolicitudCirugiaProgramada = numNominaBeneficiarioSolicitudCirugiaProgramada;
 		this.fechaSolicitudCirugiaProgramada = fechaSolicitudCirugiaProgramada;
+		this.fechaSolicitudElaboracion = fechaSolicitudElaboracion;
 		this.tipoSolicitudCirugiaProgramada = tipoSolicitudCirugiaProgramada;
 		this.empresaBeneficiarioSolicitudCirugiaProgramada = empresaBeneficiarioSolicitudCirugiaProgramada;
+		this.status = status;
 	}
 		
 }

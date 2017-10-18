@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import mx.argal.seguridad.modelo.UsuarioSeguridad;
 import mx.argal.seguridad.servicios.MttoSeguridadServicio;
 import mx.argal.seguridad.util.SeguridadUtil;
+import mx.argal.cp.modelo.MedicoTratante;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.servicios.SolicitudServicio;
 import mx.argal.cp.servicios.UsuarioServicio;
@@ -70,6 +71,21 @@ public class SolicitudController {
     	}
     	System.out.println("Guardada la solicitud:"+idSolicitudGuardada);
     	return solicitudCirugiaProgramada;    	  
+	}
+	
+	@RequestMapping(value="/getsolicitudbyid",method = RequestMethod.POST)
+    @ResponseBody
+    public SolicitudCirugiaProgramada getSolicitudById(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada){
+		System.out.println("<OTIKA>getSolicitud!!!"+solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());    	    	
+    	return this.solicitudServicio.getSolicitudById(solicitudCirugiaProgramada);    	  
+	}
+	
+	@RequestMapping(value="/getsolicitudesbymedtrat",method = RequestMethod.POST)
+    @ResponseBody
+    public List obtenerSolicitudesByMedTrat(@ModelAttribute(value="medicoTratante") MedicoTratante medicoTratante, HttpServletRequest request){
+		System.out.println("<OTIKA>getSolicitud!!!"+ request.getSession().getAttribute("idMedicoTratanteSession").toString());    	    	
+		medicoTratante.setIdMedicoTratante(Integer.parseInt(request.getSession().getAttribute("idMedicoTratanteSession").toString()));
+    	return this.solicitudServicio.obtenerSolicitudesByMedTrat(medicoTratante);    	  
 	}
 
 
