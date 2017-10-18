@@ -7,8 +7,8 @@
 	<script src="static/js/v2.0/js/jquery-2.2.0.js"></script>			
 	<link type="text/css" rel="stylesheet" href="static/css_login/style.css" media="screen" />	
     <script src="static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="static/css_login/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css_login/font-awesome.min.css">		
+    <link rel="stylesheet" href="static/css_login/bootstrap.min.css"/>
+    <link rel="stylesheet" href="static/css_login/font-awesome.min.css"/>		
 <script>	
 	function sendForm(){
 		document.getElementById("j_username").value=document.getElementById("j_username").value.toUpperCase();
