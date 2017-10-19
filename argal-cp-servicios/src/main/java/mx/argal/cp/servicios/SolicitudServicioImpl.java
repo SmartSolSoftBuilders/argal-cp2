@@ -57,7 +57,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		List solicitudesReturn = new ArrayList();
 		List solicitudReturn = new ArrayList();
 		System.out.println(solicitudes);
-		String status[] = {"","EN CAPTURA","ENVIADA","RECHAZADA","ACEPTADA"};		
+		String status[] = {"","CAPTURANDO","ENVIADA","RECHAZADA","ACEPTADA"};		
 		try{
 			for (int i=0;i<solicitudes.size();i++){		
 				solicitudReturn = new ArrayList();
@@ -68,7 +68,10 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 				solicitudReturn.add(solicitudes.get(i).getFechaSolicitudElaboracion());
 				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
 				if (solicitudes.get(i).getStatus()==1){
-					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Editar</a>");
+					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Seguir Capturando</a>" + "<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Eliminar</a>");
+				}
+				if (solicitudes.get(i).getStatus()==4){
+					solicitudReturn.add("Carta Autorización:<img  src=\"static/img/pdf-icon.png\" onclick =\"window.open('static/img/cartaaut.pdf','_blank', 'width=800,height=800');\" width=\"25px\"/>\n");
 				}
 				else
 					solicitudReturn.add("-");
@@ -88,7 +91,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		List solicitudesReturn = new ArrayList();
 		List solicitudReturn = new ArrayList();
 		System.out.println(solicitudes);
-		String status[] = {"","EN CAPTURA","ENVIADA","RECHAZADA","ACEPTADA"};		
+		String status[] = {"","RECIBIDA","ENVIADA","RECHAZADA","ACEPTADA"};		
 		try{
 			for (int i=0;i<solicitudes.size();i++){		
 				solicitudReturn = new ArrayList();
@@ -99,10 +102,11 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 				solicitudReturn.add(solicitudes.get(i).getFechaSolicitudElaboracion());
 				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
 				if (solicitudes.get(i).getStatus()==1){
-					solicitudReturn.add("<a href='#' onclick='loadPageData(200,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Editar</a>");
+					solicitudReturn.add("<a href='#' onclick='loadPageData(200,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Dictaminar</a>");
 				}
-				else
+				else{
 					solicitudReturn.add("-");
+				}
 				solicitudesReturn.add(solicitudReturn);
 			}
 		}

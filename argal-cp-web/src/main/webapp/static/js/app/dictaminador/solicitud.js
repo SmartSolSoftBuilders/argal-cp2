@@ -54,8 +54,8 @@ function cargarSolicitud(){
 		success : function(response) {
 			console.log(response)
 			var tipoSolicitud=["","CORTA ESTANCIA","PROGRAMADA"];
-			$("#divDatosBeneficiario").html("Nombre: " + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + " Edad: " + response.edadBeneficiarioSolicitudCirugiaProgramada + " Sexo: " + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");		
-			$("#divDatosEmpresaBeneficiario").html("Empresa: " + response.empresaBeneficiarioSolicitudCirugiaProgramada + "Número Nómina: " + response.numNominaBeneficiarioSolicitudCirugiaProgramada + "Tipo Solicitud: " +tipoSolicitud[response.tipoSolicitudCirugiaProgramada]);
+			$("#divDatosBeneficiario").html("<font color='blue'>Nombre: </font>" + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Edad: </font>" + response.edadBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Sexo: </font>" + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");		
+			$("#divDatosEmpresaBeneficiario").html("<font color='blue'>Empresa: </font>: " + response.empresaBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Número Nómina: </font>" + response.numNominaBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Tipo Solicitud: </font>" +tipoSolicitud[response.tipoSolicitudCirugiaProgramada]+"<font color='blue'> Fecha de Elaboración: </font>2017-10-14");
 			$("#idSolicitud").val(response.idSolicitudCirugiaProgramada);
 		},
 		error : function(response) {

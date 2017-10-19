@@ -43,8 +43,8 @@
 <h4><img src="static/img/person.png" width="25px" />Riesgos y Personal Requerido Adicional</h4>
 <jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>	
 <h4><img src="static/img/surgery.png" width="25px" />Datos de la cirugía</h4>
-	
-<ul><li><a href="#tabs-1">CIRUGÍA SOLICITADA (1)</a></li></ul>
+<fieldset>	
+	<legend>CIRUGÍA SOLICITADA (1)</legend>
 	<table> 
 		<tr>   				
 			<td><jsp:include page="secciones/sec_cirugia.jsp"></jsp:include></td>
@@ -71,8 +71,10 @@
 			</td>
 		</tr>
 	</table>
-<ul><li><a href="#tabs-1">CIRUGÍA SOLICITADA (2)</a></li></ul>
-<table> 
+</fieldset>
+<fieldset>	
+	<legend>CIRUGÍA SOLICITADA (2)</legend>
+	<table> 
 		<tr>   				
 			<td><jsp:include page="secciones/sec_cirugia.jsp"></jsp:include></td>
 			<td align="center">
@@ -98,6 +100,10 @@
 			</td>
 		</tr>
 	</table>
+</fieldset>
+<h4><img src="static/img/supplies.jpg" width="25px" height="35px" />Presupuesto de Insumos</h4>
+<jsp:include page="secciones/sec_insumos.jsp"></jsp:include>
+	
 <div>	
 	<button type="submit" class="btn btn-primary">Finalizar Dictamen</button>	
 </div>			
