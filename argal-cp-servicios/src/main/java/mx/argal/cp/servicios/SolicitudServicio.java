@@ -12,5 +12,6 @@ public interface SolicitudServicio {
 	public Boolean actualizarSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public SolicitudCirugiaProgramada getSolicitudById(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public List obtenerSolicitudesByMedTrat(MedicoTratante medicoTratante);
+	public List obtenerSolicitudesAll(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	
 }

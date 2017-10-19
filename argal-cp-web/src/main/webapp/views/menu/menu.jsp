@@ -12,5 +12,5 @@
 			<li><a href="#">Editar</a></li>
 			<li><a href="#">Cambiar Password</a></li>
 		</ul></li>
-	<li><a href="#">Bienvenido: Médico Tratante Prueba</a></li>
+	<li><a href="#">Bienvenido: <c:out value='${usuario.nombre}'/></a></li>
 </ul>

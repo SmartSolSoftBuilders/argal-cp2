@@ -80,5 +80,36 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		}
 		return solicitudesReturn;
 	}
+
+	@Override
+	public List obtenerSolicitudesAll(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
+		// TODO Auto-generated method stub
+		List<SolicitudCirugiaProgramada> solicitudes = this.solicitudDao.obtenerSolicitudesByStatus(solicitudCirugiaProgramada.getStatus());
+		List solicitudesReturn = new ArrayList();
+		List solicitudReturn = new ArrayList();
+		System.out.println(solicitudes);
+		String status[] = {"","EN CAPTURA","ENVIADA","RECHAZADA","ACEPTADA"};		
+		try{
+			for (int i=0;i<solicitudes.size();i++){		
+				solicitudReturn = new ArrayList();
+				solicitudReturn.add(solicitudes.get(i).getIdSolicitudCirugiaProgramada());
+				solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
+				solicitudReturn.add("DALINDE");
+				solicitudReturn.add("PROC1");
+				solicitudReturn.add(solicitudes.get(i).getFechaSolicitudElaboracion());
+				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
+				if (solicitudes.get(i).getStatus()==1){
+					solicitudReturn.add("<a href='#' onclick='loadPageData(200,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Editar</a>");
+				}
+				else
+					solicitudReturn.add("-");
+				solicitudesReturn.add(solicitudReturn);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return solicitudesReturn;
+	}	
 	
 }

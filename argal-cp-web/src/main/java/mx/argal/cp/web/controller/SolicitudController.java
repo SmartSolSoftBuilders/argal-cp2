@@ -90,6 +90,12 @@ public class SolicitudController {
 		medicoTratante.setIdMedicoTratante(Integer.parseInt(request.getSession().getAttribute("idMedicoTratanteSession").toString()));
     	return this.solicitudServicio.obtenerSolicitudesByMedTrat(medicoTratante);    	  
 	}
-
-
+	
+	@RequestMapping(value="/getsolicitudesall",method = RequestMethod.POST)
+    @ResponseBody
+    public List obtenerSolicitudesAll(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
+		System.out.println("<OTIKA>get tipo cirugia!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
+		return this.solicitudServicio.obtenerSolicitudesAll(solicitudCirugiaProgramada);    	  
+	}
+		
 }

@@ -43,17 +43,22 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</a>
-		<div class="nav-collapse collapse">
-			<jsp:include page="menu/menu.jsp"/>
+		<div class="nav-collapse collapse">			
+			<c:if test='${usuario.roles[0].rol=="ROLE_MEDICO_TRATANTE"}'>
+				<jsp:include page="menu/menu.jsp"/>				
+			</c:if>
+			<c:if test='${usuario.roles[0].rol=="ROLE_DICTAMINADOR"}'>
+				<jsp:include page="menu/menu_dictaminador.jsp"/>				
+			</c:if>
 		</div>
     </div><!-- /.nav-collapse -->    
     </div><!-- /.container -->
   </div><!-- /.navbar-inner -->
 </div><!-- /.navbar -->
-</div>
 </header>
+</div>
 <div id="mainContent">
-	PÁGINA DE INICIO
+	PÁGINA DE INICIO 
 </div>
 </body>
 </html>

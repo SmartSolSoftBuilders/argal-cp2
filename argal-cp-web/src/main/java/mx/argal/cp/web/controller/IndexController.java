@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
+import mx.argal.seguridad.modelo.RolSeguridad;
 import mx.argal.seguridad.modelo.UsuarioSeguridad;
 import mx.argal.seguridad.servicios.MttoSeguridadServicio;
 import mx.argal.seguridad.util.SeguridadUtil;
@@ -51,7 +52,7 @@ public class IndexController {
 	
 	public final String ROLE_ADMINISTRADOR="ROLE_ADMINISTRADOR";
 	public final String ROLE_MEDICO_TRATANTE="ROLE_MEDICO_TRATANTE";
-	public final String ROLE_CLIENTE="ROLE_CLIENTE";
+	public final String ROLE_DICTAMINADOR="ROLE_DICTAMINADOR";
 			
 	@Autowired
 	private MttoSeguridadServicio mttoSeguridadServicio;
@@ -71,19 +72,27 @@ public class IndexController {
     		Iterator it = ((SecurityContextImpl)request.getSession().getAttribute("SPRING_SECURITY_CONTEXT")).getAuthentication().getAuthorities().iterator();
     		while (it.hasNext()){
     			rol=it.next().toString();
+    			List<RolSeguridad> roles = new ArrayList<RolSeguridad>();
+    			RolSeguridad rolS = new RolSeguridad();
+    			rolS.setRol(rol);
+    			roles.add(rolS);
+    			usuario.setRoles(roles);
     			request.getSession().setAttribute("rolUser",rol);
     			request.getSession().setAttribute("userSession",usuario.getUsername());    			
     			request.getSession().setAttribute("msj","Bienvenido "+usuario.getNombre());    			
     			break;
     		}   	 		
     	}     	
-    	if ( rol.equals(ROLE_MEDICO_TRATANTE)) {    	
-    		
+    	System.out.println(rol);
+    	if ( rol.equals(ROLE_MEDICO_TRATANTE)) {    	    		
     		MedicoTratante medicoTratante = new MedicoTratante();
     		medicoTratante.setIdTUsuario(mttoSeguridadServicio.consultarUsuariosByUser(usuario).get(0).getId().intValue());
     		System.out.println("Buscando medtrat"+medicoTratante.getIdTUsuario());
     		medicoTratante=this.medicoTratanteServicio.obtenerMedicoTratanteByIdTUs(medicoTratante);
 			request.getSession().setAttribute("idMedicoTratanteSession",medicoTratante.getIdTUsuario());
+    		return new ModelAndView("main", "usuario", usuario);
+    	}
+    	if ( rol.equals(ROLE_DICTAMINADOR)) {    		
     		return new ModelAndView("main", "usuario", usuario);
     	}
     	    	    	    	  
@@ -139,6 +148,11 @@ public class IndexController {
     		modelo.addAttribute("idSolicitud", param);    		
 			return new ModelAndView("med_tratante/solicitar_cirugiap",modelo);
 		}
+    	if (page.equals("200")){    		
+    		ModelMap modelo = new ModelMap();
+    		modelo.addAttribute("idSolicitud", param);    		
+			return new ModelAndView("dictaminador/ver_solicitud",modelo);
+		}
 		return new ModelAndView("index");
 	}
 	
@@ -156,7 +170,7 @@ public class IndexController {
     	if (userTmp!=null){
     		if (request.getSession().getAttribute("rolUser").equals(ROLE_ADMINISTRADOR))
     			userTmp.get(0).setTipoUsuario(3);
-    		if (request.getSession().getAttribute("rolUser").equals(ROLE_CLIENTE))
+    		if (request.getSession().getAttribute("rolUser").equals(ROLE_DICTAMINADOR))
     			userTmp.get(0).setTipoUsuario(2);
     		if (request.getSession().getAttribute("rolUser").equals(ROLE_MEDICO_TRATANTE))
     			userTmp.get(0).setTipoUsuario(1);

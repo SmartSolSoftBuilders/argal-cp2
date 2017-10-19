@@ -39,6 +39,15 @@
 		select * from "SOLICITUD_CIRUGIA_PROGRAMADA" where "ID_MEDICO_TRATANTE"=
 		(select "ID_MEDICO_TRATANTE" FROM "MEDICO_TRATANTE" WHERE "id_t_usuario"=#{idMedicoTratante});
 	</select>
+	
+	<select id="obtenerSolicitudesByStatus" parameterType="map" resultMap="solicitudCirugiaProgramadaResult">	
+		<if test="status != 0">
+			select * from "SOLICITUD_CIRUGIA_PROGRAMADA" where "STATUS"=#{status}
+		</if>
+		<if test="status == 0">
+			select * from "SOLICITUD_CIRUGIA_PROGRAMADA"
+		</if>		
+	</select>	
 		
 	<insert id="guardarSolicitud" parameterType="SolicitudCirugiaProgramada"  keyProperty="id">
 		<selectKey keyProperty="id" resultType="long" order="BEFORE">
