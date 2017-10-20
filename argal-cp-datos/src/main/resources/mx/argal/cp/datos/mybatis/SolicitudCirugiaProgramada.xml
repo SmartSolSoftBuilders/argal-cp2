@@ -12,7 +12,7 @@
 		<result property="sexoBeneficiarioSolicitudCirugiaProgramada" column="SEXO_BENEFICIARIO"/>		
 		<result property="numNominaBeneficiarioSolicitudCirugiaProgramada" column="NUM_NOMINA_BENEFICIARIO"/>
 		<result property="fechaSolicitudCirugiaProgramada" column="FECHA_SOLICITUD"/>
-		<result property="fechaSolicitudElaboracion" column="FECHA_SOLICITUD_CREACION"/>		
+		<result property="fechaSolicitudElaboracion" column="FECHA_SOLICITUD_ELABORACION"/>		
 		<result property="empresaBeneficiarioSolicitudCirugiaProgramada" column="EMPRESA_BENEFICIARIO"/>		
 		<result property="tipoSolicitudCirugiaProgramada" column="TIPO_CIRUGIA_PROGRAMADA"/>
 		<result property="status" column="STATUS"/>	

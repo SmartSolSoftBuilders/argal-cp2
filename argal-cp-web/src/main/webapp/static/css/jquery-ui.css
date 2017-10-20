@@ -94,7 +94,7 @@
 	padding: .5em .5em .5em .7em;
 	min-height: 0; /* support: IE7 */
 	font-size: 90%;
-	height: 40;
+	/*height: 40;*/
 }
 .ui-accordion .ui-accordion-icons {
 	padding-left: 2.2em;
@@ -908,9 +908,9 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 7px solid #fff;
-	background: #207279;
+	background: #fff;
 	font-weight: normal;
-	color: #fff;
+	color: black;
 	height: 8.5%;
 }
 .ui-state-active a,

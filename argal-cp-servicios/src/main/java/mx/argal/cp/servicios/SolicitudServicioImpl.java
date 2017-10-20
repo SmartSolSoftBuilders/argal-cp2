@@ -65,7 +65,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 				solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
 				solicitudReturn.add("DALINDE");
 				solicitudReturn.add("PROC1");
-				solicitudReturn.add(solicitudes.get(i).getFechaSolicitudElaboracion());
+				solicitudReturn.add("2017-"+ (solicitudes.get(i).getFechaSolicitudElaboracion().getMonth()+1)+"-"+(solicitudes.get(i).getFechaSolicitudElaboracion().getDay()+1) );
 				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
 				if (solicitudes.get(i).getStatus()==1){
 					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Seguir Capturando</a>" + "<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Eliminar</a>");
@@ -99,7 +99,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 				solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
 				solicitudReturn.add("DALINDE");
 				solicitudReturn.add("PROC1");
-				solicitudReturn.add(solicitudes.get(i).getFechaSolicitudElaboracion());
+				solicitudReturn.add("2017-"+ (solicitudes.get(i).getFechaSolicitudElaboracion().getMonth()+1)+"-"+(solicitudes.get(i).getFechaSolicitudElaboracion().getDay()+1) );
 				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
 				if (solicitudes.get(i).getStatus()==1){
 					solicitudReturn.add("<a href='#' onclick='loadPageData(200,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Dictaminar</a>");

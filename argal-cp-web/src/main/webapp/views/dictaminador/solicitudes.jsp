@@ -9,8 +9,6 @@
 <link rel="stylesheet" href="static/css/v2.0/jquery.dataTables.min.css" />
 <form>
 	<h2>Cirugías Programadas</h2>
-	RECIBIDAS <input type="radio">EN NEGOCIACION<input type="radio">TODAS <input type="radio">
-	<br>
 	<br>
 	<table id="solicitudesTable" class="display" cellspacing="0" width="100%">
         <thead>
