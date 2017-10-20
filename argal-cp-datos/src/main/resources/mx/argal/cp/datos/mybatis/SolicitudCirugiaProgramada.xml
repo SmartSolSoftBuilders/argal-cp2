@@ -18,7 +18,7 @@
 		<result property="status" column="STATUS"/>	
 		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>				
 	</resultMap>
-
+	
 	<resultMap id="medicoTratanteResult" type="MedicoTratante">
 	    	<id property="idMedicoTratante" column="ID_MEDICO_TRATANTE" />
 	</resultMap>
@@ -91,5 +91,6 @@
 		</if>	
 			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
 	</update>
+
 	
 </mapper>

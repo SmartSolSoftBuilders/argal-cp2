@@ -19,7 +19,7 @@
                 <th>PROCEDIMIENTO</th>
                 <th>FECHA ELABORACIÓN</th>
                 <th>ESTATUS</th>
-                <th>ACCIONES</th>                
+                <th>ACCIONES-></th>                
             </tr>
         </thead> 
         <tbody>

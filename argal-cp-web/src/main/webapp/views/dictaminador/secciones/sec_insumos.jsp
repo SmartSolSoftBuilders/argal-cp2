@@ -26,6 +26,7 @@
 					<label for="total" class="control-label"><font color='blue'>Insumos 1: Tornillos</font></label>
 					<input type="text" class="form-control" id="total" placeholder="total" required value="20000">							
 				</div>
+				
 			</td>
 			<td>
 				<div class="control-group">

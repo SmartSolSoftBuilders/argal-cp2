@@ -21,6 +21,7 @@
 	    font-size: 15px;
 	    transition: 0.4s;
 	    height: 7%;
+	    /**/
 	}
 	
 	button.accordion.active, button.accordion:hover {

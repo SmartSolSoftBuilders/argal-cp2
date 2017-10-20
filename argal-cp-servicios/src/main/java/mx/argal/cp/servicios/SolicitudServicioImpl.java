@@ -70,6 +70,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 				if (solicitudes.get(i).getStatus()==1){
 					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Seguir Capturando</a>" + "<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Eliminar</a>");
 				}
+				
 				if (solicitudes.get(i).getStatus()==4){
 					solicitudReturn.add("Carta Autorización:<img  src=\"static/img/pdf-icon.png\" onclick =\"window.open('static/img/cartaaut.pdf','_blank', 'width=800,height=800');\" width=\"25px\"/>\n");
 				}
