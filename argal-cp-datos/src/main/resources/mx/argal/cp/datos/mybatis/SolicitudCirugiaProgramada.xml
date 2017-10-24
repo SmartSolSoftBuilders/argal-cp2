@@ -16,15 +16,64 @@
 		<result property="empresaBeneficiarioSolicitudCirugiaProgramada" column="EMPRESA_BENEFICIARIO"/>		
 		<result property="tipoSolicitudCirugiaProgramada" column="TIPO_CIRUGIA_PROGRAMADA"/>
 		<result property="status" column="STATUS"/>	
-		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>				
+		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>
+		<association property="empresa" column="ID_EMPRESA" javaType="Empresa" select="selectEmpresa"/>		
+		<association property="cirugiaSolicitadaUno" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaUno"/>
+		<association property="cirugiaSolicitada2" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitada2"/>				
 	</resultMap>
 	
 	<resultMap id="medicoTratanteResult" type="MedicoTratante">
 	    	<id property="idMedicoTratante" column="ID_MEDICO_TRATANTE" />
 	</resultMap>
+	
+	<resultMap id="empresaResult" type="Empresa">
+	    	<id property="idEmpresa" column="ID_EMPRESA" />
+	</resultMap>
+	
+	<resultMap id="icdResult" type="Icd">
+    	<id property="idIcd" column="ID_ICD" />
+    	<result property="descripcion" column="DESCRIPCION" />    	
+		<result property="clave" column="CVE_ICD" />    		
+	</resultMap>
+	
+	<resultMap id="cptResult" type="Cpt">
+    	<id property="idCpt" column="ID_CPT" />
+    	<result property="descripcion" column="DESCRIPCION" />
+    	<result property="cveCpt" column="CVE_CPT" /> 	    	
+	</resultMap>
+		
+	<resultMap id="cirugiaSolicitadaResult" type="CirugiaSolicitada">
+	    	<id property="idCirugiaSolicitada" column="ID_CIRUGIA_SOLICITADA" />
+	    	<result property="numCirugia" column="FUNDAMENTOS_DIAGNÓSTICO"/>	    		    	
+	    	<association property="idDiagnosticoIngreso" column="ID_DIAGNOSTICO_INGRESO" javaType="Icd" select="selectIcd"/>	    		    	
+	    	<association property="idProcedimiento1" column="ID_PROCEDIMIENTO_1" javaType="Cpt" select="selectCpt"/>
+	    	<association property="idProcedimiento2" column="ID_PROCEDIMIENTO_2" javaType="Cpt" select="selectCpt"/>
+	    	<association property="idProcedimiento3" column="ID_PROCEDIMIENTO_3" javaType="Cpt" select="selectCpt"/>
+	    	<association property="otrasEnf1" column="ID_ICD_OTRASENF_1" javaType="Icd" select="selectIcd"/>	    	
+	</resultMap>
 
+	<select id="selectCpt" parameterType="int" resultMap="cptResult" resultType="Cpt">
+		select * from "CPT" where "ID_CPT"=#{idCpt} 	
+	</select>	
+	
+	<select id="selectIcd" parameterType="int" resultMap="icdResult" resultType="Icd">		 
+		select * from "ICD" where "ID_ICD"=#{idIcd} 	
+	</select>
+	
 	<select id="selectMedicoTratante" parameterType="int" resultMap="medicoTratanteResult" resultType="MedicoTratante">		 
 		select "ID_MEDICO_TRATANTE" from "MEDICO_TRATANTE" where "ID_MEDICO_TRATANTE"=#{idMedicoTratante} 	
+	</select>
+	
+	<select id="selectEmpresa" parameterType="int" resultMap="empresaResult" resultType="Empresa">		 
+		select "ID_EMPRESA" from "EMPRESA" where "ID_EMPRESA"=#{idEmpresa} 	
+	</select> 
+	
+	<select id="selectCirugiaSolicitadaUno" parameterType="int" resultMap="cirugiaSolicitadaResult" resultType="CirugiaSolicitada">		 
+		select * from "CIRUGIA_SOLICITADA" where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada} and "NUM_CIRUGIA"=1 	
+	</select>
+	
+	<select id="selectCirugiaSolicitada2" parameterType="int" resultMap="cirugiaSolicitadaResult" resultType="CirugiaSolicitada">		 
+		select * from "CIRUGIA_SOLICITADA" where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada} and "NUM_CIRUGIA"=2 	
 	</select> 
 
 	<select id="obtenerSolicitudes" resultMap="solicitudCirugiaProgramadaResult">
@@ -54,7 +103,16 @@
   		   	SELECT nextVal('sec_solicitud_c_p')
   		</selectKey>	
 		INSERT INTO "SOLICITUD_CIRUGIA_PROGRAMADA"(
-			"ID_SOLICITUD_CIRUGIA_PROGRAMADA","STATUS","ID_MEDICO_TRATANTE") VALUES (#{id},1,#{medicoTratante.idMedicoTratante})
+			"ID_SOLICITUD_CIRUGIA_PROGRAMADA","STATUS","ID_MEDICO_TRATANTE","FECHA_SOLICITUD_ELABORACION") VALUES (#{id},1,#{medicoTratante.idMedicoTratante},now())
+	</insert>
+	
+	<insert id="guardarSolicitudCirugias" parameterType="CirugiaSolicitada"  keyProperty="id">
+		<selectKey keyProperty="cirugiaSolicitada.id" resultType="long" order="BEFORE">
+  		   	SELECT nextVal('sec_cirugia_solicitada')
+  		</selectKey>	  		
+  			INSERT INTO public."CIRUGIA_SOLICITADA"(
+			"ID_CIRUGIA_SOLICITADA", "ID_DIAGNOSTICO_INGRESO", "NUM_CIRUGIA" ,"FUNDAMENTOS_DIAGNÓSTICO") 
+				VALUES (#{id}, #{diagnosticoIngreso.idDiagnosticoIngreso}, #{numCirugia}, #{fundamentosDiagnostico});					
 	</insert>
 	
 	<update id="guardarSolicitudByParams" parameterType="SolicitudCirugiaProgramada">
@@ -70,10 +128,7 @@
 		</if>
 		<if test="apMBeneficiarioSolicitudCirugiaProgramada != null">
 			,"APM_BENEFICIARIO"=#{apMBeneficiarioSolicitudCirugiaProgramada}
-		</if>
-		<if test="empresaBeneficiarioSolicitudCirugiaProgramada != null">	
-			,"EMPRESA_BENEFICIARIO"=#{empresaBeneficiarioSolicitudCirugiaProgramada}
-		</if>
+		</if>		
 		<if test="numNominaBeneficiarioSolicitudCirugiaProgramada != null">	
 			,"NUM_NOMINA_BENEFICIARIO"=#{numNominaBeneficiarioSolicitudCirugiaProgramada}
 		</if>
@@ -88,9 +143,19 @@
 		</if>
 		<if test="sexoBeneficiarioSolicitudCirugiaProgramada != null">
 			,"SEXO_BENEFICIARIO"=#{sexoBeneficiarioSolicitudCirugiaProgramada}
-		</if>	
+		</if>
+		<if test="medicoTratante != null">	
+			,"ID_MEDICO_TRATANTE"=cast(#{medicoTratante.idMedicoTratante} as int)
+		</if>
+		<if test="empresa != null">	
+			,"ID_EMPRESA"=cast(#{empresa.idEmpresa} as int)
+		</if>		
+		<if test="cirugiaSolicitadaUno != null">
+			<if test="cirugiaSolicitadaUno.idCirugiaSolicitada != null">	
+				,"ID_CIRUGIA_SOLICITADA_1"=cast(#{cirugiaSolicitadaUno.idCirugiaSolicitada} as int)
+			</if>
+		</if>		
 			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
 	</update>
 
-	
 </mapper>

@@ -2,28 +2,40 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.1.6
--- Dumped by pg_dump version 9.1.6
--- Started on 2012-11-05 15:40:32 CST
+-- Dumped from database version 9.6.2
+-- Dumped by pg_dump version 9.6.2
+
+-- Started on 2017-10-23 22:59:38
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
--- TOC entry 166 (class 3079 OID 11681)
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- TOC entry 7 (class 2615 OID 115969)
+-- Name: seguridad; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA seguridad;
+
+
+--
+-- TOC entry 1 (class 3079 OID 12387)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 1917 (class 0 OID 0)
--- Dependencies: 166
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- TOC entry 2255 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -31,727 +43,717 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
+SET default_with_oids = false;
+
 --
--- TOC entry 161 (class 1259 OID 210871)
--- Dependencies: 6
--- Name: t_archivo_seq; Type: SEQUENCE; Schema: public; Owner: pruebas
+-- TOC entry 205 (class 1259 OID 116226)
+-- Name: CIRUGIA_SOLICITADA; Type: TABLE; Schema: public; Owner: -
 --
 
--- CATALOGOS
-
--- Table: "TIPO_SEGURO"
--- DROP TABLE "TIPO_SEGURO";
-CREATE TABLE "TIPO_SEGURO"
-(
-  "ID_TIPO_SEGURO" integer NOT NULL,
-  "DESCRIPCION" character varying(45),
-  CONSTRAINT "TIPO_SEGURO_pkey" PRIMARY KEY ("ID_TIPO_SEGURO")
-)
-WITH (
-  OIDS=FALSE
+CREATE TABLE "CIRUGIA_SOLICITADA" (
+    "ID_CIRUGIA_SOLICITADA" integer NOT NULL,
+    "ID_DIAGNOSTICO_INGRESO" integer,
+    "ID_PROCEDIMIENTO_1" integer,
+    "ID_PROCEDIMIENTO_2" integer,
+    "ID_PROCEDIMIENTO_3" integer,
+    "FUNDAMENTOS_DIAGNÃ“STICO" character varying(1000),
+    "ID_ICD_OTRASENF_1" integer,
+    "ID_ICD_OTRASENF_2" integer,
+    "ID_ICD_OTRASENF_3" integer,
+    "ID_ICD_OTRASENF_4" integer,
+    "ID_ICD_OTRASENF_5" integer,
+    "NUM_CIRUGIA" integer
 );
-ALTER TABLE "TIPO_SEGURO"
-  OWNER TO postgres;
 
--- Table: "TIPO_EVENTO"
--- DROP TABLE "TIPO_EVENTO";
-CREATE TABLE "TIPO_EVENTO"
-(
-  "ID_TIPO_EVENTO" integer NOT NULL,
-  "DESCRIPCION" character varying(45),
-  CONSTRAINT "TIPO_EVENTO_pkey" PRIMARY KEY ("ID_TIPO_EVENTO")
-)
-WITH (
-  OIDS=FALSE
+
+--
+-- TOC entry 189 (class 1259 OID 115962)
+-- Name: CPT; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "CPT" (
+    "ID_CPT" integer NOT NULL,
+    "DESCRIPCION" character varying(125),
+    "ES_CATALOGO" boolean,
+    "CVE_CPT" character varying(30)
 );
-ALTER TABLE "TIPO_EVENTO"
-  OWNER TO postgres;
 
--- Table: "MEDICO_TRATANTE"
--- DROP TABLE "MEDICO_TRATANTE";
-CREATE TABLE "MEDICO_TRATANTE"
-(
-  "ID_MEDICO_TRATANTE" integer NOT NULL,
-  "NOMBRE" character varying(120),
-  "ID_ESPECIALIDAD_MEDICO_TRATANTE" integer,
-  "TIPO_MED" integer,
-  "ACTIVO" boolean DEFAULT true,
-  CONSTRAINT "MEDICO_TRATANTE_pkey" PRIMARY KEY ("ID_MEDICO_TRATANTE")
-)
-WITH (
-  OIDS=FALSE
+
+--
+-- TOC entry 204 (class 1259 OID 116211)
+-- Name: EMPRESA; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "EMPRESA" (
+    "ID_EMPRESA" integer NOT NULL,
+    "NOMBRE_EMPRESA" character varying(80),
+    "NOMBRE_CORTO" character varying(30),
+    "ACTIVA" boolean
 );
-ALTER TABLE "MEDICO_TRATANTE"
-  OWNER TO postgres;
-
--- Index: "INDX_MEDICTR"
-
--- DROP INDEX "INDX_MEDICTR";
-
-CREATE INDEX "INDX_MEDICTR"
-  ON "MEDICO_TRATANTE"
-  USING btree
-  ("ID_MEDICO_TRATANTE");
 
 
--- Table: "IMPLANT"
--- DROP TABLE "IMPLANT";
-CREATE TABLE "IMPLANT"
-(
-  "ID_IMPLANT" integer NOT NULL,
-  "NOMBRE_IMPLANT" character varying(45),
-  "APP_IMPLANT" character varying(45),
-  "APM_IMPLANT" character varying(45),
-  "NEXTEL_IMPLANT" character varying(45),
-  "ID_NEXTEL" character varying(45),
-  "CELULAR_IMPLANT" character varying(45),
-  "TEL_OFI_IMPL" character varying(45),
-  "PUESTO_IMPLANT" character varying(45),
-  "EMAIL_INST_IMPLANT" character varying(55),
-  "EMAIL_PERS_IMPLANT" character varying(55),
-  "SUPER_MEDICO" boolean,
-  "ACTIVO_IMPLANT" boolean,
-  "NICK_IMPLANT" character varying(45),
-  CONSTRAINT "IMPLANT_pkey" PRIMARY KEY ("ID_IMPLANT")
-)
-WITH (
-  OIDS=FALSE
+--
+-- TOC entry 188 (class 1259 OID 115956)
+-- Name: ICD; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "ICD" (
+    "ID_ICD" integer NOT NULL,
+    "DESCRIPCION" character varying(125),
+    "ES_CATALOGO" boolean,
+    "CVE_ICD" character varying(25)
 );
-ALTER TABLE "IMPLANT"
-  OWNER TO postgres;
-
--- Index: "INDX_IMPLANT"
-
--- DROP INDEX "INDX_IMPLANT";
-
-CREATE INDEX "INDX_IMPLANT"
-  ON "IMPLANT"
-  USING btree
-  ("ID_IMPLANT");
 
 
--- Table: "ICD"
--- DROP TABLE "ICD";
-CREATE TABLE "ICD"
-(
-  "ID_ICD" integer NOT NULL,
-  "DESCRIPCION" character varying(125),
-  "ES_CATALOGO" boolean,
-  "CVE_ICD" character varying(25),
-  CONSTRAINT "ICD_pkey" PRIMARY KEY ("ID_ICD")
-)
-WITH (
-  OIDS=FALSE
+--
+-- TOC entry 203 (class 1259 OID 116203)
+-- Name: MEDICO_TRATANTE; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "MEDICO_TRATANTE" (
+    "ID_MEDICO_TRATANTE" integer NOT NULL,
+    "NOMBRE_MEDICO_TRATANTE" character varying,
+    "APP_MEDICO_TRATANTE" character varying(50),
+    "APM_MEDICO_TRATANTE" character varying(50),
+    id_t_usuario integer
 );
-ALTER TABLE "ICD"
-  OWNER TO postgres;
 
--- Index: "INDX_ICD"
 
--- DROP INDEX "INDX_ICD";
+--
+-- TOC entry 186 (class 1259 OID 99567)
+-- Name: SOLICITUD_CIRUGIA_PROGRAMADA; Type: TABLE; Schema: public; Owner: -
+--
 
-CREATE INDEX "INDX_ICD"
-  ON "ICD"
-  USING btree
-  ("ID_ICD");
-
--- Table: "HOSPITAL"
--- DROP TABLE "HOSPITAL";
-CREATE TABLE "HOSPITAL"
-(
-  "ID_HOSP" integer NOT NULL,
-  "NOMBRE_HOSP" character varying(55),
-  "DIR_HOSP" character varying(90),
-  "COL_HOSP" character varying(45),
-  "MUN_DEL_HOSP" character varying(45),
-  "ESTADO_HOSP" character varying(45),
-  "CP_HOSP" character varying(45),
-  "CONMUTADOR_HOSP" character varying(45),
-  "ACTIVO_HOSP" boolean,
-  "TEL_DIR_MOD_HOSP" character varying(45),
-  "PAIS_HOSP" character varying(45),
-  "CIUDAD_HOSP" character varying(45),
-  CONSTRAINT "HOSPITAL_pkey" PRIMARY KEY ("ID_HOSP")
-)
-WITH (
-  OIDS=FALSE
+CREATE TABLE "SOLICITUD_CIRUGIA_PROGRAMADA" (
+    "ID_SOLICITUD_CIRUGIA_PROGRAMADA" integer NOT NULL,
+    "NOMBRE_BENEFICIARIO" character varying(80),
+    "APP_BENEFICIARIO" character varying(80),
+    "APM_BENEFICIARIO" character varying(80),
+    "EMPRESA_BENEFICIARIO" character varying(80),
+    "NUM_NOMINA_BENEFICIARIO" character varying(40),
+    "FECHA_SOLICITUD" date,
+    "TIPO_CIRUGIA_PROGRAMADA" integer,
+    "EDAD_BENEFICIARIO" integer,
+    "SEXO_BENEFICIARIO" character varying,
+    "ID_MEDICO_TRATANTE" integer,
+    "STATUS" integer,
+    "FECHA_SOLICITUD_ELABORACION" date,
+    "ID_EMPRESA" integer,
+    "ID_CIRUGIA_SOLICITADA_1" integer,
+    "ID_CIRUGIA_SOLICITADA_2" integer
 );
-ALTER TABLE "HOSPITAL"
-  OWNER TO postgres;
-
--- Index: "INDX_HOSP"
-
--- DROP INDEX "INDX_HOSP";
-
-CREATE INDEX "INDX_HOSP"
-  ON "HOSPITAL"
-  USING btree
-  ("ID_HOSP");
 
 
+--
+-- TOC entry 190 (class 1259 OID 116099)
+-- Name: acl_class; Type: TABLE; Schema: public; Owner: -
+--
 
--- Table: "ESPECIALIDAD"
--- DROP TABLE "ESPECIALIDAD";
-CREATE TABLE "ESPECIALIDAD"
-(
-  "ID_ESPECIALIDAD" integer NOT NULL,
-  "DESCRIPCION" character varying(40),
-  CONSTRAINT "PK_ESPECIALIDAD" PRIMARY KEY ("ID_ESPECIALIDAD")
-)
-WITH (
-  OIDS=FALSE
+CREATE TABLE acl_class (
+    id integer NOT NULL,
+    class character varying(100) NOT NULL
 );
-ALTER TABLE "ESPECIALIDAD"
-  OWNER TO postgres;
-
--- Index: "INDEX_ESPECIALIDAD"
-
--- DROP INDEX "INDEX_ESPECIALIDAD";
-
-CREATE INDEX "INDEX_ESPECIALIDAD"
-  ON "ESPECIALIDAD"
-  USING btree
-  ("ID_ESPECIALIDAD");
 
 
--- Table: "CPT"
--- DROP TABLE "CPT";
-CREATE TABLE "CPT"
-(
-  "ID_CPT" integer NOT NULL,
-  "DESCRIPCION" character varying(125),
-  "ES_CATALOGO" boolean,
-  "CVE_CPT" character varying(30),
-  CONSTRAINT "CPT_pkey" PRIMARY KEY ("ID_CPT")
-)
-WITH (
-  OIDS=FALSE
+--
+-- TOC entry 191 (class 1259 OID 116102)
+-- Name: acl_class_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE acl_class_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2256 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: acl_class_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE acl_class_id_seq OWNED BY acl_class.id;
+
+
+--
+-- TOC entry 192 (class 1259 OID 116104)
+-- Name: acl_entry; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE acl_entry (
+    id integer NOT NULL,
+    ace_order integer NOT NULL,
+    audit_failure boolean NOT NULL,
+    audit_success boolean NOT NULL,
+    granting boolean NOT NULL,
+    mask integer NOT NULL,
+    acl_object_identity integer NOT NULL,
+    sid integer NOT NULL
 );
-ALTER TABLE "CPT"
-  OWNER TO postgres;
 
--- Index: "INDX_CPT"
 
--- DROP INDEX "INDX_CPT";
+--
+-- TOC entry 193 (class 1259 OID 116107)
+-- Name: acl_entry_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
 
-CREATE INDEX "INDX_CPT"
-  ON "CPT"
-  USING btree
-  ("ID_CPT");
+CREATE SEQUENCE acl_entry_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
--- Table: "CLIENTE"
--- DROP TABLE "CLIENTE";
-CREATE TABLE "CLIENTE"
-(
-  "ID_CLIENTE" integer NOT NULL,
-  "ACTIVO_CLIENTE" boolean,
-  "RAZON_SOCIAL_CLIENTE" character varying(120),
-  "DOMICILIO_CLIENTE" character varying(80),
-  "CONMUTADOR_CLIENTE" character varying(50),
-  "DIRECTOR_MEDICO_CLIENTE" character varying(90),
-  "NOMBRE_CLIENTE" character varying(90),
-  "TEL_OFICINA_CLIENTE" character varying(45),
-  "TEL_CELULAR_CLIENTE" character varying(45),
-  "EMAIL_CLIENTE" character varying(50),
-  "NICK_CLIENTE" character varying(45),
-  "NOMBRE_CORTO" character varying(35),
-  CONSTRAINT "CLIENTE_pkey" PRIMARY KEY ("ID_CLIENTE")
-)
-WITH (
-  OIDS=FALSE
+
+--
+-- TOC entry 2257 (class 0 OID 0)
+-- Dependencies: 193
+-- Name: acl_entry_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE acl_entry_id_seq OWNED BY acl_entry.id;
+
+
+--
+-- TOC entry 194 (class 1259 OID 116109)
+-- Name: acl_object_identity; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE acl_object_identity (
+    id integer NOT NULL,
+    entries_inheriting boolean NOT NULL,
+    object_id_identity integer NOT NULL,
+    object_id_class integer NOT NULL,
+    parent_object integer,
+    owner_sid integer
 );
-ALTER TABLE "CLIENTE"
-  OWNER TO postgres;
 
--- Index: "INDEX-CLIENTES"
--- DROP INDEX "INDEX-CLIENTES";
-CREATE INDEX "INDEX-CLIENTES"
-  ON "CLIENTE"
-  USING btree
-  ("ID_CLIENTE");
 
--- Table: "ANTECEDENTES"
--- DROP TABLE "ANTECEDENTES";
-CREATE TABLE "ANTECEDENTES"
-(
-  "ID_ANTECEDENTE" integer NOT NULL,
-  "DESCRIPCION" character varying(65),
-  CONSTRAINT "ANTECEDENTES_pkey" PRIMARY KEY ("ID_ANTECEDENTE")
-)
-WITH (
-  OIDS=FALSE
+--
+-- TOC entry 195 (class 1259 OID 116112)
+-- Name: acl_object_identity_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE acl_object_identity_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2258 (class 0 OID 0)
+-- Dependencies: 195
+-- Name: acl_object_identity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE acl_object_identity_id_seq OWNED BY acl_object_identity.id;
+
+
+--
+-- TOC entry 196 (class 1259 OID 116114)
+-- Name: acl_sid; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE acl_sid (
+    id integer NOT NULL,
+    principal boolean NOT NULL,
+    sid character varying(100) NOT NULL
 );
-ALTER TABLE "ANTECEDENTES"
-  OWNER TO postgres;
 
--- Index: "INDX_ANT"
 
--- DROP INDEX "INDX_ANT";
+--
+-- TOC entry 197 (class 1259 OID 116117)
+-- Name: acl_sid_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
 
-CREATE INDEX "INDX_ANT"
-  ON "ANTECEDENTES"
-  USING btree
-  ("ID_ANTECEDENTE");
+CREATE SEQUENCE acl_sid_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
--- TABLAS CON LLAVES FORANEAS
 
--- Table: "EVENTO"
+--
+-- TOC entry 2259 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: acl_sid_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
 
--- DROP TABLE "EVENTO";
+ALTER SEQUENCE acl_sid_id_seq OWNED BY acl_sid.id;
 
-CREATE TABLE "EVENTO"
-(
-  "ID_EVENTO" integer NOT NULL,
-  "ID_IMPLANT" integer NOT NULL,
-  "ID_HOSP" integer NOT NULL,
-  "FECHA_INGRESO" date NOT NULL,
-  "FECHA_CAPTURA" date NOT NULL,
-  "ID_CLIENTE" integer NOT NULL,
-  "ID_TIPO_SEGURO" integer,
-  "ID_TIPO_EVENTO" integer,
-  "ID_DIAGN_INGRESO_1" integer,
-  "ID_ANTECEDENTES" integer,
-  "ID_PROCEDIMIENTO" integer,
-  "ID_TIPO_TRATAMIENTO_QUIRURGICO" integer,
-  "NUM_HABITACION" character varying(45),
-  "ID_MEDICO_TRATANTE" integer,
-  "ID_DIAGN_INGRESO_2" integer,
-  "FECHA_EGRESO" date,
-  "ID_DIAGN_EGRESO_1" integer,
-  "ID_PROCEDIMIENTO_1" integer,
-  "ID_PROCEDIMIENTO_2" integer,
-  "EVENTOS_NO_DESEAB_ENT_HOSP" character varying(120),
-  "MOTIVO_EGRESO" character varying(50),
-  "MONTO_ANTES_DESVIOS2" character varying(10),
-  "MONTO_DESPUES_DESVIOS" character varying(10),
-  "DESC_HOSPITAL" character varying(10),
-  "DIF_FACT_MENOS_DESVIOS" character varying(15),
-  "DESCUENTO_NO_APLICADO" character varying(15),
-  "CARGOS_PERSONALES" character varying(15),
-  "TOTAL_DESVIOS" character varying(15) DEFAULT 0,
-  "AJUSTE_FACTURA" character varying(15),
-  "TIPO_COMPROBANTE_FISCAL_COR" character varying(25),
-  "FOLIO_COMPROB_FISCAL_COR" character varying(25),
-  "STATUS_EVENTO" integer,
-  "COMENTARIOS_DIF_FACTURACION" character varying(150),
-  "FOLIO_ARGAL" character varying(40),
-  "FOLIO_HOSP" character varying(40),
-  "IVA_FINALIZAR_EVENTO" double precision DEFAULT 0,
-  "COASEGURO_FINALIZAR_EVENTO" double precision DEFAULT 0,
-  "DEDUCIBLE_FINALIZAR_EVENTO" double precision,
-  "DESCUENTO_HOSP_FINALIZAR_EVENTO" double precision DEFAULT 0,
-  "HORA_INGRESO" time without time zone,
-  "MEDICO_DICTAMINADOR" character varying(80),
-  "FECHA_DEF" date,
-  "HORA_DEF" time without time zone,
-  "CAUSA_DIRECTA_DEF" character varying(250),
-  "DIAS_INCAPACIDAD" integer DEFAULT 0,
-  "HORA_EGRESO" time without time zone,
-  "HORA_EGRESO_CAPT" time without time zone,
-  "FECHA_EGRESO_CAPT" date,
-  "TOTAL_DESVIOS_COMPROBADOS" double precision DEFAULT 0,
-  "NUM_FACTURAS_APROBADAS" integer DEFAULT 0,
-  "NUM_FACTURAS_RECHAZADAS" integer DEFAULT 0,
-  "MONTO_DESVIOS_FACTURACION" double precision DEFAULT 0,
-  "MONTO_AJUSTE_FACTURACION" double precision DEFAULT 0,
-  "MONTO_FACTURACION_CORREGIDO" double precision DEFAULT 0,
-  "MONTO_FINAL_FACTURACION" double precision DEFAULT 0,
-  "MONTO_ANTES_DESVIOS" double precision DEFAULT 0,
-  CONSTRAINT "EVENTO_pkey" PRIMARY KEY ("ID_EVENTO"),
-  CONSTRAINT "ID_CLIENTE2_FK" FOREIGN KEY ("ID_CLIENTE")
-      REFERENCES "CLIENTE" ("ID_CLIENTE") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "ID_HOSP2_FK" FOREIGN KEY ("ID_HOSP")
-      REFERENCES "HOSPITAL" ("ID_HOSP") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "ID_IMPL2_FK" FOREIGN KEY ("ID_IMPLANT")
-      REFERENCES "IMPLANT" ("ID_IMPLANT") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "ID_TIPO_EVENTO2_FK" FOREIGN KEY ("ID_TIPO_EVENTO")
-      REFERENCES "TIPO_EVENTO" ("ID_TIPO_EVENTO") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "ID_TIPO_SEGURO2_FK" FOREIGN KEY ("ID_TIPO_SEGURO")
-      REFERENCES "TIPO_SEGURO" ("ID_TIPO_SEGURO") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
+
+--
+-- TOC entry 206 (class 1259 OID 116270)
+-- Name: sec_cirugia_solicitada; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sec_cirugia_solicitada
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 187 (class 1259 OID 99572)
+-- Name: sec_solicitud_c_p; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sec_solicitud_c_p
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 198 (class 1259 OID 116119)
+-- Name: sec_user; Type: SEQUENCE; Schema: seguridad; Owner: -
+--
+
+CREATE SEQUENCE sec_user
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 199 (class 1259 OID 116121)
+-- Name: t_opcion_menu; Type: TABLE; Schema: seguridad; Owner: -
+--
+
+CREATE TABLE t_opcion_menu (
+    id_t_opcion integer NOT NULL,
+    v_descripcion character varying(120) NOT NULL,
+    v_opcion character varying(80) NOT NULL,
+    v_url character varying(200),
+    id_t_opcion_padre integer
 );
-ALTER TABLE "EVENTO"
-  OWNER TO postgres;
 
--- Index: "indx-evento"
 
--- DROP INDEX "indx-evento";
+--
+-- TOC entry 200 (class 1259 OID 116124)
+-- Name: t_r_usuario_rol; Type: TABLE; Schema: seguridad; Owner: -
+--
 
-CREATE INDEX "indx-evento"
-  ON "EVENTO"
-  USING btree
-  ("ID_EVENTO");
-
--- Table: "GASTO_EVENTO"
-
--- DROP TABLE "GASTO_EVENTO";
-
--- Table: "IMPLANT_HOSP"
--- DROP TABLE "IMPLANT_HOSP";
-CREATE TABLE "IMPLANT_HOSP"
-(
-  "ID_IMPLANT" integer NOT NULL,
-  "ID_HOSP" integer NOT NULL,
-  CONSTRAINT "PK_IMP_HOSP" PRIMARY KEY ("ID_IMPLANT", "ID_HOSP"),
-  CONSTRAINT "ID_HOSP_FK" FOREIGN KEY ("ID_HOSP")
-      REFERENCES "HOSPITAL" ("ID_HOSP") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "ID_IMPLANT_FK" FOREIGN KEY ("ID_IMPLANT")
-      REFERENCES "IMPLANT" ("ID_IMPLANT") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
+CREATE TABLE t_r_usuario_rol (
+    id_tr_usuario integer NOT NULL,
+    id_tr_rol integer NOT NULL
 );
-ALTER TABLE "IMPLANT_HOSP"
-  OWNER TO postgres;
 
--- Table: "ESPECIALIDAD_MEDICO_TRATANTE"
--- DROP TABLE "ESPECIALIDAD_MEDICO_TRATANTE";
-CREATE TABLE "ESPECIALIDAD_MEDICO_TRATANTE"
-(
-  "ID_MEDICO_TRATANTE" integer NOT NULL,
-  "ID_ESPECIALIDAD" integer NOT NULL,
-  CONSTRAINT "PK_ESPC_MED_TRAT" PRIMARY KEY ("ID_MEDICO_TRATANTE", "ID_ESPECIALIDAD"),
-  CONSTRAINT "FK_ESPC_MEDTRAT2" FOREIGN KEY ("ID_MEDICO_TRATANTE")
-      REFERENCES "MEDICO_TRATANTE" ("ID_MEDICO_TRATANTE") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "FK_ESPMEDT1" FOREIGN KEY ("ID_ESPECIALIDAD")
-      REFERENCES "ESPECIALIDAD" ("ID_ESPECIALIDAD") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
+
+--
+-- TOC entry 201 (class 1259 OID 116127)
+-- Name: t_rol_seguridad; Type: TABLE; Schema: seguridad; Owner: -
+--
+
+CREATE TABLE t_rol_seguridad (
+    id_t_rol integer NOT NULL,
+    v_rol character varying(30) NOT NULL,
+    l_rol_activo boolean DEFAULT true NOT NULL
 );
-ALTER TABLE "ESPECIALIDAD_MEDICO_TRATANTE"
-  OWNER TO postgres;
 
 
--- Table: "BITACORA_MEDICA"
--- DROP TABLE "BITACORA_MEDICA";
-CREATE TABLE "BITACORA_MEDICA"
-(
-  "ID_BITACORA_MEDICA" integer NOT NULL,
-  "ID_REGISTRO" integer NOT NULL,
-  "OBSERVACIONES" character varying(256),
-  "ID_EVENTO" integer NOT NULL,
-  "FECHA_BITACORA" date,
-  "DESCRIPCION_BITACORA" character varying(40),
-  "INTERCONSULTA" character varying(40),
-  CONSTRAINT "BITACORA_MEDICA_pkey" PRIMARY KEY ("ID_BITACORA_MEDICA"),
-  CONSTRAINT "FK_EVENTO" FOREIGN KEY ("ID_EVENTO")
-      REFERENCES "EVENTO" ("ID_EVENTO") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
+--
+-- TOC entry 202 (class 1259 OID 116131)
+-- Name: t_usuario_seguridad; Type: TABLE; Schema: seguridad; Owner: -
+--
+
+CREATE TABLE t_usuario_seguridad (
+    id_t_usuario integer NOT NULL,
+    v_username character varying(50) NOT NULL,
+    v_password character varying(25) NOT NULL,
+    v_nombre_usuario character varying(100) NOT NULL,
+    l_usuario_activo boolean DEFAULT true NOT NULL
 );
-ALTER TABLE "BITACORA_MEDICA"
-  OWNER TO postgres;
-
--- Index: "INDX_BIT"
-
--- DROP INDEX "INDX_BIT";
-
-CREATE INDEX "INDX_BIT"
-  ON "BITACORA_MEDICA"
-  USING btree
-  ("ID_BITACORA_MEDICA");
 
 
+SET search_path = public, pg_catalog;
 
-CREATE TABLE "GASTO_EVENTO"
-(
-  "ID_GASTO_EVENTO" integer NOT NULL,
-  "ID_EVENTO" integer NOT NULL,
-  "ID_TIPO_CARGO" integer NOT NULL,
-  "ID_AREA" integer NOT NULL,
-  "ID_RUBRO" integer NOT NULL,
-  "ID_RAZON" integer NOT NULL,
-  "FECHA_INGRESO" date NOT NULL,
-  "NOMBRE" character varying(120) NOT NULL,
-  "MONTO_UNITARIO" character varying(120) NOT NULL,
-  "CANTIDAD" character varying(120) NOT NULL,
-  "TIPO_EVIDENCIA" character varying(120),
-  "ARCHIVO" bytea,
-  CONSTRAINT "GASTO_EVENTO_pkey" PRIMARY KEY ("ID_GASTO_EVENTO"),
-  CONSTRAINT "FK1" FOREIGN KEY ("ID_EVENTO")
-      REFERENCES "EVENTO" ("ID_EVENTO") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE "GASTO_EVENTO"
-  OWNER TO postgres;
+--
+-- TOC entry 2069 (class 2604 OID 116135)
+-- Name: acl_class id; Type: DEFAULT; Schema: public; Owner: -
+--
 
--- Index: "INDE_GASTO"
-
--- DROP INDEX "INDE_GASTO";
-
-CREATE INDEX "INDE_GASTO"
-  ON "GASTO_EVENTO"
-  USING btree
-  ("ID_GASTO_EVENTO");
-
--- Table: "REG_GASTOS_MAYORES"
-
--- DROP TABLE "REG_GASTOS_MAYORES";
-
-CREATE TABLE "REG_GASTOS_MAYORES"
-(
-  "ID_REG_GASTOS_MAYORES" integer NOT NULL,
-  "ID_EVENTO" integer NOT NULL,
-  "NO_POLIZA" character varying(45),
-  "COASEGURO_MED" character varying(40),
-  "SUMA_ASEGURADA" character varying(20),
-  "MONTO_CARTA_AUT_INI" character varying(20),
-  "TAB_HONOR_MEDIC" character varying(20),
-  "NOMBRE_TITULAR" character varying(45),
-  "APP_TITULAR" character varying(45),
-  "APM_TITULAR" character varying(45),
-  "NOMBRE_PACIENTE" character varying(45),
-  "APP_PACIENTE" character varying(45),
-  "APM_PACIENTE" character varying(45),
-  "EDAD_PACIENTE" integer,
-  "UNIDAD_EDAD" character varying(10),
-  "SEXO_PACIENTE" character varying(10),
-  "CONDICION_PACIENTE" character varying(30),
-  "RELACION_PACIENTE" character varying(30),
-  "NAC_FECHA_NACIMIENTO" date,
-  "NAC_HORA_NACIMIENTO" time without time zone,
-  "NAC_TIPO_PARTO" character varying(30),
-  "NAC_TALLA" character varying(20),
-  "NAC_PESO" character varying(20),
-  "NAC_APGAR" character varying(10),
-  "NAC_SILVERMAN" character varying(15),
-  "NAC_MEDICO_TRATANTE" character varying(50),
-  "DEDUCIBLE_POLIZA" character varying(10) DEFAULT 0,
-  "CAPITA" character varying(10),
-  "CANTIDAD_CUB_CONVENIO" double precision DEFAULT 0,
-  CONSTRAINT "REG_GASTOS_MAYORES_pkey" PRIMARY KEY ("ID_REG_GASTOS_MAYORES"),
-  CONSTRAINT "ID_EVNT4_FK" FOREIGN KEY ("ID_EVENTO")
-      REFERENCES "EVENTO" ("ID_EVENTO") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE "REG_GASTOS_MAYORES"
-  OWNER TO postgres;
-
--- Index: "INDX_REGGASTMAYORES"
-
--- DROP INDEX "INDX_REGGASTMAYORES";
-
-CREATE INDEX "INDX_REGGASTMAYORES"
-  ON "REG_GASTOS_MAYORES"
-  USING btree
-  ("ID_REG_GASTOS_MAYORES");
-
--- Table: "REG_SEG_PERSONAL"
-
--- DROP TABLE "REG_SEG_PERSONAL";
-
-CREATE TABLE "REG_SEG_PERSONAL"
-(
-  "ID_REG_SEG_PERSONAL" integer NOT NULL,
-  "ID_EVENTO" integer NOT NULL,
-  "NUM_NOMINA" character varying(45),
-  "INSTITUCION" character varying(90),
-  "NOMBRE_TITULAR" character varying(45),
-  "APP_TITULAR" character varying(45),
-  "APM_TITULAR" character varying(45),
-  "NOMBRE_PACIENTE" character varying(45),
-  "APP_PACIENTE" character varying(45),
-  "APM_PACIENTE" character varying(45),
-  "EDAD_PACIENTE" integer,
-  "UNIDAD_EDAD" character varying(10),
-  "SEXO_PACIENTE" character varying(10),
-  "CONDICION_PACIENTE" character varying(30),
-  "RELACION_PACIENTE" character varying(30),
-  "NAC_FECHA_NACIMIENTO" date,
-  "NAC_HORA_NACIMIENTO" time without time zone,
-  "NAC_TIPO_PARTO" character varying(20),
-  "NAC_TALLA" character varying(20),
-  "NAC_PESO" character varying(20),
-  "NAC_APGAR" character varying(20),
-  "NAC_SILVERMAN" character varying(20),
-  "NAC_MEDICO_TRATANTE" character varying(50),
-  "NUM_AUTORIZACION" character varying(25),
-  "CENSO" character varying(2),
-  "CANTIDAD_CUB_CONVENIO" double precision,
-  "CAPITA" character varying(10),
-  CONSTRAINT "REG_SEG_PERSONAL_pkey" PRIMARY KEY ("ID_REG_SEG_PERSONAL"),
-  CONSTRAINT "ID_EVNT3_FK" FOREIGN KEY ("ID_EVENTO")
-      REFERENCES "EVENTO" ("ID_EVENTO") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE "REG_SEG_PERSONAL"
-  OWNER TO postgres;
-
--- Index: "INDX_REG_SEGPERS"
-
--- DROP INDEX "INDX_REG_SEGPERS";
-
-CREATE INDEX "INDX_REG_SEGPERS"
-  ON "REG_SEG_PERSONAL"
-  USING btree
-  ("ID_REG_SEG_PERSONAL");
+ALTER TABLE ONLY acl_class ALTER COLUMN id SET DEFAULT nextval('acl_class_id_seq'::regclass);
 
 
-  
--- Sequence: sec_bitacora
+--
+-- TOC entry 2070 (class 2604 OID 116136)
+-- Name: acl_entry id; Type: DEFAULT; Schema: public; Owner: -
+--
 
--- DROP SEQUENCE sec_bitacora;
-
-CREATE SEQUENCE sec_bitacora
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 48
-  CACHE 1;
-ALTER TABLE sec_bitacora
-  OWNER TO postgres;
-
-  
--- Sequence: sec_cliente
-
--- DROP SEQUENCE sec_cliente;
-
-CREATE SEQUENCE sec_cliente
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 22
-  CACHE 1;
-ALTER TABLE sec_cliente
-  OWNER TO postgres;
-
- 
--- Sequence: sec_evento
-
--- DROP SEQUENCE sec_evento;
-
-CREATE SEQUENCE sec_evento
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 100
-  CACHE 1;
-ALTER TABLE sec_evento
-  OWNER TO postgres;
-
-  
--- Sequence: sec_factura
-
--- DROP SEQUENCE sec_factura;
-
-CREATE SEQUENCE sec_factura
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 101
-  CACHE 1;
-ALTER TABLE sec_factura
-  OWNER TO postgres;
-
-  
--- Sequence: sec_gasto
-
--- DROP SEQUENCE sec_gasto;
-
-CREATE SEQUENCE sec_gasto
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 126
-  CACHE 1;
-ALTER TABLE sec_gasto
-  OWNER TO postgres;
-
-  
--- Sequence: sec_hospital
-
--- DROP SEQUENCE sec_hospital;
-
-CREATE SEQUENCE sec_hospital
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 17
-  CACHE 1;
-ALTER TABLE sec_hospital
-  OWNER TO postgres;
-
-  
--- Sequence: sec_implant
-
--- DROP SEQUENCE sec_implant;
-
-CREATE SEQUENCE sec_implant
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 39
-  CACHE 1;
-ALTER TABLE sec_implant
-  OWNER TO postgres;
-
--- Sequence: sec_med_tratante
-
--- DROP SEQUENCE sec_med_tratante;
-
-CREATE SEQUENCE sec_med_tratante
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 43
-  CACHE 1;
-ALTER TABLE sec_med_tratante
-  OWNER TO postgres;
+ALTER TABLE ONLY acl_entry ALTER COLUMN id SET DEFAULT nextval('acl_entry_id_seq'::regclass);
 
 
--- Table: "FACTURA"
--- DROP TABLE "FACTURA";
-CREATE TABLE "FACTURA"
-(
-  "ID_FACTURA" integer NOT NULL,
-  "APROBADA" character varying(15),
-  "DETALLE" character varying(250),
-  "OBSERVACIONES" character varying(200),
-  "RUTA_FACTURA" character varying(100),
-  "ID_EVENTO" integer,
-  "MONTO" double precision,
-  "NUM_FACTURA" character varying(60),
-  "AJUSTE_FACTURA" double precision,
-  "MONTO_CFC" double precision,
-  "TIPO_CFC" character varying(40),
-  "FOLIO_CFC" character varying(40),
-  "ARCHIVO" bytea,
-  CONSTRAINT "FACTURA_pkey" PRIMARY KEY ("ID_FACTURA")
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE "FACTURA"
-  OWNER TO postgres;
+--
+-- TOC entry 2071 (class 2604 OID 116137)
+-- Name: acl_object_identity id; Type: DEFAULT; Schema: public; Owner: -
+--
 
--- Index: "INDEX_FACTURA"
+ALTER TABLE ONLY acl_object_identity ALTER COLUMN id SET DEFAULT nextval('acl_object_identity_id_seq'::regclass);
 
--- DROP INDEX "INDEX_FACTURA";
 
-CREATE INDEX "INDEX_FACTURA"
-  ON "FACTURA"
-  USING btree
-  ("ID_FACTURA");
+--
+-- TOC entry 2072 (class 2604 OID 116138)
+-- Name: acl_sid id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_sid ALTER COLUMN id SET DEFAULT nextval('acl_sid_id_seq'::regclass);
+
+
+--
+-- TOC entry 2115 (class 2606 OID 116233)
+-- Name: CIRUGIA_SOLICITADA CIRUGIA_SOLICITADA_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "CIRUGIA_SOLICITADA"
+    ADD CONSTRAINT "CIRUGIA_SOLICITADA_pkey" PRIMARY KEY ("ID_CIRUGIA_SOLICITADA");
+
+
+--
+-- TOC entry 2113 (class 2606 OID 116215)
+-- Name: EMPRESA EMPRESA_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "EMPRESA"
+    ADD CONSTRAINT "EMPRESA_pkey" PRIMARY KEY ("ID_EMPRESA");
+
+
+--
+-- TOC entry 2078 (class 2606 OID 115960)
+-- Name: ICD ICD_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "ICD"
+    ADD CONSTRAINT "ICD_pkey" PRIMARY KEY ("ID_ICD");
+
+
+--
+-- TOC entry 2111 (class 2606 OID 116207)
+-- Name: MEDICO_TRATANTE MEDICO_TRATANTE_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "MEDICO_TRATANTE"
+    ADD CONSTRAINT "MEDICO_TRATANTE_pkey" PRIMARY KEY ("ID_MEDICO_TRATANTE");
+
+
+--
+-- TOC entry 2076 (class 2606 OID 99571)
+-- Name: SOLICITUD_CIRUGIA_PROGRAMADA SOLICITUD_CIRUGIA_PROGRAMADA_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "SOLICITUD_CIRUGIA_PROGRAMADA"
+    ADD CONSTRAINT "SOLICITUD_CIRUGIA_PROGRAMADA_pkey" PRIMARY KEY ("ID_SOLICITUD_CIRUGIA_PROGRAMADA");
+
+
+--
+-- TOC entry 2082 (class 2606 OID 116140)
+-- Name: acl_class acl_class_class_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_class
+    ADD CONSTRAINT acl_class_class_key UNIQUE (class);
+
+
+--
+-- TOC entry 2084 (class 2606 OID 116142)
+-- Name: acl_class acl_class_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_class
+    ADD CONSTRAINT acl_class_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2086 (class 2606 OID 116144)
+-- Name: acl_entry acl_entry_acl_object_identity_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_entry
+    ADD CONSTRAINT acl_entry_acl_object_identity_key UNIQUE (acl_object_identity, ace_order);
+
+
+--
+-- TOC entry 2088 (class 2606 OID 116146)
+-- Name: acl_entry acl_entry_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_entry
+    ADD CONSTRAINT acl_entry_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2090 (class 2606 OID 116148)
+-- Name: acl_object_identity acl_object_identity_object_id_class_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_object_identity
+    ADD CONSTRAINT acl_object_identity_object_id_class_key UNIQUE (object_id_class, object_id_identity);
+
+
+--
+-- TOC entry 2092 (class 2606 OID 116150)
+-- Name: acl_object_identity acl_object_identity_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_object_identity
+    ADD CONSTRAINT acl_object_identity_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2094 (class 2606 OID 116152)
+-- Name: acl_sid acl_sid_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_sid
+    ADD CONSTRAINT acl_sid_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2096 (class 2606 OID 116154)
+-- Name: acl_sid acl_sid_sid_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_sid
+    ADD CONSTRAINT acl_sid_sid_key UNIQUE (sid, principal);
+
+
+--
+-- TOC entry 2080 (class 2606 OID 115966)
+-- Name: CPT pc_cpt; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "CPT"
+    ADD CONSTRAINT pc_cpt UNIQUE ("ID_CPT");
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 2099 (class 2606 OID 116156)
+-- Name: t_opcion_menu t_opcion_pkey; Type: CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_opcion_menu
+    ADD CONSTRAINT t_opcion_pkey PRIMARY KEY (id_t_opcion);
+
+
+--
+-- TOC entry 2101 (class 2606 OID 116158)
+-- Name: t_r_usuario_rol t_r_usuario_rol_pkey; Type: CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_r_usuario_rol
+    ADD CONSTRAINT t_r_usuario_rol_pkey PRIMARY KEY (id_tr_usuario, id_tr_rol);
+
+
+--
+-- TOC entry 2103 (class 2606 OID 116160)
+-- Name: t_rol_seguridad t_rol_seguridad_pkey; Type: CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_rol_seguridad
+    ADD CONSTRAINT t_rol_seguridad_pkey PRIMARY KEY (id_t_rol);
+
+
+--
+-- TOC entry 2105 (class 2606 OID 116162)
+-- Name: t_rol_seguridad t_rol_seguridad_v_rol_key; Type: CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_rol_seguridad
+    ADD CONSTRAINT t_rol_seguridad_v_rol_key UNIQUE (v_rol);
+
+
+--
+-- TOC entry 2107 (class 2606 OID 116164)
+-- Name: t_usuario_seguridad t_usuario_seguridad_pkey; Type: CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_usuario_seguridad
+    ADD CONSTRAINT t_usuario_seguridad_pkey PRIMARY KEY (id_t_usuario);
+
+
+--
+-- TOC entry 2109 (class 2606 OID 116166)
+-- Name: t_usuario_seguridad t_usuario_seguridad_v_username_key; Type: CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_usuario_seguridad
+    ADD CONSTRAINT t_usuario_seguridad_v_username_key UNIQUE (v_username);
+
+
+--
+-- TOC entry 2097 (class 1259 OID 116167)
+-- Name: fki_t_opcion_padre; Type: INDEX; Schema: seguridad; Owner: -
+--
+
+CREATE INDEX fki_t_opcion_padre ON t_opcion_menu USING btree (id_t_opcion);
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 2128 (class 2606 OID 116239)
+-- Name: CIRUGIA_SOLICITADA FK_CIRUG_PROC1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "CIRUGIA_SOLICITADA"
+    ADD CONSTRAINT "FK_CIRUG_PROC1" FOREIGN KEY ("ID_PROCEDIMIENTO_1") REFERENCES "CPT"("ID_CPT");
+
+
+--
+-- TOC entry 2129 (class 2606 OID 116244)
+-- Name: CIRUGIA_SOLICITADA FK_CIRUG_PROC2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "CIRUGIA_SOLICITADA"
+    ADD CONSTRAINT "FK_CIRUG_PROC2" FOREIGN KEY ("ID_PROCEDIMIENTO_2") REFERENCES "CPT"("ID_CPT");
+
+
+--
+-- TOC entry 2130 (class 2606 OID 116249)
+-- Name: CIRUGIA_SOLICITADA FK_CIRUG_PROC3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "CIRUGIA_SOLICITADA"
+    ADD CONSTRAINT "FK_CIRUG_PROC3" FOREIGN KEY ("ID_CIRUGIA_SOLICITADA") REFERENCES "CPT"("ID_CPT");
+
+
+--
+-- TOC entry 2118 (class 2606 OID 116259)
+-- Name: SOLICITUD_CIRUGIA_PROGRAMADA FK_CIRUG_SOL1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "SOLICITUD_CIRUGIA_PROGRAMADA"
+    ADD CONSTRAINT "FK_CIRUG_SOL1" FOREIGN KEY ("ID_CIRUGIA_SOLICITADA_1") REFERENCES "CIRUGIA_SOLICITADA"("ID_CIRUGIA_SOLICITADA");
+
+
+--
+-- TOC entry 2119 (class 2606 OID 116264)
+-- Name: SOLICITUD_CIRUGIA_PROGRAMADA FK_CIRUG_SOL2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "SOLICITUD_CIRUGIA_PROGRAMADA"
+    ADD CONSTRAINT "FK_CIRUG_SOL2" FOREIGN KEY ("ID_CIRUGIA_SOLICITADA_2") REFERENCES "ICD"("ID_ICD");
+
+
+--
+-- TOC entry 2117 (class 2606 OID 116221)
+-- Name: SOLICITUD_CIRUGIA_PROGRAMADA FK_CP_MED_TRAT; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "SOLICITUD_CIRUGIA_PROGRAMADA"
+    ADD CONSTRAINT "FK_CP_MED_TRAT" FOREIGN KEY ("ID_MEDICO_TRATANTE") REFERENCES "MEDICO_TRATANTE"("ID_MEDICO_TRATANTE");
+
+
+--
+-- TOC entry 2127 (class 2606 OID 116234)
+-- Name: CIRUGIA_SOLICITADA FK_DIAGING; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "CIRUGIA_SOLICITADA"
+    ADD CONSTRAINT "FK_DIAGING" FOREIGN KEY ("ID_DIAGNOSTICO_INGRESO") REFERENCES "ICD"("ID_ICD");
+
+
+--
+-- TOC entry 2116 (class 2606 OID 116216)
+-- Name: SOLICITUD_CIRUGIA_PROGRAMADA FK_EMPRESA_CP; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "SOLICITUD_CIRUGIA_PROGRAMADA"
+    ADD CONSTRAINT "FK_EMPRESA_CP" FOREIGN KEY ("ID_EMPRESA") REFERENCES "EMPRESA"("ID_EMPRESA");
+
+
+--
+-- TOC entry 2131 (class 2606 OID 116254)
+-- Name: CIRUGIA_SOLICITADA FK_OTRASENF1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "CIRUGIA_SOLICITADA"
+    ADD CONSTRAINT "FK_OTRASENF1" FOREIGN KEY ("ID_ICD_OTRASENF_1") REFERENCES "ICD"("ID_ICD");
+
+
+--
+-- TOC entry 2120 (class 2606 OID 116168)
+-- Name: acl_entry fk_acl_entry_acl_object_identity; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_entry
+    ADD CONSTRAINT fk_acl_entry_acl_object_identity FOREIGN KEY (acl_object_identity) REFERENCES acl_object_identity(id);
+
+
+--
+-- TOC entry 2121 (class 2606 OID 116173)
+-- Name: acl_entry fk_acl_entry_acl_sid; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_entry
+    ADD CONSTRAINT fk_acl_entry_acl_sid FOREIGN KEY (sid) REFERENCES acl_sid(id);
+
+
+--
+-- TOC entry 2122 (class 2606 OID 116178)
+-- Name: acl_object_identity fk_acl_object_identity_acl_class; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_object_identity
+    ADD CONSTRAINT fk_acl_object_identity_acl_class FOREIGN KEY (object_id_class) REFERENCES acl_class(id);
+
+
+--
+-- TOC entry 2123 (class 2606 OID 116183)
+-- Name: acl_object_identity fk_acl_object_identity_acl_sid; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY acl_object_identity
+    ADD CONSTRAINT fk_acl_object_identity_acl_sid FOREIGN KEY (owner_sid) REFERENCES acl_sid(id);
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 2124 (class 2606 OID 116188)
+-- Name: t_opcion_menu fk_t_opcion_padre; Type: FK CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_opcion_menu
+    ADD CONSTRAINT fk_t_opcion_padre FOREIGN KEY (id_t_opcion) REFERENCES t_opcion_menu(id_t_opcion);
+
+
+--
+-- TOC entry 2125 (class 2606 OID 116193)
+-- Name: t_r_usuario_rol t_r_usuario_rol_id_tr_rol_fkey; Type: FK CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_r_usuario_rol
+    ADD CONSTRAINT t_r_usuario_rol_id_tr_rol_fkey FOREIGN KEY (id_tr_rol) REFERENCES t_rol_seguridad(id_t_rol);
+
+
+--
+-- TOC entry 2126 (class 2606 OID 116198)
+-- Name: t_r_usuario_rol t_r_usuario_rol_id_tr_usuario_fkey; Type: FK CONSTRAINT; Schema: seguridad; Owner: -
+--
+
+ALTER TABLE ONLY t_r_usuario_rol
+    ADD CONSTRAINT t_r_usuario_rol_id_tr_usuario_fkey FOREIGN KEY (id_tr_usuario) REFERENCES t_usuario_seguridad(id_t_usuario);
+
+
+-- Completed on 2017-10-23 22:59:39
+
+--
+-- PostgreSQL database dump complete
+--
+

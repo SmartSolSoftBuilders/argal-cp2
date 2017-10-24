@@ -1,21 +1,22 @@
 
-<div style="max-height: 600px;">
+<div style="max-height: 800px;">
 	<div id="tabs">
 		<ul>
 			<li><a href="#tabs-1">CIRUGÍA SOLICITADA (1)</a></li>
 			<li><a href="#tabs-2">CIRUGÍA SOLICITADA (2)</a></li>
 		</ul>
 		<div id="tabs-1">
-			<fieldset style="height: 100%;">
+			<fieldset style="height: 100%;">			
 				<input type="hidden" id="icdSelHidden" name="icdSelHidden" /> <input
 					type="hidden" id="cptSelHidden" name="cptSelHidden" /> <input
 					type="hidden" id="icdHidden" name="icdHidden" /> <input
 					type="hidden" id="cptHidden" name="cptHidden" /> <input
 					type="hidden" id="idCptHidden" name="idCptHidden" /> <input
 					type="hidden" id="idIcdHidden" name="idIcdHidden" />
-				<div class="form-group">
-					<form method="POST" action="contact-form-submission.php"
-						class="form-horizontal" id="contact-form">
+				<div class="cirugia-form">
+					<form method="POST" action="algo.php"
+						class="form-horizontal" id="cirugia-form">
+						<input type="hidden" id="idCirugia1" name="idCirugia1" />
 						<table border=1>
 							<tr>
 								<td>
@@ -154,6 +155,9 @@
 												onclick="showGridIcd(1)">
 										</div>
 									</div>
+									<div>
+										<button type="submit" ><img src="static/img/save.png" width="50px" /></button>
+									</div>
 								</td>
 							</tr>
 						</table>
@@ -280,17 +284,11 @@
 				</div>
 			</fieldset>
 		</div>
-	</div>
-	<button type="submit" class="btn btn-primary">Guardar Sección</button>
-	<button type="submit" class="btn btn-primary">Continuar</button>
+	</div>	
 	<div id="gridIcd" style="display: none;">
-		<jsp:include page="../../icd/grid_icds.jsp"></jsp:include>
-		<button type="submit" class="btn btn-primary">Guardar Sección</button>
-		<button type="submit" class="btn btn-primary">Continuar</button>
+		<jsp:include page="../../icd/grid_icds.jsp"></jsp:include>		
 	</div>
 	<div id="gridCpt" style="display: none;">
-		<jsp:include page="../../cpt/grid_cpts.jsp"></jsp:include>
-		<button type="submit" class="btn btn-primary">Guardar Sección</button>
-		<button type="submit" class="btn btn-primary">Continuar</button>
+		<jsp:include page="../../cpt/grid_cpts.jsp"></jsp:include>		
 	</div>
 </div>

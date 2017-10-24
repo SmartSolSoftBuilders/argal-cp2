@@ -1,5 +1,4 @@
 $(document).ready(function() {  
-  $("#accordion").accordion();
   $("#tabs").tabs();
   $('#contact-form').validate({
     rules: {
@@ -29,7 +28,28 @@ $(document).ready(function() {
        return false;
      }
   });
+  $('#cirugia-form').validate({
+	    rules: {
+	    	idIcd1: {
+	    		minlength: 2,
+	    		required: true
+	      }
+	    },
+	    highlight: function(element) {
+	      $(element).closest('.control-group').removeClass('success').addClass('error');
+	    },
+	    success: function(element) {
+	      element.text('OK!').addClass('valid')
+	        .closest('.control-group').removeClass('error').addClass('success');          
+	    },
+	    submitHandler: function(form) {
+	        // do other things for a valid form
+	    	guardar_p2();
+	        return false;
+	     }
+	  });
   cargarIcdCpt();
+  cargarEmpresas();
   if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!="") 
 	  cargarSolicitud($("#idSolicitud").val());
 });
@@ -47,10 +67,40 @@ function guardar(){
 			"sexoBeneficiarioSolicitudCirugiaProgramada" : $("#sexobenefradiobutton").val(),
 			"numNominaBeneficiarioSolicitudCirugiaProgramada" : $("#numNomina").val(),
 			"tipoSolicitudCirugiaProgramada" : $("#tipoCirugiaSel").val(),
-			"empresaBeneficiarioSolicitudCirugiaProgramada" : $("#empresa").val()
+			"empresa.idEmpresa" : $("#empresa").val()
 		},
 		dataType : 'json',
 		url : 'mvc/solicitud/guardar_solicitud',
+		type : 'post',
+		beforeSend : function() {
+			// $("#resultado").html("Procesando, espere por favor..."),
+			// alert("OK!")
+		},
+		success : function(response) {
+			alert(response)
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
+			$("#idSolicitud").val(response.idSolicitudCirugiaProgramada);
+			// console.log(response)
+		},
+		error : function(response) {
+			alert("error!")
+			// console.log(response)
+		}
+	});	
+}
+
+function guardar_p2(){
+	console.log("guardar")
+	$.ajax({
+		async : false,
+		data : {
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),			
+			"cirugiaSolicitadaUno.idCirugiaSolicitada" : $("#idCirugia1").val(),
+			"cirugiaSolicitadaUno.diagnosticoIngreso.idIcd" : $("#idIcd1").val(),
+			"cirugiaSolicitadaUno.numCirugia":1
+		},
+		dataType : 'json',
+		url : 'mvc/solicitud/guardar_solicitud_p2',
 		type : 'post',
 		beforeSend : function() {
 			// $("#resultado").html("Procesando, espere por favor..."),
@@ -131,6 +181,21 @@ function cargarIcdCpt(){
 		        "data": data,"bDestroy": false
 		 });
 	});
+}
+
+function cargarEmpresas(){			  	
+	$.ajax({
+		method:"post",
+		async:false,
+		url: "mvc/empresa/getempresasactivas"
+	  	}).done(function(data) {
+	  		//console.log(data)
+	  		var optionsAsString = "";   		
+	   		for (i=0;i<data.length;i++){   			   		
+	   		    optionsAsString += "<option value='" + data[i].idEmpresa + "'>" + data[i].nombreCorto + "</option>";
+			}      		
+	   		$( 'select[name="empresa"]' ).append( optionsAsString );
+	 });	 
 }
 
 function loadWindowIcd(numIcd){

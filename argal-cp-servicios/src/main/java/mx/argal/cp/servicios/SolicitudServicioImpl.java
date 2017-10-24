@@ -2,6 +2,7 @@ package mx.argal.cp.servicios;
 
 import mx.argal.cp.dao.SolicitudDao;
 import mx.argal.cp.dao.UsuarioDao;
+import mx.argal.cp.modelo.CirugiaSolicitada;
 import mx.argal.cp.modelo.MedicoTratante;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.modelo.Usuario;
@@ -115,6 +116,12 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 			e.printStackTrace();
 		}
 		return solicitudesReturn;
+	}
+
+	@Override
+	public Integer guardarSolicitudCirugias(CirugiaSolicitada cirugiaSolicitada) {
+		// TODO Auto-generated method stub
+		return this.solicitudDao.guardarSolicitudCirugias(cirugiaSolicitada);
 	}	
 	
 }

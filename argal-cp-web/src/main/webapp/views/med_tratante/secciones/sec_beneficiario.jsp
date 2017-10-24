@@ -1,36 +1,34 @@
-
-<fieldset style="height: 60%;">
+<fieldset style="height: 98%;">
 	<div class="form-group">
-		<form method="POST" action="contact-form-submission.php"
-			class="form-horizontal" id="contact-form">
+		<form method="POST" action="contact-form-submission.php" class="form-horizontal" id="contact-form" style="height: 70%;">			
 			<table border=1>
 				<tr>
 					<td>
 						<div class="control-group">
-							<label class="control-label" for="name">Nombre</label>
+							<label class="control-label" for="name">Nombre:</label>
 							<div class="controls">
 								<input type="text" name="nombrePaciente" id="nombrePaciente"
-									placeholder="paciente" required>
+									placeholder="nombre (s)" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
 					</td>
 					<td>
 						<div class="control-group">
 							<label for="apellidoP" class="control-label">Apellido
-								Paterno</label>
+								Paterno:</label>
 							<div class="controls">
 								<input type="text" class="form-control" id="apellidoP"
-									placeholder="apellidoP" data-error="apellido paterno" required>
+									placeholder="apellidoP" data-error="apellido paterno" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
 					</td>
 					<td>
 						<div class="control-group">
 							<label for="apellidoM" class="control-label">Apellido
-								Materno</label>
+								Materno:</label>
 							<div class="controls">
 								<input type="text" class="form-control" id="apellidoM"
-									placeholder="apellidoM" data-error="apellido materno" required>
+									placeholder="apellidoM" data-error="apellido materno" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
 					</td>
@@ -38,7 +36,7 @@
 				<tr>
 					<td>
 						<div class="control-group">
-							<label for="edad" class="control-label">Edad</label>
+							<label for="edad" class="control-label">Edad:</label>
 							<div class="controls">
 								<input type="text" class="form-control" id="edad"
 									placeholder="edad" required>
@@ -48,7 +46,7 @@
 					<td align="center">
 						<div class="control-group">
 							<div class="control-group">
-								Sexo <input type="radio" class="form-check-input"
+								Sexo: <input type="radio" class="form-check-input"
 									name="sexobenefradiobutton" id="sexobenefradiobutton"
 									value="MASCULINO"> Masculino <input type="radio"
 									class="form-check-input" name="sexobenefradiobutton"
@@ -58,10 +56,11 @@
 					</td>
 					<td align="center">
 						<div class="control-group" align="center">
-							<label for="empresa" class="control-label">Empresa</label>
+							<label for="empresa" class="control-label">Empresa:</label>
 							<div class="controls">
-								<input type="text" class="form-control" id="empresa"
-									placeholder="empresa" data-error="empresa" required>
+								<select class="form-control" name="empresa" id="empresa" required>
+									<option value="">Seleccione</option>									
+								</select>
 							</div>
 						</div>
 					</td>
@@ -70,17 +69,17 @@
 					<td>
 						<div class="control-group">
 							<label for="numNomina" class="control-label">Clave/Número
-								Nómina</label>
+								Nómina:</label>
 							<div class="controls">
 								<input type="text" class="form-control" id="numNomina"
-									placeholder="numNomina" data-error="empresa" required>
+									placeholder="número nómina" data-error="empresa" required>
 							</div>
 						</div>
 					</td>
 					<td>
 						<div class="control-group" align="center">
 							<label for="tipoCirugiaSel" class="control-label">Tipo
-								Cirugía</label>
+								Cirugía:</label>
 							<div class="controls">
 								<select class="form-control" id="tipoCirugiaSel">
 									<option value=1>AMBULATORIA</option>
@@ -89,8 +88,8 @@
 							</div>
 						</div>
 					</td>
-					<td align="center">
-						<button type="submit" ><img src="static/img/save.png" width="50px" /></button>
+					<td align="right">
+						<button type="submit" style="background: none;border: none;"><img src="static/img/save.png" width="50px" /></button>
 					</td>
 				</tr>
 			</table>

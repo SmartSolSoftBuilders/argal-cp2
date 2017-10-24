@@ -66,6 +66,20 @@
 				<input type="hidden" id="idSolicitud" name="idSolicitud"/>				
 			</c:if>
 		</div>
+			<c:if test="${cirugiaSolicitada1.idCirugiaSolicitada!=null}">
+				<input type="hidden" id="idCirugiaSolicitada1" name="idCirugiaSolicitada1" value="<c:out value="${cirugiaSolicitada1.idCirugiaSolicitada}"/>"/>
+				<c:out value="${cirugiaSolicitada1.idCirugiaSolicitada}"/>
+			</c:if>
+			<c:if test="${cirugiaSolicitada1.idCirugiaSolicitada ==null}">
+				<input type="hidden" id="idCirugiaSolicitada1" name="idCirugiaSolicitada1"/>				
+			</c:if>
+			<c:if test="${cirugiaSolicitada2.idCirugiaSolicitada!=null}">
+				<input type="hidden" id="idCirugiaSolicitada2" name="idCirugiaSolicitada2" value="<c:out value="${cirugiaSolicitada2.idCirugiaSolicitada}"/>"/>
+				<c:out value="${cirugiaSolicitada2.idCirugiaSolicitada}"/>
+			</c:if>
+			<c:if test="${cirugiaSolicitada2.idCirugiaSolicitada ==null}">
+				<input type="hidden" id="idCirugiaSolicitada2" name="idCirugiaSolicitada2"/>				
+			</c:if>		
 		</td>
 	</tr>
 </table>	
@@ -76,13 +90,7 @@
 
 <button class="accordion"><img src="static/img/surgery.png" width="25px" />2) Datos de la cirugía</button>
 <div class="panel" id="panel2">
-	<jsp:include page="secciones/sec_cirugia.jsp"></jsp:include>
-	<table width="1200px">
-		<tr>						
-			<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>
-			<td><button type="button" onclick="nextTab(1)" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
-		</tr>
-	</table>
+	<jsp:include page="secciones/sec_cirugia.jsp"></jsp:include>	
 </div>						
 
 <button class="accordion"><img src="static/img/schedule.png" width="25px" />3)Programación</button>			
