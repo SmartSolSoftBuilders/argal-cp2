@@ -6,11 +6,11 @@ public class CirugiaSolicitada extends BaseModelo {
 	
 	private Integer idCirugiaSolicitada;
 	private Icd diagnosticoIngreso;
-	private Cpt procedimiento1;
-	private Cpt procedimiento2;
-	private Cpt procedimiento3;
+	private Cpt procedimientoUno;
+	private Cpt procedimientoDos;
+	private Cpt procedimientoTres;
 	private String fundamentosDiagnostico;
-	private Icd otrasEnf1;
+	private Icd otrasEnfUno;
 	private Integer numCirugia;
 	
 	public Integer getIdCirugiaSolicitada() {
@@ -29,28 +29,28 @@ public class CirugiaSolicitada extends BaseModelo {
 		this.diagnosticoIngreso = diagnosticoIngreso;
 	}
 
-	public Cpt getProcedimiento1() {
-		return procedimiento1;
+	public Cpt getProcedimientoUno() {
+		return procedimientoUno;
 	}
 
-	public void setProcedimiento1(Cpt procedimiento1) {
-		this.procedimiento1 = procedimiento1;
+	public void setProcedimientoUno(Cpt procedimientoUno) {
+		this.procedimientoUno = procedimientoUno;
 	}
 
-	public Cpt getProcedimiento2() {
-		return procedimiento2;
+	public Cpt getProcedimientoDos() {
+		return procedimientoDos;
 	}
 
-	public void setProcedimiento2(Cpt procedimiento2) {
-		this.procedimiento2 = procedimiento2;
+	public void setProcedimientoDos(Cpt procedimientoDos) {
+		this.procedimientoDos = procedimientoDos;
 	}
 
-	public Cpt getProcedimiento3() {
-		return procedimiento3;
+	public Cpt getProcedimientoTres() {
+		return procedimientoTres;
 	}
 
-	public void setProcedimiento3(Cpt procedimiento3) {
-		this.procedimiento3 = procedimiento3;
+	public void setProcedimientoTres(Cpt procedimientoTres) {
+		this.procedimientoTres = procedimientoTres;
 	}
 
 	public String getFundamentosDiagnostico() {
@@ -61,12 +61,12 @@ public class CirugiaSolicitada extends BaseModelo {
 		this.fundamentosDiagnostico = fundamentosDiagnostico;
 	}
 
-	public Icd getOtrasEnf1() {
-		return otrasEnf1;
+	public Icd getOtrasEnfUno() {
+		return otrasEnfUno;
 	}
 
-	public void setOtrasEnf1(Icd otrasEnf1) {
-		this.otrasEnf1 = otrasEnf1;
+	public void setOtrasEnfUno(Icd otrasEnfUno) {
+		this.otrasEnfUno = otrasEnfUno;
 	}
 
 	public Integer getNumCirugia() {
@@ -81,16 +81,16 @@ public class CirugiaSolicitada extends BaseModelo {
 		
 	}
 
-	public CirugiaSolicitada(Integer idCirugiaSolicitada, Icd diagnosticoIngreso, Cpt procedimiento1,
-			Cpt procedimiento2, Cpt procedimiento3, String fundamentosDiagnostico, Icd otrasEnf1, Integer numCirugia) {
+	public CirugiaSolicitada(Integer idCirugiaSolicitada, Icd diagnosticoIngreso, Cpt procedimientoUno,
+			Cpt procedimientoDos, Cpt procedimientoTres, String fundamentosDiagnostico, Icd otrasEnfUno, Integer numCirugia) {
 		super();
 		this.idCirugiaSolicitada = idCirugiaSolicitada;
 		this.diagnosticoIngreso = diagnosticoIngreso;
-		this.procedimiento1 = procedimiento1;
-		this.procedimiento2 = procedimiento2;
-		this.procedimiento3 = procedimiento3;
+		this.procedimientoUno = procedimientoUno;
+		this.procedimientoDos = procedimientoDos;
+		this.procedimientoTres = procedimientoTres;
 		this.fundamentosDiagnostico = fundamentosDiagnostico;
-		this.otrasEnf1 = otrasEnf1;
+		this.otrasEnfUno = otrasEnfUno;
 		this.numCirugia = numCirugia;
 	}
 		

@@ -90,14 +90,15 @@ function guardar(){
 }
 
 function guardar_p2(){
-	console.log("guardar")
+	console.log("guardar"+$("#idIcd1").val())
 	$.ajax({
 		async : false,
 		data : {
-			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),			
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),
 			"cirugiaSolicitadaUno.idCirugiaSolicitada" : $("#idCirugia1").val(),
 			"cirugiaSolicitadaUno.diagnosticoIngreso.idIcd" : $("#idIcd1").val(),
-			"cirugiaSolicitadaUno.numCirugia":1
+			"cirugiaSolicitadaUno.diagnosticoIngreso.id" : $("#idIcd1").val(),
+			"cirugiaSolicitadaUno.numCirugia" : 1
 		},
 		dataType : 'json',
 		url : 'mvc/solicitud/guardar_solicitud_p2',
@@ -145,7 +146,7 @@ function cargarSolicitud(){
 			$("#tipoCirugiaSel").val(response.tipoSolicitudCirugiaProgramada);
 			$("#empresa").val(response.empresaBeneficiarioSolicitudCirugiaProgramada);
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
-			$("#idSolicitud").val(response.idSolicitudCirugiaProgramada);
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada+"<input type='hidden' id='idSolicitud' name='idSolicitud' value='" + response.idSolicitudCirugiaProgramada +"'/>");
 			// console.log(response)
 		},
 		error : function(response) {
@@ -221,14 +222,14 @@ function loadWindowCpt(numCpt){
 }
 
 function selectIcd(valor,valor2){
-	$( "#idIcd1"+$( "#icdSelHidden").val()).val(valor);
+	$( "#idIcd"+$( "#icdSelHidden").val()).val(valor);
 	$( "#icd"+$( "#icdSelHidden").val()).val(valor2);
 	$( "#gridIcd" ).dialog('close');		 
 }
 
 
 function selectCpt(valor,valor2){
-	$( "#idCpt1"+$( "#cptSelHidden").val()).val(valor);
+	$( "#idCpt"+$( "#cptSelHidden").val()).val(valor);
 	$( "#cpt"+$( "#cptSelHidden").val()).val(valor2);
 	$( "#gridCpt" ).dialog('close');		 
 }

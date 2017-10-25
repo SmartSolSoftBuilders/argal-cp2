@@ -107,12 +107,12 @@
 	</insert>
 	
 	<insert id="guardarSolicitudCirugias" parameterType="CirugiaSolicitada"  keyProperty="id">
-		<selectKey keyProperty="cirugiaSolicitada.id" resultType="long" order="BEFORE">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
   		   	SELECT nextVal('sec_cirugia_solicitada')
   		</selectKey>	  		
   			INSERT INTO public."CIRUGIA_SOLICITADA"(
 			"ID_CIRUGIA_SOLICITADA", "ID_DIAGNOSTICO_INGRESO", "NUM_CIRUGIA" ,"FUNDAMENTOS_DIAGNÓSTICO") 
-				VALUES (#{id}, #{diagnosticoIngreso.idDiagnosticoIngreso}, #{numCirugia}, #{fundamentosDiagnostico});					
+				VALUES (#{id}, #{diagnosticoIngreso.idIcd}, #{numCirugia}, #{fundamentosDiagnostico});					
 	</insert>
 	
 	<update id="guardarSolicitudByParams" parameterType="SolicitudCirugiaProgramada">

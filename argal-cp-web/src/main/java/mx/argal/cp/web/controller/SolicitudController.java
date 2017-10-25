@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import mx.argal.seguridad.modelo.UsuarioSeguridad;
 import mx.argal.seguridad.servicios.MttoSeguridadServicio;
 import mx.argal.seguridad.util.SeguridadUtil;
+import mx.argal.cp.modelo.CirugiaSolicitada;
 import mx.argal.cp.modelo.MedicoTratante;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.servicios.SolicitudServicio;
@@ -79,11 +80,13 @@ public class SolicitudController {
 	@RequestMapping(value="/guardar_solicitud_p2",method = RequestMethod.POST)
     @ResponseBody
     public SolicitudCirugiaProgramada guardarSolicitudP2(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
-		System.out.println("<OTIKA>Guardando!!!"+solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());
-		System.out.println("<OTIKA>Guardando!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getIdIcd());
+		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId());		
 		if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno()!=null){
-			if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getIdIcd()!=null)
+			if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId()!=null){
+				/*Asignar los ids*/
+				solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().setIdIcd(solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId().intValue());
 				this.solicitudServicio.guardarSolicitudCirugias(solicitudCirugiaProgramada.getCirugiaSolicitadaUno());
+			}
 		}    	
     	return solicitudCirugiaProgramada;    	  
 	}
