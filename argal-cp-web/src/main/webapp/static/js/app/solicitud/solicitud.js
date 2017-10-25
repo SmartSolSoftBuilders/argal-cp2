@@ -98,7 +98,13 @@ function guardar_p2(){
 			"cirugiaSolicitadaUno.idCirugiaSolicitada" : $("#idCirugia1").val(),
 			"cirugiaSolicitadaUno.diagnosticoIngreso.idIcd" : $("#idIcd1").val(),
 			"cirugiaSolicitadaUno.diagnosticoIngreso.id" : $("#idIcd1").val(),
-			"cirugiaSolicitadaUno.numCirugia" : 1
+			"cirugiaSolicitadaUno.fundamentosDiagnostico": $("#fundamentosDiagnostico1").val(),
+			"cirugiaSolicitadaUno.numCirugia" : 1,
+			"cirugiaSolicitadaDos.idCirugiaSolicitada" : $("#idCirugia2").val(),
+			"cirugiaSolicitadaDos.diagnosticoIngreso.idIcd" : $("#idIcd7").val(),
+			"cirugiaSolicitadaDos.diagnosticoIngreso.id" : $("#idIcd7").val(),
+			"cirugiaSolicitadaDos.fundamentosDiagnostico": $("#fundamentosDiagnostico2").val(),
+			"cirugiaSolicitadaDos.numCirugia" : 2
 		},
 		dataType : 'json',
 		url : 'mvc/solicitud/guardar_solicitud_p2',

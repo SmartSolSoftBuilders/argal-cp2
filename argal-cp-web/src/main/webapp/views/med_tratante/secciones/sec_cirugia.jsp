@@ -83,8 +83,8 @@
 										<label class="control-label" for="message">Fundamentos
 											del Diagnóstico:</label>
 										<div class="controls">
-											<textarea name="message" id="message" rows="8" class="span5"
-												placeholder="The message you want to send to us."></textarea>
+											<textarea name="fundamentosDiagnostico1" id="fundamentosDiagnostico1" rows="8" class="span5"
+												placeholder="The message you want to send to us." onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
 										</div>
 									</div>
 								</td>
