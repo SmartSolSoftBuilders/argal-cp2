@@ -16,11 +16,21 @@
     <link href="static/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />   
     <link href="static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />          
     <link rel="stylesheet" href="static/css/jquery-ui.css">
+	
+	<link rel="stylesheet" type="text/css" href="static/css/jsgrid.min.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/jsgrid-theme.min.css" />	
 <!--Scripts-->
- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
- <script src="static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+    
+	<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+	<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+	<script src="static/js/app/dictaminador/db.js"></script>
+
+ 	<script src="static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+ 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  
  <script>
  	function loadPage(pagina){
  		$("#mainContent").load(pagina+".jsp");

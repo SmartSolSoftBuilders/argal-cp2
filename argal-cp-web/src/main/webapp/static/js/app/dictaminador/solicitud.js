@@ -1,6 +1,7 @@
 $(document).ready(function() {    
   if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!="") 
 	  cargarSolicitud($("#idSolicitud").val());
+  	  cargarGrid();
 });
 
 function guardar(){
@@ -131,3 +132,101 @@ function selectCpt(valor,valor2){
 function nextTab(id){
 	$( "#accordion" ).accordion({ active: id });
 }
+
+function cargarGrid(){
+	db = [{
+			"p":1
+	}];
+	
+	$("#jsGrid").jsGrid({
+        height: "70%",
+        width: "100%",
+        editing: true,
+        autoload: true,
+        paging: true,
+        deleteConfirm: function(item) {
+            return "The client \"" + item.Name + "\" will be removed. Are you sure?";
+        },
+        rowClick: function(args) {
+            showDetailsDialog("Edit", args.item);
+        },
+        controller: db,
+        fields: [
+            { name: "Procedimiento", type: "text", width: 150 },
+            { name: "¿Autorizar?", type: "select", width: 50 },
+            { name: "Honorarios Médico Tratante", type: "text", width: 200 },
+            { name: "Honorarios Ayudante 1", type: "text", items: db.countries, valueField: "Id", textField: "Name" },
+            { name: "Honorarios Ayudante 2", type: "text", title: "Honorarios ", sorting: false },
+            {
+                type: "control",
+                modeSwitchButton: false,
+                editButton: false,
+                headerTemplate: function() {
+                    return $("<button>").attr("type", "button").text("Add")
+                            .on("click", function () {
+                                showDetailsDialog("Add", {});
+                            });
+                }
+            }
+        ]
+    });
+
+    $("#detailsDialog").dialog({
+        autoOpen: false,
+        width: 400,
+        close: function() {
+            $("#detailsForm").validate().resetForm();
+            $("#detailsForm").find(".error").removeClass("error");
+        }
+    });
+
+    $("#detailsForm").validate({
+        rules: {
+            name: "required",
+            age: { required: true, range: [18, 150] },
+            address: { required: true, minlength: 10 },
+            country: "required"
+        },
+        messages: {
+            name: "Please enter name",
+            age: "Please enter valid age",
+            address: "Please enter address (more than 10 chars)",
+            country: "Please select country"
+        },
+        submitHandler: function() {
+            formSubmitHandler();
+        }
+    });
+
+    var formSubmitHandler = $.noop;
+
+    var showDetailsDialog = function(dialogType, client) {
+        $("#name").val(client.Name);
+        $("#age").val(client.Age);
+        $("#address").val(client.Address);
+        $("#country").val(client.Country);
+        $("#married").prop("checked", client.Married);
+
+        formSubmitHandler = function() {
+            saveClient(client, dialogType === "Add");
+        };
+
+        $("#detailsDialog").dialog("option", "title", dialogType + " Client")
+                .dialog("open");
+    };
+
+    var saveClient = function(client, isNew) {
+        $.extend(client, {
+            Name: $("#name").val(),
+            Age: parseInt($("#age").val(), 10),
+            Address: $("#address").val(),
+            Country: parseInt($("#country").val(), 10),
+            Married: $("#married").is(":checked")
+        });
+
+        $("#jsGrid").jsGrid(isNew ? "insertItem" : "updateItem", client);
+
+        $("#detailsDialog").dialog("close");
+    };
+}
+
