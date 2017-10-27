@@ -26,7 +26,7 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
-	<script src="static/js/app/dictaminador/db.js"></script>
+	<!--  script src="static/js/app/dictaminador/db.js"></script-->
 
  	<script src="static/bootstrap/js/bootstrap.js" type="text/javascript"></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>

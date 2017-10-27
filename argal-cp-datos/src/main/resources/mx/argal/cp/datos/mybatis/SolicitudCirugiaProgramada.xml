@@ -45,16 +45,47 @@
 	<resultMap id="cirugiaSolicitadaResult" type="CirugiaSolicitada">
 	    	<id property="idCirugiaSolicitada" column="ID_CIRUGIA_SOLICITADA" />
 	    	<result property="numCirugia" column="FUNDAMENTOS_DIAGNÓSTICO"/>	    		    	
-	    	<association property="idDiagnosticoIngreso" column="ID_DIAGNOSTICO_INGRESO" javaType="Icd" select="selectIcd"/>	    		    	
-	    	<association property="idProcedimiento1" column="ID_PROCEDIMIENTO_1" javaType="Cpt" select="selectCpt"/>
-	    	<association property="idProcedimiento2" column="ID_PROCEDIMIENTO_2" javaType="Cpt" select="selectCpt"/>
-	    	<association property="idProcedimiento3" column="ID_PROCEDIMIENTO_3" javaType="Cpt" select="selectCpt"/>
+	    	<association property="diagnosticoIngreso" column="ID_DIAGNOSTICO_INGRESO" javaType="Icd" select="selectIcd"/>	    		    	
+	    	<association property="procedimientoUno" column="ID_PROCEDIMIENTO_1" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoUno"/>
+	    	<association property="procedimientoDos" column="ID_PROCEDIMIENTO_2" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoDos"/>
+	    	<association property="procedimientoTres" column="ID_PROCEDIMIENTO_3" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoTres"/>
 	    	<association property="otrasEnf1" column="ID_ICD_OTRASENF_1" javaType="Icd" select="selectIcd"/>	    	
+	</resultMap>
+	
+	<resultMap id="procedimientoSolicitadoResult" type="ProcedimientoSolicitado">
+	    	<id property="idProcedimientoSolicitado" column="ID_PROCEDIMIENTO_SOLICITADO" />
+	    	<result property="autorizado" column="AUTORIZADO"/>
+	    	<result property="honorariosMedicosDictaminados" column="HONORARIOS_MED_DICTAMINADOS"/>
+	    	<result property="honorariosMedicosNegociados" column="HONORARIOS_MED_NEGOCIADOS"/>
+	    	<result property="honorariosMedicosAutorizados" column="HONORARIOS_MED_AUTORIZADOS"/>
+	    	<result property="honorariosAyudanteUnoDictaminados" column="HONORARIOS_AY1_DICTAMINADOS"/>
+	    	<result property="honorariosAyudanteUnoNegociados" column="HONORARIOS_AY1_NEGOCIADOS"/>
+	    	<result property="honorariosAyudanteUnoAutorizados" column="HONORARIOS_AY1_AUTORIZADOS"/>
+	    	<result property="honorariosAnestesiologoDictaminados" column="HONORARIOS_ANE_DICTAMINADOS"/>
+	    	<result property="honorariosAnestesiologoNegociados" column="HONORARIOS_ANE_NEGOCIADOS"/>
+	    	<result property="honorariosAnestesiologoAutorizados" column="HONORARIOS_ANE_AUTORIZADOS"/>
+	    	<result property="honorariosAyudanteDosDictaminados" column="HONORARIOS_AY2_DICTAMINADOS"/>
+	    	<result property="honorariosAyudanteDosNegociados" column="HONORARIOS_AY2_NEGOCIADOS"/>
+	    	<result property="honorariosAyudanteDosAutorizados" column="HONORARIOS_AY2_AUTORIZADOS"/>
+	    	<result property="numProcedimiento" column="NUM_PROCEDIMIENTO"/>	    		    	 
+	    	<association property="cpt" column="ID_CPT" javaType="Cpt" select="selectCpt"/>	    		    		    		    
 	</resultMap>
 
 	<select id="selectCpt" parameterType="int" resultMap="cptResult" resultType="Cpt">
 		select * from "CPT" where "ID_CPT"=#{idCpt} 	
-	</select>	
+	</select>
+	
+	<select id="selectProcedimientoSolicitadoUno" parameterType="int" resultMap="procedimientoSolicitadoResult" resultType="ProcedimientoSolicitado">
+		select * from "PROCEDIMIENTO_SOLICITADO" where "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado} and "NUM_PROCEDIMIENTO"=1
+	</select>
+	
+	<select id="selectProcedimientoSolicitadoDos" parameterType="int" resultMap="procedimientoSolicitadoResult" resultType="ProcedimientoSolicitado">
+		select * from "PROCEDIMIENTO_SOLICITADO" where "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado} and "NUM_PROCEDIMIENTO"=2
+	</select>
+	
+	<select id="selectProcedimientoSolicitadoTres" parameterType="int" resultMap="procedimientoSolicitadoResult" resultType="ProcedimientoSolicitado">
+		select * from "PROCEDIMIENTO_SOLICITADO" where "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado} and "NUM_PROCEDIMIENTO"=3
+	</select>
 	
 	<select id="selectIcd" parameterType="int" resultMap="icdResult" resultType="Icd">		 
 		select * from "ICD" where "ID_ICD"=#{idIcd} 	
@@ -67,7 +98,7 @@
 	<select id="selectEmpresa" parameterType="int" resultMap="empresaResult" resultType="Empresa">		 
 		select "ID_EMPRESA" from "EMPRESA" where "ID_EMPRESA"=#{idEmpresa} 	
 	</select> 
-	
+			
 	<select id="selectCirugiaSolicitadaUno" parameterType="int" resultMap="cirugiaSolicitadaResult" resultType="CirugiaSolicitada">		 
 		select * from "CIRUGIA_SOLICITADA" where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada} and "NUM_CIRUGIA"=1 	
 	</select>
@@ -96,6 +127,10 @@
 		<if test="status == 0">
 			select * from "SOLICITUD_CIRUGIA_PROGRAMADA"
 		</if>		
+	</select>
+	
+	<select id="obtenerCirugiaSolicitadaById" parameterType="map" resultMap="cirugiaSolicitadaResult" resultType="CirugiaSolicitada">		 
+		select * from "CIRUGIA_SOLICITADA" where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada} 	
 	</select>	
 		
 	<insert id="guardarSolicitud" parameterType="SolicitudCirugiaProgramada"  keyProperty="id">

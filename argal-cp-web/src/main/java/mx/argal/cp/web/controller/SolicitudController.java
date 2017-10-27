@@ -12,6 +12,7 @@ import mx.argal.seguridad.modelo.UsuarioSeguridad;
 import mx.argal.seguridad.servicios.MttoSeguridadServicio;
 import mx.argal.seguridad.util.SeguridadUtil;
 import mx.argal.cp.modelo.CirugiaSolicitada;
+import mx.argal.cp.modelo.Cpt;
 import mx.argal.cp.modelo.MedicoTratante;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.servicios.SolicitudServicio;
@@ -112,5 +113,14 @@ public class SolicitudController {
 		System.out.println("<OTIKA>get tipo cirugia!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
 		return this.solicitudServicio.obtenerSolicitudesAll(solicitudCirugiaProgramada);    	  
 	}
-		
+	
+	@RequestMapping(value="/getcirugiabyid",method = RequestMethod.GET)
+    @ResponseBody
+    public CirugiaSolicitada getCirugiabById(HttpServletRequest request){
+		System.out.println("<OTIKA>get cirugia!!!");
+		CirugiaSolicitada cirugiaSolicitada = new CirugiaSolicitada();
+		cirugiaSolicitada=this.solicitudServicio.obtenerCirugiaSolicitadaById(1);
+		return cirugiaSolicitada;    	  
+	}	
+	
 }

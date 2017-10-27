@@ -122,6 +122,20 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 	public Integer guardarSolicitudCirugias(CirugiaSolicitada cirugiaSolicitada) {
 		// TODO Auto-generated method stub
 		return this.solicitudDao.guardarSolicitudCirugias(cirugiaSolicitada);
+	}
+
+	@Override
+	public CirugiaSolicitada obtenerCirugiaSolicitadaById(Integer idCirugiaSolicitada) {
+		// TODO Auto-generated method stub
+		try {
+			CirugiaSolicitada cirugiaSolicitada = this.solicitudDao.obtenerCirugiaSolicitadaById(idCirugiaSolicitada);
+			System.out.println(cirugiaSolicitada);
+			return cirugiaSolicitada;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}	
 	
 }

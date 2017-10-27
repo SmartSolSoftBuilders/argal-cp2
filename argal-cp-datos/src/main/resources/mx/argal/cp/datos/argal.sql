@@ -341,7 +341,41 @@ CREATE TABLE t_opcion_menu (
     id_t_opcion_padre integer
 );
 
+-- Table: public."PROCEDIMIENTO_SOLICITADO"
 
+-- DROP TABLE public."PROCEDIMIENTO_SOLICITADO";
+
+CREATE TABLE public."PROCEDIMIENTO_SOLICITADO"
+(
+    "ID_PROCEDIMIENTO_SOLICITADO" integer NOT NULL,
+    "ID_CPT" integer,
+    "AUTORIZADO" boolean,
+    "HONORARIOS_MED_DICTAMINADOS" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" double precision,
+    "" integer,
+    CONSTRAINT "PROCEDIMIENTO_SOLICITADO_pkey" PRIMARY KEY ("ID_PROCEDIMIENTO_SOLICITADO"),
+    CONSTRAINT "FK_PROCSOL_CPT" FOREIGN KEY ("ID_CPT")
+        REFERENCES public."CPT" ("ID_CPT") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."PROCEDIMIENTO_SOLICITADO"
+    OWNER to postgres;
 --
 -- TOC entry 200 (class 1259 OID 116124)
 -- Name: t_r_usuario_rol; Type: TABLE; Schema: seguridad; Owner: -

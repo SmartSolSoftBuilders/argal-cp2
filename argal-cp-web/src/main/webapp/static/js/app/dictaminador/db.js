@@ -1,5 +1,14 @@
-(function() {
-
+function getCirugiaSolicitada() {
+	
+	$.ajax({
+		  url: "mvc/solicitud/getcirugiabyid",		  
+		})
+		  .done(function( data ) {
+		    if ( console && console.log ) {
+		      console.log(data);
+		    }
+    });
+	
     var db = {
 
         loadData: function(filter) {
@@ -881,4 +890,4 @@
         }
      ];
 
-}());
+}

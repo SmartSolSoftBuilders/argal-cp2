@@ -125,6 +125,17 @@
 		</tr>
 	</table>
 </div>
+
+<button class="accordion"><img src="static/img/person.png" width="25px" />6)Insumos</button>
+<div class="panel" id="panel5">
+	<div id="jsGrid"></div>	
+	<table width="1200px">
+		<tr>						
+			<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>
+			<td><button type="button" onclick="nextTab(1)" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
+		</tr>
+	</table>
+</div>
 	
 <script>
 var acc = document.getElementsByClassName("accordion");

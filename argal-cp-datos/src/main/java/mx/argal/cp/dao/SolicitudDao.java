@@ -15,6 +15,7 @@ public interface SolicitudDao {
 	public Integer guardarSolicitudByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public SolicitudCirugiaProgramada getSolicitudById(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public List<SolicitudCirugiaProgramada> obtenerSolicitudesByMedTrat(@Param("idMedicoTratante")Integer idMedicoTratante);
-	public List<SolicitudCirugiaProgramada> obtenerSolicitudesByStatus(@Param("status")Integer status);	
+	public List<SolicitudCirugiaProgramada> obtenerSolicitudesByStatus(@Param("status")Integer status);
+	public CirugiaSolicitada obtenerCirugiaSolicitadaById(@Param("idCirugiaSolicitada") Integer idCirugiaSolicitada);	
 
 }
