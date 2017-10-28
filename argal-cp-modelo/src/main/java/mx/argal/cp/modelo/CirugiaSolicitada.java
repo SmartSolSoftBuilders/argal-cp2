@@ -1,6 +1,7 @@
 package mx.argal.cp.modelo;
 
 import java.util.Date;
+import java.util.List;
 
 public class CirugiaSolicitada extends BaseModelo {
 	
@@ -12,6 +13,8 @@ public class CirugiaSolicitada extends BaseModelo {
 	private String fundamentosDiagnostico;
 	private Icd otrasEnfUno;
 	private Integer numCirugia;
+	private List<Insumo> insumos;
+	
 	public Integer getIdCirugiaSolicitada() {
 		return idCirugiaSolicitada;
 	}
@@ -60,14 +63,19 @@ public class CirugiaSolicitada extends BaseModelo {
 	public void setNumCirugia(Integer numCirugia) {
 		this.numCirugia = numCirugia;
 	}
-	
+	public List<Insumo> getInsumos() {
+		return insumos;
+	}
+	public void setInsumos(List<Insumo> insumos) {
+		this.insumos = insumos;
+	}
 	public CirugiaSolicitada(){
 	}
 	
 	public CirugiaSolicitada(Integer idCirugiaSolicitada, Icd diagnosticoIngreso,
 			ProcedimientoSolicitado procedimientoUno, ProcedimientoSolicitado procedimientoDos,
 			ProcedimientoSolicitado procedimientoTres, String fundamentosDiagnostico, Icd otrasEnfUno,
-			Integer numCirugia) {
+			Integer numCirugia,List<Insumo> insumos) {
 		super();
 		this.idCirugiaSolicitada = idCirugiaSolicitada;
 		this.diagnosticoIngreso = diagnosticoIngreso;
@@ -77,6 +85,7 @@ public class CirugiaSolicitada extends BaseModelo {
 		this.fundamentosDiagnostico = fundamentosDiagnostico;
 		this.otrasEnfUno = otrasEnfUno;
 		this.numCirugia = numCirugia;
+		this.insumos = insumos;
 	}
 	
 }

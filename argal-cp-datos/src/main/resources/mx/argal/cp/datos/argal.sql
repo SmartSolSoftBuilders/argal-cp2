@@ -341,6 +341,30 @@ CREATE TABLE t_opcion_menu (
     id_t_opcion_padre integer
 );
 
+-- Table: public."INSUMO"
+
+-- DROP TABLE public."INSUMO";
+
+CREATE TABLE public."INSUMO"
+(
+    "ID_INSUMO" integer NOT NULL,
+    "DESCRIPCION" character varying(200) COLLATE pg_catalog."default",
+    "MONTO" double precision,
+    "ID_CIRUGIA_SOLICITADA" integer,
+    CONSTRAINT "INSUMO_pkey" PRIMARY KEY ("ID_INSUMO"),
+    CONSTRAINT "FK_CIRUGIA_INSUMO" FOREIGN KEY ("ID_CIRUGIA_SOLICITADA")
+        REFERENCES public."CIRUGIA_SOLICITADA" ("ID_CIRUGIA_SOLICITADA") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."INSUMO"
+    OWNER to postgres;
+    
 -- Table: public."PROCEDIMIENTO_SOLICITADO"
 
 -- DROP TABLE public."PROCEDIMIENTO_SOLICITADO";
@@ -351,18 +375,18 @@ CREATE TABLE public."PROCEDIMIENTO_SOLICITADO"
     "ID_CPT" integer,
     "AUTORIZADO" boolean,
     "HONORARIOS_MED_DICTAMINADOS" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" double precision,
-    "" integer,
+    "HONORARIOS_MED_NEGOCIADOS" double precision,
+    "HONORARIOS_MED_AUTORIZADOS" double precision,
+    "HONORARIOS_AY1_DICTAMINADOS" double precision,
+    "HONORARIOS_AY1_NEGOCIADOS" double precision,
+    "HONORARIOS_AY1_AUTORIZADOS" double precision,
+    "HONORARIOS_ANE_DICTAMINADOS" double precision,
+    "HONORARIOS_ANE_NEGOCIADOS" double precision,
+    "HONORARIOS_ANE_AUTORIZADOS" double precision,
+    "HONORARIOS_AY2_DICTAMINADOS" double precision,
+    "HONORARIOS_AY2_NEGOCIADOS" double precision,
+    "HONORARIOS_AY2_AUTORIZADOS" double precision,
+    "NUM_PROCEDIMIENTO" integer,
     CONSTRAINT "PROCEDIMIENTO_SOLICITADO_pkey" PRIMARY KEY ("ID_PROCEDIMIENTO_SOLICITADO"),
     CONSTRAINT "FK_PROCSOL_CPT" FOREIGN KEY ("ID_CPT")
         REFERENCES public."CPT" ("ID_CPT") MATCH SIMPLE
@@ -375,7 +399,8 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."PROCEDIMIENTO_SOLICITADO"
-    OWNER to postgres;
+    OWNER to postgres;    
+    
 --
 -- TOC entry 200 (class 1259 OID 116124)
 -- Name: t_r_usuario_rol; Type: TABLE; Schema: seguridad; Owner: -
