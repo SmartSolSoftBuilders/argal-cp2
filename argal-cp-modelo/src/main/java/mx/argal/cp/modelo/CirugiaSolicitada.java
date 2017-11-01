@@ -12,8 +12,7 @@ public class CirugiaSolicitada extends BaseModelo {
 	private ProcedimientoSolicitado procedimientoTres;
 	private String fundamentosDiagnostico;
 	private Icd otrasEnfUno;
-	private Integer numCirugia;
-	private List<Insumo> insumos;
+	private Integer numCirugia;	
 	
 	public Integer getIdCirugiaSolicitada() {
 		return idCirugiaSolicitada;
@@ -63,19 +62,14 @@ public class CirugiaSolicitada extends BaseModelo {
 	public void setNumCirugia(Integer numCirugia) {
 		this.numCirugia = numCirugia;
 	}
-	public List<Insumo> getInsumos() {
-		return insumos;
-	}
-	public void setInsumos(List<Insumo> insumos) {
-		this.insumos = insumos;
-	}
+	
 	public CirugiaSolicitada(){
 	}
 	
 	public CirugiaSolicitada(Integer idCirugiaSolicitada, Icd diagnosticoIngreso,
 			ProcedimientoSolicitado procedimientoUno, ProcedimientoSolicitado procedimientoDos,
 			ProcedimientoSolicitado procedimientoTres, String fundamentosDiagnostico, Icd otrasEnfUno,
-			Integer numCirugia,List<Insumo> insumos) {
+			Integer numCirugia) {
 		super();
 		this.idCirugiaSolicitada = idCirugiaSolicitada;
 		this.diagnosticoIngreso = diagnosticoIngreso;
@@ -84,8 +78,7 @@ public class CirugiaSolicitada extends BaseModelo {
 		this.procedimientoTres = procedimientoTres;
 		this.fundamentosDiagnostico = fundamentosDiagnostico;
 		this.otrasEnfUno = otrasEnfUno;
-		this.numCirugia = numCirugia;
-		this.insumos = insumos;
+		this.numCirugia = numCirugia;		
 	}
 	
 }

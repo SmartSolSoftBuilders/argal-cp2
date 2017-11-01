@@ -1,3 +1,6 @@
+var insumos;
+var dbInsumos;
+
 $(document).ready(function() {  
   $("#tabs").tabs();
   $('#contact-form').validate({
@@ -50,8 +53,11 @@ $(document).ready(function() {
 	  });
   cargarIcdCpt();
   cargarEmpresas();
-  if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!="") 
-	  cargarSolicitud($("#idSolicitud").val());
+  if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!=""){	   
+	  cargarSolicitud($("#idSolicitud").val());	  
+  }
+  setVarInsumos();
+  cargarGridInsumos();
 });
 
 function guardar(){
@@ -154,6 +160,7 @@ function cargarSolicitud(){
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada+"<input type='hidden' id='idSolicitud' name='idSolicitud' value='" + response.idSolicitudCirugiaProgramada +"'/>");
 			// console.log(response)
+			insumos=response.insumos;
 		},
 		error : function(response) {
 			alert("error!")
@@ -244,8 +251,8 @@ function nextTab(id){
 	$( "#accordion" ).accordion({ active: id });
 }
 
-function cargarGrid(){	
-	$("#jsGrid").jsGrid({
+function cargarGridInsumos(){	
+	$("#jsGridInsumos").jsGrid({
         height: "70%",
         width: "100%",
         filtering: false,
@@ -257,15 +264,11 @@ function cargarGrid(){
         pageSize: 15,
         pageButtonCount: 5,
         deleteConfirm: "Do you really want to delete the Procedimiento?",
-        controller: db,
+        controller: dbInsumos,
         fields: [
-            { name: "cpt.descripcion", type: "label", title:'Procedimiento', width: 150, validate: "required" },
-            { name: "cpt.autorizado", type: "select", title:'¿Autorizar?', items: db.opciones, valueField: "Id", textField: "opcion",
-                validate: { message: "Country should be specified", validator: function(value) { return value > 0; } } },
-            { name: "honorariosMedicosDictaminados", type: "text",  title:'Honorarios Médicos', width: 150, validate: "required" },
-            { name: "honorariosAyudanteUnoDictaminados", type: "text",  title:'Honorarios Ayudante 1', width: 150, validate: "required" },
-            { name: "honorariosAyudanteDosDictaminados", type: "text",  title:'Honorarios Ayudante 2', width: 150, validate: "required" },
-            { name: "honorariosAnestesiologoDictaminados", type: "text",  title:'Honorarios Anestesiólogo', width: 150, validate: "required" },            
+            { name: "idInsumo", type: "label", title:'Folio Insumo Solicitado', width: 150},            
+            { name: "descripcion", type: "text",  title:'Descripción', width: 150, validate: "required" },
+            { name: "monto", type: "text",  title:'Monto a Solicitar', width: 150, validate: "required" },                       
             { type: "control" }
         ]
     });
@@ -330,35 +333,24 @@ function cargarGrid(){
     };
 }
 
-function getCirugiaSolicitadaGridProcedimientos(id){	
-	var cirugiaProgramada;
-	$.ajax({
-		  async:false,
-		  url: "mvc/solicitud/getcirugiabyid?id="+id,		  
-		})
-		  .done(function( data ) {
-		    if ( console && console.log ) {
-		    	console.log("Cirugia Obtenida");
-		      console.log(data);
-		      cirugiaProgramada=data;
-		    }
-    });
-	console.log(cirugiaProgramada);
-    db = {
+function setVarInsumos(){	
+	console.log("insumos")
+	console.log(insumos);
+    dbInsumos = {
         loadData: function(filter) {
-            return $.grep(this.procedimientos, function(procedimiento) {
-            	console.log(procedimiento);
+            return $.grep(this.insumos, function(insumo) {
+            	console.log(insumo);
             	console.log("--");
-                return (!filter.id || procedimiento.id.indexOf(filter.id) > -1)
-                    && (!filter.descripcion || procedimiento.descripcion === filter.descripcion)
-                    && (!filter.descripcion || procedimiento.descripcion.indexOf(filter.descripcion) > -1)
-                    && (!filter.descripcion || procedimiento.descripcion === filter.Country)
-                    && (filter.descripcion === undefined || procedimiento.descripcion === filter.Married);
+                return (!filter.id || insumo.id.indexOf(filter.id) > -1)
+                    && (!filter.descripcion || insumo.descripcion === filter.descripcion)
+                    && (!filter.descripcion || insumo.descripcion.indexOf(filter.descripcion) > -1)
+                    && (!filter.descripcion || insumo.descripcion === filter.descripcion)
+                    && (filter.descripcion === undefined || insumo.descripcion === filter.descripcion);
             });
         },
 
-        insertItem: function(insertingProcedimiento) {
-            this.Procedimientos.push(insertingProcedimiento);
+        insertItem: function(insertingInsumo) {
+            this.insumos.push(insertingInsumo);
         },
 
         updateItem: function(updatingProcedimiento) {
@@ -366,28 +358,26 @@ function getCirugiaSolicitadaGridProcedimientos(id){
         	console.log(updatingProcedimiento)
         },
 
-        deleteItem: function(deletingProcedimiento) {
-            var ProcedimientoIndex = $.inArray(deletingProcedimiento, this.Procedimientos);
-            this.Procedimientos.splice(ProcedimientoIndex, 1);
+        deleteItem: function(deletingInsumo) {
+            var InsumoIndex = $.inArray(deletingInsumo, this.insumos);
+            this.Insumos.splice(InsumoIndex, 1);
         }
 
     };
 
-    window.db = db;
+    window.dbInsumos = dbInsumos;
 
 
-    db.opciones = [
+    dbInsumos.opciones = [
         { opcion: "seleccione.....", Id: 0 },
         { opcion: "SI", Id: 1 },
         { opcion: "NO", Id: 2 }
     ];
 
-    db.procedimientos = new Array();
-    if (cirugiaProgramada.procedimientoUno!=null)
-    	db.procedimientos.push(cirugiaProgramada.procedimientoUno);
-    if (cirugiaProgramada.procedimientoDos!=null)
-    	db.procedimientos.push(cirugiaProgramada.procedimientoDos);
-    if (cirugiaProgramada.procedimientoTres!=null)
-    	db.procedimientos.push(cirugiaProgramada.procedimientoTres);
-
+    dbInsumos.insumos = new Array();
+    if (insumos!=null){
+	    for (i=0;i<insumos.length;i++){		    
+		    dbInsumos.insumos.push(insumos[i]);
+	    }
+    }
 }

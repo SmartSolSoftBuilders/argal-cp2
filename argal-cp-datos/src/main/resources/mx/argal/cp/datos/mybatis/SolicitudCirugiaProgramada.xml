@@ -19,7 +19,8 @@
 		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>
 		<association property="empresa" column="ID_EMPRESA" javaType="Empresa" select="selectEmpresa"/>		
 		<association property="cirugiaSolicitadaUno" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaUno"/>
-		<association property="cirugiaSolicitadaDos" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaDos"/>				
+		<association property="cirugiaSolicitadaDos" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaDos"/>
+		<collection property="insumos" column="ID_SOLICITUD_CIRUGIA_PROGRAMADA" javaType="List" select="selectInsumos"/>				
 	</resultMap>
 	
 	<resultMap id="medicoTratanteResult" type="MedicoTratante">
@@ -55,8 +56,7 @@
 	    	<association property="procedimientoUno" column="ID_PROCEDIMIENTO_1" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoUno"/>
 	    	<association property="procedimientoDos" column="ID_PROCEDIMIENTO_2" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoDos"/>
 	    	<association property="procedimientoTres" column="ID_PROCEDIMIENTO_3" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoTres"/>
-	    	<association property="otrasEnf1" column="ID_ICD_OTRASENF_1" javaType="Icd" select="selectIcd"/>
-	    	<collection property="insumos" column="ID_CIRUGIA_SOLICITADA" javaType="List" select="selectInsumos"/>	    	
+	    	<association property="otrasEnf1" column="ID_ICD_OTRASENF_1" javaType="Icd" select="selectIcd"/>	    		    
 	</resultMap>
 	
 	<resultMap id="procedimientoSolicitadoResult" type="ProcedimientoSolicitado">
@@ -79,7 +79,7 @@
 	</resultMap>
 	
 	<select id="selectInsumos" parameterType="int" resultMap="insumoResult" resultType="Insumo">
-		select * from "INSUMO" where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada} 	
+		select * from "INSUMO" where "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada} 	
 	</select>
 	
 	<select id="selectCpt" parameterType="int" resultMap="cptResult" resultType="Cpt">

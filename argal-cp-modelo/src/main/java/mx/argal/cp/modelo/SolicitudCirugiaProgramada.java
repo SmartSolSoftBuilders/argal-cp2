@@ -1,6 +1,7 @@
 package mx.argal.cp.modelo;
 
 import java.util.Date;
+import java.util.List;
 
 public class SolicitudCirugiaProgramada extends BaseModelo {
 	
@@ -20,6 +21,7 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	private Empresa empresa;
 	private CirugiaSolicitada cirugiaSolicitadaUno;
 	private CirugiaSolicitada cirugiaSolicitadaDos;
+	private List<Insumo> insumos;
 			
 	public Integer getIdSolicitudCirugiaProgramada() {
 		return idSolicitudCirugiaProgramada;
@@ -116,6 +118,12 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	}
 	public void setCirugiaSolicitadaDos(CirugiaSolicitada cirugiaSolicitadaDos) {
 		this.cirugiaSolicitadaDos = cirugiaSolicitadaDos;
+	}			
+	public List<Insumo> getInsumos() {
+		return insumos;
+	}
+	public void setInsumos(List<Insumo> insumos) {
+		this.insumos = insumos;
 	}
 	
 	public SolicitudCirugiaProgramada(){
@@ -129,7 +137,7 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 			Date fechaSolicitudCirugiaProgramada, Date fechaSolicitudElaboracion,
 			Integer tipoSolicitudCirugiaProgramada, Integer status,
 			String empresaBeneficiarioSolicitudCirugiaProgramada, MedicoTratante medicoTratante, Empresa empresa,
-			CirugiaSolicitada cirugiaSolicitadaUno, CirugiaSolicitada cirugiaSolicitadaDos) {
+			CirugiaSolicitada cirugiaSolicitadaUno, CirugiaSolicitada cirugiaSolicitadaDos,List<Insumo> insumos) {
 		super();
 		this.idSolicitudCirugiaProgramada = idSolicitudCirugiaProgramada;
 		this.nombreBeneficiarioSolicitudCirugiaProgramada = nombreBeneficiarioSolicitudCirugiaProgramada;
@@ -147,6 +155,7 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 		this.empresa = empresa;
 		this.cirugiaSolicitadaUno = cirugiaSolicitadaUno;
 		this.cirugiaSolicitadaDos = cirugiaSolicitadaDos;
+		this.insumos = insumos;
 	}
 	
 }

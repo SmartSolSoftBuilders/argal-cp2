@@ -128,7 +128,7 @@
 
 <button class="accordion"><img src="static/img/person.png" width="25px" />6)Insumos</button>
 <div class="panel" id="panel5">
-	<div id="jsGrid"></div>	
+	<div id="jsGridInsumos"></div>	
 	<table width="1200px">
 		<tr>						
 			<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>

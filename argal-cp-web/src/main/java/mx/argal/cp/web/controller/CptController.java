@@ -2,11 +2,6 @@ package mx.argal.cp.web.controller;
 
 import java.io.File;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.StringReader;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Enumeration;
@@ -47,23 +42,6 @@ import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.codec.Base64.InputStream;
 
-/**
- * Controller encargado de devolver la vista principal o index de la aplicación.
- * 
- * El path colocado en la anotación @RequestMappig corresponde a la cofiguración dentro
- * del archivo web.xml
- * 
- * <pre>
- * {@code
- *   <welcome-file-list>
- *       <welcome-file>mvc/index</welcome-file>
- *   </welcome-file-list>   
- * }
- * </pre>
- * 
- * @author SmartSolutions
- *
- */
 @Controller
 @RequestMapping("/cpt")
 public class CptController {
