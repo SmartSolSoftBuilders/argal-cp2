@@ -81,7 +81,9 @@ public class SolicitudController {
 	@RequestMapping(value="/guardar_solicitud_p2",method = RequestMethod.POST)
     @ResponseBody
     public SolicitudCirugiaProgramada guardarSolicitudP2(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
-		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId());		
+		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId());
+		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getProcedimientoUno().getId());
+		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getProcedimientoDos().getId());
 		if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno()!=null){
 			if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId()!=null){
 				/*Asignar los ids*/
