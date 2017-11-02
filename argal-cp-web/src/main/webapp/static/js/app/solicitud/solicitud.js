@@ -242,6 +242,7 @@ function selectIcd(valor,valor2){
 
 
 function selectCpt(valor,valor2){
+	console.log("valor"+valor+"-"+valor2)
 	$( "#idCpt"+$( "#cptSelHidden").val()).val(valor);
 	$( "#cpt"+$( "#cptSelHidden").val()).val(valor2);
 	$( "#gridCpt" ).dialog('close');		 

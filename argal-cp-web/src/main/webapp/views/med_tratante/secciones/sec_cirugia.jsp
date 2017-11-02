@@ -1,3 +1,6 @@
+<input type="hidden" id="icdSelHidden"/>
+<input type="hidden" id="cptSelHidden"/>
+
 <div style="max-height: 800px;">
 	<div id="tabs">
 		<ul>
@@ -6,15 +9,15 @@
 		</ul>
 		<div id="tabs-1">
 			<table border=3>
-				<tr>
-					<td><img src="static/img/diagnostico.png" style="float:left;" height="45" width="45"/>Diagnóstico Médico
+				<tr align="center">
+					<td align="center"><img src="static/img/diagnostico.png" style="float:center;" height="45" width="45"/>Diagnóstico Médico
 					</td>
-					<td><img src="static/img/procedimiento.png" style="float:left;" height="45" width="45"/>Procedimientos Solicitados
+					<td align="center"><img src="static/img/procedimiento.png" style="float:center;" height="45" width="45"/>Procedimientos Solicitados
 					</td>
 				</tr>
-				<tr style="background-color:#7fb9af;color:black;">
+				<tr style="background-color:#e7e6e6;">
 					<td>						
-						<fieldset style="height: 100%;background-color:#7fb9af;">
+						<fieldset style="height: 100%;background-color:#e7e6e6;">
 							<div class="cirugia-form">
 								<form method="POST" action="algo.php" class="form-horizontal" id="cirugia-form">
 									<input type="hidden" id="idCirugia1" name="idCirugia1" />								
@@ -43,7 +46,7 @@
 						</fieldset>																		
 						</td>
 						<td>															
-							<fieldset style="height: 100%;background-color:#7fb9af;">
+							<fieldset style="height: 100%;background-color:#e7e6e6;">
 								<div class="cirugia-form">
 									<form method="POST" action="algo.php" class="form-horizontal" id="cirugia-form">
 									<div class="control-group">									
@@ -61,7 +64,7 @@
 										<label class="control-label" for="name" style="width: 200px;">Procedimiento
 											2:</label> <img src="static/img/buscar-filtrar.png"
 												style="cursor: pointer; float: left;" height="25" width="25"
-												onclick="showGridCpt(1)"> <input type="text" id="cpt2"
+												onclick="showGridCpt(2)"> <input type="text" id="cpt2"
 												name="cpt2" onclick="loadWindowCpt(2)"
 												data-validation="required" readonly style="width: 400px;">
 											<input type="hidden" id="idCpt2" name="idCpt2"
@@ -71,7 +74,7 @@
 										<label class="control-label" for="name" style="width: 200px;">Procedimiento
 											3:</label> <img src="static/img/buscar-filtrar.png"
 											style="cursor: pointer; float: left;" height="25" width="25"
-											onclick="showGridCpt(1)"> <input type="text" id="cpt3"
+											onclick="showGridCpt(3)"> <input type="text" id="cpt3"
 											name="cpt3" onclick="loadWindowCpt(3)"
 											data-validation="required" readonly style="width: 400px;">
 										<input type="hidden" id="idCpt3" name="idCpt3"
@@ -166,123 +169,165 @@
 			</table>		
 		</div>
 		<div id="tabs-2">
-			<fieldset style="height: 90%;">
-				<input type="hidden" id="icdSelHidden" name="icdSelHidden" /> <input
-					type="hidden" id="icdHidden" name="icdHidden" /> <input
-					type="hidden" id="cptHidden" name="cptHidden" /> <input
-					type="hidden" id="idCptHidden" name="icCptHidden" /> <input
-					type="hidden" id="idIcdHidden" name="icIcdHidden" />
-				<div class="form-group">
-					<form method="POST" action="contact-form-submission.php"
-						class="form-horizontal" id="contact-form">
-						<table border=1>
-							<tr>
-								<td>
+			<table border=3>
+				<tr align="center">
+					<td align="center"><img src="static/img/diagnostico.png" style="float:center;" height="45" width="45"/>Diagnóstico Médico
+					</td>
+					<td align="center"><img src="static/img/procedimiento.png" style="float:center;" height="45" width="45"/>Procedimientos Solicitados
+					</td>
+				</tr>
+				<tr style="background-color:#e7e6e6;">
+					<td>						
+						<fieldset style="height: 100%;background-color:#e7e6e6;">
+							<div class="cirugia-form">
+								<form method="POST" action="algo.php" class="form-horizontal" id="cirugia-form">
+									<input type="hidden" id="idCirugia2" name="idCirugia2" />								
 									<div class="control-group">
 										<div class="controls">
-											<label class="control-label" for="name" style="width: 300px;">Diagnóstico
-												de Ingreso (Cirugía 2):</label> <img
-												src="static/img/buscar-filtrar.png"
-												style="cursor: pointer; float: left;" height="25" width="25"
-												onclick="showGridIcd(7)"> <input type="text" id="icd7"
-												name="icd7" onclick="loadWindowIcd(7)"
-												data-validation="required" readonly style="width: 400px;">
+											<label class="control-label" for="name" style="width: 320px;">Diagnóstico
+											de Ingreso para la Cirugía 2:</label> <img
+											src="static/img/buscar-filtrar.png"
+											style="cursor: pointer; float: left;" height="25" width="25"
+											onclick="showGridIcd(7)"> <input type="text" id="icd7"
+											name="icd7" onclick="loadWindowIcd(7)"
+											data-validation="required" readonly style="width: 400px;">
 											<input type="hidden" id="idIcd7" name="idIcd7"
 												data-validation="required">
 										</div>
 									</div>
-								</td>
-							</tr>
-						</table>
-						<table border=1 style="width: 100%">
-							<tr>
-								<td>
 									<div class="control-group">
+										<label class="control-label" for="message">Fundamentos del Diagnóstico:</label>										
+										<div class="controls">
+											<textarea name="fundamentosDiagnostico2" id="fundamentosDiagnostico2" rows="8" class="span5"
+											placeholder="Fundamente brevemente el diagnóstico." onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
+										</div>
+									</div>
+								</form>
+							</div>
+						</fieldset>																		
+						</td>
+						<td>															
+							<fieldset style="height: 100%;background-color:#e7e6e6;">
+								<div class="cirugia-form">
+									<form method="POST" action="algo.php" class="form-horizontal" id="cirugia-form">
+									<div class="control-group">									
 										<div class="controls">
 											<label class="control-label" for="name" style="width: 200px;">Procedimiento
 												1:</label> <img src="static/img/buscar-filtrar.png"
 												style="cursor: pointer; float: left;" height="25" width="25"
-												onclick="showGridCpt(1)"> <input type="text" id="cpt1"
-												name="cpt1" onclick="loadWindowCpt(1)"
+												onclick="showGridCpt(4)"> <input type="text" id="cpt4"
+												name="cpt4" onclick="loadWindowCpt(4)"
 												data-validation="required" readonly style="width: 400px;">
-											<input type="hidden" id="idCpt1" name="idCpt1"
-												data-validation="required">
-										</div>
+											<input type="hidden" id="idCpt4" name="idCpt4" data-validation="required">
+												
 									</div>
-								</td>
-								<td>
-									<div class="control-group">
-										<div class="controls">
-											<label class="control-label" for="name" style="width: 200px;">Procedimiento
-												2:</label> <img src="static/img/buscar-filtrar.png"
+									<div class="controls">
+										<label class="control-label" for="name" style="width: 200px;">Procedimiento
+											2:</label> <img src="static/img/buscar-filtrar.png"
 												style="cursor: pointer; float: left;" height="25" width="25"
-												onclick="showGridCpt(1)"> <input type="text" id="cpt1"
-												name="cpt1" onclick="loadWindowCpt(1)"
+												onclick="showGridCpt(5)"> <input type="text" id="cpt5"
+												name="cpt5" onclick="loadWindowCpt(5)"
 												data-validation="required" readonly style="width: 400px;">
-											<input type="hidden" id="idCpt1" name="idCpt1"
+											<input type="hidden" id="idCpt5" name="idCpt5"
 												data-validation="required">
-										</div>
+									</div>																			
+									<div class="controls">
+										<label class="control-label" for="name" style="width: 200px;">Procedimiento
+											3:</label> <img src="static/img/buscar-filtrar.png"
+											style="cursor: pointer; float: left;" height="25" width="25"
+											onclick="showGridCpt(6)"> <input type="text" id="cpt6"
+											name="cpt6" onclick="loadWindowCpt(6)"
+											data-validation="required" readonly style="width: 400px;">
+										<input type="hidden" id="idCpt6" name="idCpt6"
+											data-validation="required">
 									</div>
-								</td>
-								<td>
-									<div class="control-group">
-										<div class="controls">
-											<label class="control-label" for="name" style="width: 200px;">Procedimiento
-												3:</label> <img src="static/img/buscar-filtrar.png"
-												style="cursor: pointer; float: left;" height="25" width="25"
-												onclick="showGridCpt(1)"> <input type="text" id="cpt1"
-												name="cpt1" onclick="loadWindowCpt(1)"
-												data-validation="required" readonly style="width: 400px;">
-											<input type="hidden" id="idCpt1" name="idCpt1"
-												data-validation="required">
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-						<table>
-							<tr>
-								<td>
-									<div class="control-group">
-										<label class="control-label" for="message">Fundamentos
-											del Diagnóstico:</label>
-										<div class="controls">
-											<textarea name="message" id="message" rows="8" class="span5"
-												placeholder="The message you want to send to us."></textarea>
-										</div>
-									</div>
-								</td>
-								<td>Otras Enfermedades
-									<div class="control-group">
-										<label class="control-label" for="name">Diagnóstico 1:</label>
-										<div class="controls">
-											<input type="text" id="icd2" name="icd2"
-												onclick="loadWindowIcd(2)" data-validation="required"
-												readonly style="width: 350px;"> <input type="hidden"
-												id="idIcd2" name="idIcd2" data-validation="required">
-											<img src="static/img/buscar-filtrar.png"
-												style="cursor: pointer; float: left;" height="25" width="25"
-												onclick="showGridIcd(1)">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="name">Diagnóstico 2:</label>
-										<div class="controls">
-											<input type="text" id="icd3" name="icd3"
-												onclick="loadWindowIcd(3)" data-validation="required"
-												readonly style="width: 350px;"> <input type="hidden"
-												id="idIcd3" name="idIcd3" data-validation="required">
-											<img src="static/img/buscar-filtrar.png"
-												style="cursor: pointer; float: left;" height="25" width="25"
-												onclick="showGridIcd(1)">
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</form>
-				</div>
-			</fieldset>
+								</div>
+							</form>
+						</div>
+						</fieldset>
+					</td>
+				</tr>
+			</table>
+			Otras Enfermedades
+			<table>				
+				<tr>
+					<td>			
+						<div class="control-group">
+							<label class="control-label" for="name">Diagnóstico 1:</label>
+							<div class="controls">
+								<input type="text" id="icd8" name="icd8"
+									onclick="loadWindowIcd(8)" data-validation="required"
+									readonly style="width: 350px;"> <input type="hidden"
+									id="idIcd8" name="idIcd8" data-validation="required">
+								<img src="static/img/buscar-filtrar.png"
+								style="cursor: pointer; float: left;" height="25" width="25"
+								onclick="showGridIcd(8)">
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="control-group">
+							<label class="control-label" for="name">Diagnóstico 2:</label>
+								<div class="controls">
+									<input type="text" id="icd9" name="icd9"
+										onclick="loadWindowIcd(9)" data-validation="required"
+										readonly style="width: 350px;"> <input type="hidden"
+										id="idIcd9" name="idIcd9" data-validation="required">
+									<img src="static/img/buscar-filtrar.png"
+										style="cursor: pointer; float: left;" height="25" width="25"
+										onclick="showGridIcd(9)">
+								</div>
+						</div>
+					</td>
+					<td>
+						<div class="control-group">
+							<label class="control-label" for="name">Diagnóstico 3:</label>
+							<div class="controls">
+								<input type="text" id="icd10" name="icd10"
+								onclick="loadWindowIcd(10)" data-validation="required"
+								readonly style="width: 350px;"> <input type="hidden"
+								id="idIcd10" name="idIcd10" data-validation="required">
+							<img src="static/img/buscar-filtrar.png"
+								style="cursor: pointer; float: left;" height="25" width="25"
+								onclick="showGridIcd(10)">
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="control-group">
+							<label class="control-label" for="name">Diagnóstico 4:</label>
+								<div class="controls">
+									<input type="text" id="icd11" name="icd11"
+										onclick="loadWindowIcd(11)" data-validation="required"
+										readonly style="width: 350px;"> <input type="hidden"
+										id="idIcd11" name="idIcd11" data-validation="required">
+									<img src="static/img/buscar-filtrar.png"
+										style="cursor: pointer; float: left;" height="25" width="25"
+									onclick="showGridIcd(11)">
+								</div>
+						</div>
+					</td>
+					<td>
+						<div class="control-group">
+							<label class="control-label" for="name">Diagnóstico 5:</label>
+							<div class="controls">
+								<input type="text" id="icd12" name="icd12"
+									onclick="loadWindowIcd(12)" data-validation="required"
+									readonly style="width: 350px;"> <input type="hidden"
+									id="idIcd12" name="idIcd12" data-validation="required">
+								<img src="static/img/buscar-filtrar.png"
+									style="cursor: pointer; float: left;" height="25" width="25"
+									onclick="showGridIcd(12)">
+							</div>
+						</div>
+					</td>
+					<td align="right">
+						<button type="button" onclick="guardar_p2();" style="background: none;border: none;"><img src="static/img/save.png" width="50px" /></button>					
+					</td>
+				</tr>
+			</table>		
 		</div>
 	</div>	
 	<div id="gridIcd" style="display: none;">
