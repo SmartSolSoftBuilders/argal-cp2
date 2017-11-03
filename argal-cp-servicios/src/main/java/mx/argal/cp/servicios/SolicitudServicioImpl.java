@@ -7,6 +7,7 @@ import mx.argal.cp.modelo.MedicoTratante;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.modelo.Usuario;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,15 +59,16 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		List solicitudesReturn = new ArrayList();
 		List solicitudReturn = new ArrayList();
 		System.out.println(solicitudes);
-		String status[] = {"","CAPTURANDO","ENVIADA","RECHAZADA","ACEPTADA"};		
+		String status[] = {"","CAPTURANDO","ENVIADA","RECHAZADA","ACEPTADA"};
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");          
 		try{
 			for (int i=0;i<solicitudes.size();i++){		
 				solicitudReturn = new ArrayList();
 				solicitudReturn.add(solicitudes.get(i).getIdSolicitudCirugiaProgramada());
 				solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
 				solicitudReturn.add("DALINDE");
-				solicitudReturn.add("PROC1");
-				solicitudReturn.add("2017-"+ (solicitudes.get(i).getFechaSolicitudElaboracion().getMonth()+1)+"-"+(solicitudes.get(i).getFechaSolicitudElaboracion().getDay()+1) );
+				solicitudReturn.add("PROC1");				
+				solicitudReturn.add(format1.format(solicitudes.get(i).getFechaSolicitudElaboracion()));
 				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
 				if (solicitudes.get(i).getStatus()==1){
 					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Seguir Capturando</a>" + "<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Eliminar</a>");
@@ -121,7 +123,60 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 	@Override
 	public Integer guardarSolicitudCirugias(CirugiaSolicitada cirugiaSolicitada) {
 		// TODO Auto-generated method stub
-		return this.solicitudDao.guardarSolicitudCirugias(cirugiaSolicitada);
+		Integer verificar=0;
+		verificar=this.solicitudDao.guardarSolicitudCirugias(cirugiaSolicitada);
+		if (cirugiaSolicitada.getProcedimientoUno().getId()!=null) {
+			this.solicitudDao.guardarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoUno());
+		}		
+		if (cirugiaSolicitada.getProcedimientoDos().getId()!=null) {
+			this.solicitudDao.guardarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoDos());
+		}
+		if (cirugiaSolicitada.getProcedimientoTres().getId()!=null) {
+			this.solicitudDao.guardarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoTres());
+		}
+		this.solicitudDao.guardarAsignarProcedimientos(cirugiaSolicitada);
+		return verificar; 
+	}
+	
+	@Override
+	public Integer actulizarSolicitudCirugias(CirugiaSolicitada cirugiaSolicitada) {
+		// TODO Auto-generated method stub
+		Integer verificar=0;
+		verificar=this.solicitudDao.actualizarCirugiaSolicitada(cirugiaSolicitada);
+		cirugiaSolicitada.setId(cirugiaSolicitada.getIdCirugiaSolicitada().longValue());
+		if (cirugiaSolicitada.getProcedimientoUno().getId()!=null) {
+			if(cirugiaSolicitada.getProcedimientoUno().getIdProcedimientoSolicitado()==null) {
+				System.out.println("Se crea el proc 1 porq no existia");
+				this.solicitudDao.guardarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoUno());
+				this.solicitudDao.guardarAsignarProcedimientos(cirugiaSolicitada);
+			}
+			else {
+				System.out.println("Se actualiza el proc 1 porque ya existe");
+				this.solicitudDao.actualizarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoUno());
+			}
+		}
+		if (cirugiaSolicitada.getProcedimientoDos().getId()!=null) {
+			if(cirugiaSolicitada.getProcedimientoDos().getIdProcedimientoSolicitado()==null) {
+				System.out.println("Se crea el proc 2 porq no existia");				
+				this.solicitudDao.guardarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoDos());
+				System.out.println("Se crea el proc 2 porq no existia"+cirugiaSolicitada.getProcedimientoDos().getIdProcedimientoSolicitado());
+				this.solicitudDao.guardarAsignarProcedimientos(cirugiaSolicitada);
+			}
+			else {
+				System.out.println("Se actualiza el proc 2 porque ya existe");
+				this.solicitudDao.actualizarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoDos());
+			}
+		}
+		/*
+		if (cirugiaSolicitada.getProcedimientoDos().getId()!=null) {
+			this.solicitudDao.guardarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoDos());
+		}
+		if (cirugiaSolicitada.getProcedimientoTres().getId()!=null) {
+			this.solicitudDao.guardarProcedimientoSolicitado(cirugiaSolicitada.getProcedimientoTres());
+		}
+		this.solicitudDao.guardarAsignarProcedimientos(cirugiaSolicitada);
+		*/
+		return verificar; 
 	}
 
 	@Override

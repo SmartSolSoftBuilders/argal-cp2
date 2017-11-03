@@ -51,6 +51,7 @@
 									<form method="POST" action="algo.php" class="form-horizontal" id="cirugia-form">
 									<div class="control-group">									
 										<div class="controls">
+											<input type="hidden" id="idProcedimiento1" name="idProcedimiento1"/>
 											<label class="control-label" for="name" style="width: 200px;">Procedimiento
 												1:</label> <img src="static/img/buscar-filtrar.png"
 												style="cursor: pointer; float: left;" height="25" width="25"
@@ -61,6 +62,7 @@
 												
 									</div>
 									<div class="controls">
+										<input type="hidden" id="idProcedimiento2" name="idProcedimiento2"/>
 										<label class="control-label" for="name" style="width: 200px;">Procedimiento
 											2:</label> <img src="static/img/buscar-filtrar.png"
 												style="cursor: pointer; float: left;" height="25" width="25"
@@ -71,6 +73,7 @@
 												data-validation="required">
 									</div>																			
 									<div class="controls">
+										<input type="hidden" id="idProcedimiento3" name="idProcedimiento3"/>
 										<label class="control-label" for="name" style="width: 200px;">Procedimiento
 											3:</label> <img src="static/img/buscar-filtrar.png"
 											style="cursor: pointer; float: left;" height="25" width="25"
@@ -163,7 +166,7 @@
 						</div>
 					</td>
 					<td align="right">
-						<button type="submit" style="background: none;border: none;"><img src="static/img/save.png" width="50px" /></button>					
+						<button type="button" onclick="guardar_p2();" style="background: none;border: none;"><img src="static/img/save.png" width="50px" /></button>					
 					</td>
 				</tr>
 			</table>		

@@ -16,5 +16,6 @@ public interface SolicitudServicio {
 	public List obtenerSolicitudesByMedTrat(MedicoTratante medicoTratante);
 	public List obtenerSolicitudesAll(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public CirugiaSolicitada obtenerCirugiaSolicitadaById(Integer idCirugiaSolicitada);
+	public Integer actulizarSolicitudCirugias(CirugiaSolicitada cirugiaSolicitada);
 	
 }

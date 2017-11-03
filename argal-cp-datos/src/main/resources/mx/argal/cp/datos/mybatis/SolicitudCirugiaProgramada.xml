@@ -18,8 +18,8 @@
 		<result property="status" column="STATUS"/>	
 		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>
 		<association property="empresa" column="ID_EMPRESA" javaType="Empresa" select="selectEmpresa"/>		
-		<association property="cirugiaSolicitadaUno" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaUno"/>
-		<association property="cirugiaSolicitadaDos" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaDos"/>
+		<association property="cirugiaSolicitadaUno" column="ID_CIRUGIA_SOLICITADA_1" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaUno"/>
+		<!--association property="cirugiaSolicitadaDos" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaDos"/-->
 		<collection property="insumos" column="ID_SOLICITUD_CIRUGIA_PROGRAMADA" javaType="List" select="selectInsumos"/>				
 	</resultMap>
 	
@@ -51,7 +51,8 @@
 		
 	<resultMap id="cirugiaSolicitadaResult" type="CirugiaSolicitada">
 	    	<id property="idCirugiaSolicitada" column="ID_CIRUGIA_SOLICITADA" />
-	    	<result property="numCirugia" column="FUNDAMENTOS_DIAGNÓSTICO"/>	    		    	
+	    	<result property="fundamentosDiagnostico" column="FUNDAMENTOS_DIAGNOSTICO"/>
+	    	<result property="numCirugia" column="NUM_CIRUGIA"/>	    		    	
 	    	<association property="diagnosticoIngreso" column="ID_DIAGNOSTICO_INGRESO" javaType="Icd" select="selectIcd"/>	    		    	
 	    	<association property="procedimientoUno" column="ID_PROCEDIMIENTO_1" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoUno"/>
 	    	<association property="procedimientoDos" column="ID_PROCEDIMIENTO_2" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoDos"/>
@@ -152,22 +153,64 @@
 			"ID_SOLICITUD_CIRUGIA_PROGRAMADA","STATUS","ID_MEDICO_TRATANTE","FECHA_SOLICITUD_ELABORACION") VALUES (#{id},1,#{medicoTratante.idMedicoTratante},now())
 	</insert>
 	
-	<insert id="guardarSolicitudCirugias" parameterType="CirugiaSolicitada"  keyProperty="id">
+	<update id="actualizarCirugiaSolicitada" parameterType="CirugiaSolicitada">		
+  			UPDATE "CIRUGIA_SOLICITADA" SET "ID_DIAGNOSTICO_INGRESO" = #{diagnosticoIngreso.id} ,"FUNDAMENTOS_DIAGNOSTICO" =#{fundamentosDiagnostico}			
+			WHERE "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada}					
+	</update>
+	
+	<insert id="guardarProcedimientoSolicitado" parameterType="ProcedimientoSolicitado"  keyProperty="id">
+		<selectKey keyProperty="idProcedimientoSolicitado" resultType="integer" order="BEFORE">
+  		   	SELECT nextVal('sec_procedimiento_solicitado')
+  		</selectKey>	  		
+  			INSERT INTO "PROCEDIMIENTO_SOLICITADO"("ID_PROCEDIMIENTO_SOLICITADO", "ID_CPT","NUM_PROCEDIMIENTO") VALUES (#{idProcedimientoSolicitado},#{id},#{numProcedimiento});  					
+	</insert>
+		
+	<update id="guardarAsignarProcedimientos" parameterType="CirugiaSolicitada">
+		<if test="procedimientoUno.idProcedimientoSolicitado!=null">		
+			UPDATE "CIRUGIA_SOLICITADA"
+			SET "ID_PROCEDIMIENTO_1"=#{procedimientoUno.idProcedimientoSolicitado} where "ID_CIRUGIA_SOLICITADA"=#{id};
+		</if>
+		<if test="procedimientoDos.idProcedimientoSolicitado!=null">		
+			UPDATE "CIRUGIA_SOLICITADA"
+			SET "ID_PROCEDIMIENTO_2"=#{procedimientoDos.idProcedimientoSolicitado} where "ID_CIRUGIA_SOLICITADA"=#{id};
+		</if>
+		<if test="procedimientoTres.idProcedimientoSolicitado!=null">		
+			UPDATE "CIRUGIA_SOLICITADA"
+			SET "ID_PROCEDIMIENTO_3"=#{procedimientoTres.idProcedimientoSolicitado} where "ID_CIRUGIA_SOLICITADA"=#{id};
+		</if>	
+	</update>
+	
+	<insert id="guardarSolicitudCirugias" parameterType="CirugiaSolicitada" keyProperty="id"> 
 		<selectKey keyProperty="id" resultType="long" order="BEFORE">
   		   	SELECT nextVal('sec_cirugia_solicitada')
-  		</selectKey>	  		
-  			INSERT INTO public."CIRUGIA_SOLICITADA"(
-			"ID_CIRUGIA_SOLICITADA", "ID_DIAGNOSTICO_INGRESO", "NUM_CIRUGIA" ,"FUNDAMENTOS_DIAGNÓSTICO") 
-				VALUES (#{id}, #{diagnosticoIngreso.idIcd}, #{numCirugia}, #{fundamentosDiagnostico});					
+  		</selectKey>
+		INSERT INTO public."CIRUGIA_SOLICITADA"(
+			"ID_CIRUGIA_SOLICITADA", "ID_DIAGNOSTICO_INGRESO", "NUM_CIRUGIA" ,"FUNDAMENTOS_DIAGNOSTICO") 
+				VALUES (#{id}, #{diagnosticoIngreso.id}, #{numCirugia}, #{fundamentosDiagnostico});
+		<if test="numCirugia==1">
+			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_CIRUGIA_SOLICITADA_1" =#{id} WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idCirugiaSolicitada}
+		</if>
+		<if test="numCirugia==2">
+			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_CIRUGIA_SOLICITADA_2" =#{id} WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idCirugiaSolicitada}
+		</if>		
 	</insert>
 	
+	<update id="actualizarSolicitudCirugias" parameterType="CirugiaSolicitada">			  	
+  			INSERT INTO public."CIRUGIA_SOLICITADA"(
+			"ID_CIRUGIA_SOLICITADA", "ID_DIAGNOSTICO_INGRESO", "NUM_CIRUGIA" ,"FUNDAMENTOS_DIAGNOSTICO") 
+				VALUES (#{id}, #{diagnosticoIngreso.idIcd}, #{numCirugia}, #{fundamentosDiagnostico});					
+	</update>
+	
+	<update id="actualizarProcedimientoSolicitado" parameterType="ProcedimientoSolicitado">
+		UPDATE "PROCEDIMIENTO_SOLICITADO" SET 
+			 "ID_CPT"=#{id}
+				 WHERE "ID_PROCEDIMIENTO_SOLICITADO" =#{idProcedimientoSolicitado}				
+	</update>	
+	
 	<update id="guardarSolicitudByParams" parameterType="SolicitudCirugiaProgramada">
-			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET
+			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET		
 		<if test="nombreBeneficiarioSolicitudCirugiaProgramada != null">
-			"ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada} 
-		</if>
-		<if test="nombreBeneficiarioSolicitudCirugiaProgramada != null">
-			,"NOMBRE_BENEFICIARIO"=#{nombreBeneficiarioSolicitudCirugiaProgramada}
+			"NOMBRE_BENEFICIARIO"=#{nombreBeneficiarioSolicitudCirugiaProgramada}
 		</if>
 		<if test="apPBeneficiarioSolicitudCirugiaProgramada != null">
 			,"APP_BENEFICIARIO"=#{apPBeneficiarioSolicitudCirugiaProgramada}
@@ -195,13 +238,8 @@
 		</if>
 		<if test="empresa != null">	
 			,"ID_EMPRESA"=cast(#{empresa.idEmpresa} as int)
-		</if>		
-		<if test="cirugiaSolicitadaUno != null">
-			<if test="cirugiaSolicitadaUno.idCirugiaSolicitada != null">	
-				,"ID_CIRUGIA_SOLICITADA_1"=cast(#{cirugiaSolicitadaUno.idCirugiaSolicitada} as int)
-			</if>
-		</if>		
-			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
+		</if>						
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada};
 	</update>
 
 </mapper>

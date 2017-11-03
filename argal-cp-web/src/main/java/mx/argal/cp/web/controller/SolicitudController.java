@@ -81,19 +81,31 @@ public class SolicitudController {
 	@RequestMapping(value="/guardar_solicitud_p2",method = RequestMethod.POST)
     @ResponseBody
     public SolicitudCirugiaProgramada guardarSolicitudP2(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
+		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getIdCirugiaSolicitada());
 		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId());
 		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getProcedimientoUno().getId());
 		System.out.println("<OTIKA>Guardando ICD cirugia 1!!!"+solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getProcedimientoDos().getId());
 		if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno()!=null){
 			if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId()!=null){
-				/*Asignar los ids*/
-				solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().setIdIcd(solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getDiagnosticoIngreso().getId().intValue());
-				this.solicitudServicio.guardarSolicitudCirugias(solicitudCirugiaProgramada.getCirugiaSolicitadaUno());
+				if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getIdCirugiaSolicitada()==null){
+					System.out.println("Solicitud nueva VAL!"+solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());
+					solicitudCirugiaProgramada.getCirugiaSolicitadaUno().setIdCirugiaSolicitada(solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());
+					this.solicitudServicio.guardarSolicitudCirugias(solicitudCirugiaProgramada.getCirugiaSolicitadaUno());
+				}
+				else {
+					System.out.println("Solicitud existe VAL!"+solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());
+					if (solicitudCirugiaProgramada.getCirugiaSolicitadaUno().getIdCirugiaSolicitada()!=null){
+						this.solicitudServicio.actulizarSolicitudCirugias(solicitudCirugiaProgramada.getCirugiaSolicitadaUno());
+					}
+					if (solicitudCirugiaProgramada.getCirugiaSolicitadaDos().getIdCirugiaSolicitada()!=null){
+						this.solicitudServicio.actulizarSolicitudCirugias(solicitudCirugiaProgramada.getCirugiaSolicitadaDos());
+					}					
+				}
 			}
 		}    	
     	return solicitudCirugiaProgramada;    	  
 	}
-	
+		
 	@RequestMapping(value="/getsolicitudbyid",method = RequestMethod.POST)
     @ResponseBody
     public SolicitudCirugiaProgramada getSolicitudById(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada){
@@ -123,6 +135,5 @@ public class SolicitudController {
 		CirugiaSolicitada cirugiaSolicitada = new CirugiaSolicitada();
 		cirugiaSolicitada=this.solicitudServicio.obtenerCirugiaSolicitadaById(1);
 		return cirugiaSolicitada;    	  
-	}	
-	
+	}		
 }
