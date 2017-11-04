@@ -1,4 +1,4 @@
-<fieldset style="height: 98%;">
+<fieldset style="height: 38%;">
 	<div class="form-group">
 		<form method="POST" action="contact-form-submission.php" class="form-horizontal" id="contact-form" style="height: 70%;">			
 			<table border=1>

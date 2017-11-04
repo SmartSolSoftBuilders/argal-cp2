@@ -57,7 +57,11 @@
 	    	<association property="procedimientoUno" column="ID_PROCEDIMIENTO_1" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoUno"/>
 	    	<association property="procedimientoDos" column="ID_PROCEDIMIENTO_2" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoDos"/>
 	    	<association property="procedimientoTres" column="ID_PROCEDIMIENTO_3" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoTres"/>
-	    	<association property="otrasEnf1" column="ID_ICD_OTRASENF_1" javaType="Icd" select="selectIcd"/>	    		    
+	    	<association property="otrasEnfUno" column="ID_ICD_OTRASENF_1" javaType="Icd" select="selectIcd"/>
+	    	<association property="otrasEnfDos" column="ID_ICD_OTRASENF_2" javaType="Icd" select="selectIcd"/>
+	    	<association property="otrasEnfTres" column="ID_ICD_OTRASENF_3" javaType="Icd" select="selectIcd"/>
+	    	<association property="otrasEnfCuatro" column="ID_ICD_OTRASENF_4" javaType="Icd" select="selectIcd"/>
+	    	<association property="otrasEnfCinco" column="ID_ICD_OTRASENF_5" javaType="Icd" select="selectIcd"/>		    		    
 	</resultMap>
 	
 	<resultMap id="procedimientoSolicitadoResult" type="ProcedimientoSolicitado">
@@ -155,7 +159,22 @@
 	
 	<update id="actualizarCirugiaSolicitada" parameterType="CirugiaSolicitada">		
   			UPDATE "CIRUGIA_SOLICITADA" SET "ID_DIAGNOSTICO_INGRESO" = #{diagnosticoIngreso.id} ,"FUNDAMENTOS_DIAGNOSTICO" =#{fundamentosDiagnostico}			
-			WHERE "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada}					
+			WHERE "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+			<if test="otrasEnfUno.id!=null">
+				UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_1" = #{otrasEnfUno.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+			</if>
+			<if test="otrasEnfDos.id!=null">
+				UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_2" = #{otrasEnfDos.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+			</if>
+			<if test="otrasEnfTres.id!=null">
+				UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_3" = #{otrasEnfTres.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+			</if>
+			<if test="otrasEnfCuatro.id!=null">
+				UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_4" = #{otrasEnfCuatro.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+			</if>
+			<if test="otrasEnfCinco.id!=null">
+				UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_5" = #{otrasEnfCinco.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+			</if>					
 	</update>
 	
 	<insert id="guardarProcedimientoSolicitado" parameterType="ProcedimientoSolicitado"  keyProperty="id">
@@ -188,11 +207,26 @@
 			"ID_CIRUGIA_SOLICITADA", "ID_DIAGNOSTICO_INGRESO", "NUM_CIRUGIA" ,"FUNDAMENTOS_DIAGNOSTICO") 
 				VALUES (#{id}, #{diagnosticoIngreso.id}, #{numCirugia}, #{fundamentosDiagnostico});
 		<if test="numCirugia==1">
-			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_CIRUGIA_SOLICITADA_1" =#{id} WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idCirugiaSolicitada}
+			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_CIRUGIA_SOLICITADA_1" =#{id} WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idCirugiaSolicitada};
 		</if>
 		<if test="numCirugia==2">
-			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_CIRUGIA_SOLICITADA_2" =#{id} WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idCirugiaSolicitada}
+			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_CIRUGIA_SOLICITADA_2" =#{id} WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idCirugiaSolicitada};
 		</if>		
+		<if test="otrasEnfUno.id!=null">
+			UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_1" = #{otrasEnfUno.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{id};
+		</if>
+		<if test="otrasEnfDos.id!=null">
+			UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_2" = #{otrasEnfDos.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{id};
+		</if>
+		<if test="otrasEnfTres.id!=null">
+			UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_3" = #{otrasEnfTres.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{id};
+		</if>
+		<if test="otrasEnfCuatro.id!=null">
+			UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_4" = #{otrasEnfCuatro.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{id};
+		</if>
+		<if test="otrasEnfCinco.id!=null">
+			UPDATE "CIRUGIA_SOLICITADA" SET "ID_ICD_OTRASENF_5" = #{otrasEnfCinco.id} WHERE "ID_CIRUGIA_SOLICITADA"=#{id};
+		</if>
 	</insert>
 	
 	<update id="actualizarSolicitudCirugias" parameterType="CirugiaSolicitada">			  	

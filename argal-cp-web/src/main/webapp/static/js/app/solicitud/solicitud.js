@@ -1,9 +1,11 @@
+var accordionItems = new Array();
 var insumos;
 var dbInsumos;
 
-$(document).ready(function() {  
-  $("#tabs").tabs();
-  $('#contact-form').validate({
+$(document).ready(function() {	
+	crearAcordion();
+	$("#tabs").tabs();
+	$('#contact-form').validate({
     rules: {
       name: {
         minlength: 2,
@@ -57,7 +59,9 @@ $(document).ready(function() {
 	  cargarSolicitud($("#idSolicitud").val());	  
   }
   setVarInsumos();
-  cargarGridInsumos();
+  cargarGridInsumos();  
+  $("#loading").hide();
+  $("#contenidoSolicitud").show();
 });
 
 function guardar(){
@@ -79,13 +83,15 @@ function guardar(){
 		url : 'mvc/solicitud/guardar_solicitud',
 		type : 'post',
 		beforeSend : function() {
-			// $("#resultado").html("Procesando, espere por favor..."),
-			// alert("OK!")
+			$("#loading").show();
+			$("#contenidoSolicitud").hide();
 		},
 		success : function(response) {
-			alert(response)
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();
+			mensaje("La sección de datos del beneficiario fué guardada con éxito!");
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
-			$("#idSolicitud").val(response.idSolicitudCirugiaProgramada);
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada+"<input type='hidden' id='idSolicitud' name='idSolicitud' value='" + response.idSolicitudCirugiaProgramada +"'/>");
 			cargarSolicitud();
 			// console.log(response)
 		},
@@ -120,7 +126,12 @@ function guardar_p2(){
 			"cirugiaSolicitadaDos.diagnosticoIngreso.idIcd" : $("#idIcd7").val(),
 			"cirugiaSolicitadaDos.diagnosticoIngreso.id" : $("#idIcd7").val(),
 			"cirugiaSolicitadaDos.fundamentosDiagnostico": $("#fundamentosDiagnostico2").val(),
-			"cirugiaSolicitadaDos.numCirugia" : 2
+			"cirugiaSolicitadaDos.numCirugia" : 2,
+			"cirugiaSolicitadaUno.otrasEnfUno.id" : $("#idIcd2").val(),
+			"cirugiaSolicitadaUno.otrasEnfDos.id" : $("#idIcd3").val(),
+			"cirugiaSolicitadaUno.otrasEnfTres.id" : $("#idIcd4").val(),
+			"cirugiaSolicitadaUno.otrasEnfCuatro.id" : $("#idIcd5").val(),
+			"cirugiaSolicitadaUno.otrasEnfCinco.id" : $("#idIcd6").val()
 		},
 		dataType : 'json',
 		url : 'mvc/solicitud/guardar_solicitud_p2',
@@ -130,9 +141,8 @@ function guardar_p2(){
 			// alert("OK!")
 		},
 		success : function(response) {
-			alert(response);			
-			cargarSolicitud();
-			// console.log(response)
+			mensaje("La sección de datos de la cirugía fué guardada con éxito!");			
+			cargarSolicitud(); 
 		},
 		error : function(response) {
 			alert("error!")
@@ -142,6 +152,8 @@ function guardar_p2(){
 }
 
 function cargarSolicitud(){
+	$("#loading").show();
+	$("#contenidoSolicitud").hide();
 	$.ajax({
 		async : false,
 		data : {
@@ -155,7 +167,8 @@ function cargarSolicitud(){
 			// alert("OK!")
 		},
 		success : function(response) {
-			alert("se cargó la solicitud")
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();
 			$("#nombrePaciente").val(response.nombreBeneficiarioSolicitudCirugiaProgramada);
 			$("#apellidoP").val(response.apPBeneficiarioSolicitudCirugiaProgramada);
 			$("#apellidoM").val(response.apMBeneficiarioSolicitudCirugiaProgramada);
@@ -168,7 +181,7 @@ function cargarSolicitud(){
 			$("#empresa").val(response.empresaBeneficiarioSolicitudCirugiaProgramada);
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada+"<input type='hidden' id='idSolicitud' name='idSolicitud' value='" + response.idSolicitudCirugiaProgramada +"'/>");			
-			// console.log(response)
+			console.log(response)
 			//Cargar icdscpts			
 			if (response.cirugiaSolicitadaUno!=null){
 				$("#idCirugia1").val(response.cirugiaSolicitadaUno.idCirugiaSolicitada);			
@@ -190,6 +203,28 @@ function cargarSolicitud(){
 					$("#idCpt2").val(response.cirugiaSolicitadaUno.procedimientoTres.cpt.idCpt);
 					$("#cpt2").val(response.cirugiaSolicitadaUno.procedimientoTres.cpt.descripcion);
 				}
+				if (response.cirugiaSolicitadaUno.otrasEnfUno!=null){
+					$("#idIcd2").val(response.cirugiaSolicitadaUno.otrasEnfUno.idIcd);
+					$("#icd2").val(response.cirugiaSolicitadaUno.otrasEnfUno.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfDos!=null){
+					$("#idIcd3").val(response.cirugiaSolicitadaUno.otrasEnfDos.idIcd);
+					$("#icd3").val(response.cirugiaSolicitadaUno.otrasEnfDos.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfTres!=null){
+					$("#idIcd4").val(response.cirugiaSolicitadaUno.otrasEnfTres.idIcd);
+					$("#icd4").val(response.cirugiaSolicitadaUno.otrasEnfTres.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfCuatro!=null){
+					$("#idIcd5").val(response.cirugiaSolicitadaUno.otrasEnfCuatro.idIcd);
+					$("#icd5").val(response.cirugiaSolicitadaUno.otrasEnfCuatro.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfCinco!=null){
+					$("#idIcd6").val(response.cirugiaSolicitadaUno.otrasEnfCinco.idIcd);
+					$("#icd6").val(response.cirugiaSolicitadaUno.otrasEnfCinco.descripcion);
+				}
+				
+				
 			}
 /*		
 			response.cirugiaSolicitadaUno.fundamentosDiagnostico": $("#fundamentosDiagnostico1").val(),
@@ -205,7 +240,7 @@ function cargarSolicitud(){
 			insumos=response.insumos;
 		},
 		error : function(response) {
-			alert("error!")
+			alert("error cargando la solicitud!")
 			// console.log(response)
 		}
 	});	
@@ -423,4 +458,23 @@ function setVarInsumos(){
 		    dbInsumos.insumos.push(insumos[i]);
 	    }
     }
+}
+
+
+function crearAcordion(){
+	$( "#accordionSolicitud" ).accordion({
+		heightStyle: "content"
+	});
+}
+
+function mensaje(msj){
+	$( "#mensajeDialogo").html(msj);
+	$( "#dialog-mensaje" ).dialog({
+	      modal: true,
+	      buttons: {
+	        Ok: function() {
+	          $( this ).dialog( "close" );
+	        }
+	     }
+	});
 }

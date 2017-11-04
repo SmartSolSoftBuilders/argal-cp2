@@ -12,6 +12,11 @@ public class CirugiaSolicitada extends BaseModelo {
 	private ProcedimientoSolicitado procedimientoTres;
 	private String fundamentosDiagnostico;
 	private Icd otrasEnfUno;
+	private Icd otrasEnfDos;
+	private Icd otrasEnfTres;
+	private Icd otrasEnfCuatro;
+	private Icd otrasEnfCinco;
+	
 	private Integer numCirugia;	
 	
 	public Integer getIdCirugiaSolicitada() {
@@ -61,15 +66,39 @@ public class CirugiaSolicitada extends BaseModelo {
 	}
 	public void setNumCirugia(Integer numCirugia) {
 		this.numCirugia = numCirugia;
+	}	
+	public Icd getOtrasEnfDos() {
+		return otrasEnfDos;
+	}
+	public void setOtrasEnfDos(Icd otrasEnfDos) {
+		this.otrasEnfDos = otrasEnfDos;
+	}
+	public Icd getOtrasEnfTres() {
+		return otrasEnfTres;
+	}
+	public void setOtrasEnfTres(Icd otrasEnfTres) {
+		this.otrasEnfTres = otrasEnfTres;
+	}
+	public Icd getOtrasEnfCuatro() {
+		return otrasEnfCuatro;
+	}
+	public void setOtrasEnfCuatro(Icd otrasEnfCuatro) {
+		this.otrasEnfCuatro = otrasEnfCuatro;
+	}
+	public Icd getOtrasEnfCinco() {
+		return otrasEnfCinco;
+	}
+	public void setOtrasEnfCinco(Icd otrasEnfCinco) {
+		this.otrasEnfCinco = otrasEnfCinco;
 	}
 	
-	public CirugiaSolicitada(){
+	public CirugiaSolicitada(){		
 	}
 	
 	public CirugiaSolicitada(Integer idCirugiaSolicitada, Icd diagnosticoIngreso,
 			ProcedimientoSolicitado procedimientoUno, ProcedimientoSolicitado procedimientoDos,
-			ProcedimientoSolicitado procedimientoTres, String fundamentosDiagnostico, Icd otrasEnfUno,
-			Integer numCirugia) {
+			ProcedimientoSolicitado procedimientoTres, String fundamentosDiagnostico, Icd otrasEnfUno, Icd otrasEnfDos,
+			Icd otrasEnfTres, Icd otrasEnfCuatro, Icd otrasEnfCinco, Integer numCirugia) {
 		super();
 		this.idCirugiaSolicitada = idCirugiaSolicitada;
 		this.diagnosticoIngreso = diagnosticoIngreso;
@@ -78,7 +107,10 @@ public class CirugiaSolicitada extends BaseModelo {
 		this.procedimientoTres = procedimientoTres;
 		this.fundamentosDiagnostico = fundamentosDiagnostico;
 		this.otrasEnfUno = otrasEnfUno;
-		this.numCirugia = numCirugia;		
+		this.otrasEnfDos = otrasEnfDos;
+		this.otrasEnfTres = otrasEnfTres;
+		this.otrasEnfCuatro = otrasEnfCuatro;
+		this.otrasEnfCinco = otrasEnfCinco;
+		this.numCirugia = numCirugia;
 	}
-	
 }
