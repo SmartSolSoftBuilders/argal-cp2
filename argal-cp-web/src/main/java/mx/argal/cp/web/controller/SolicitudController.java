@@ -105,7 +105,31 @@ public class SolicitudController {
 		}    	
     	return solicitudCirugiaProgramada;    	  
 	}
-		
+	
+	@RequestMapping(value="/guardar_solicitud_p3",method = RequestMethod.POST)
+    @ResponseBody
+    public SolicitudCirugiaProgramada guardarSolicitudP3(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
+		System.out.println("<OTIKA>Guardando!!!"+solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());
+    	Boolean idSolicitudGuardada = false;
+    	if (solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada()!=null || solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada()!=0){    		
+    		idSolicitudGuardada = this.solicitudServicio.actualizarSolicitudProgramacionC(solicitudCirugiaProgramada);    		    	
+    	}    	
+    	System.out.println("Actualizada la programación de la solicitud:"+idSolicitudGuardada);
+    	return solicitudCirugiaProgramada;    	  
+	}
+	
+	@RequestMapping(value="/guardar_solicitud_p5",method = RequestMethod.POST)
+    @ResponseBody
+    public SolicitudCirugiaProgramada guardarSolicitudP5(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
+		System.out.println("<OTIKA>Guardando!!!"+solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());
+    	Boolean idSolicitudGuardada = false;
+    	if (solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada()!=null || solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada()!=0){    		
+    		idSolicitudGuardada = this.solicitudServicio.actualizarSolicitudRiesgosYPersonalRequeridoByParams(solicitudCirugiaProgramada);    		    	
+    	}    	
+    	System.out.println("Actualizada la seccion riesg y personal de la solicitud:"+idSolicitudGuardada);
+    	return solicitudCirugiaProgramada;    	  
+	}
+	
 	@RequestMapping(value="/getsolicitudbyid",method = RequestMethod.POST)
     @ResponseBody
     public SolicitudCirugiaProgramada getSolicitudById(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada){

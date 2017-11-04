@@ -5,59 +5,65 @@
 						<tr>
 							<td>
 								<div class="control-group">
-									<label for="edad" class="control-label">Riesgos Quirúrgicos</label> 																	
+									<label for="riesgos" class="control-label">Riesgos Quirúrgicos (Indique los riesgos en la cirugía):</label> 																	
 								</div>
 							</td>
 							<td>
 								<div class="checkbox">
-  									<label><input type="checkbox" value="">I</label>
+  									<label><input id="riesgos1" type="checkbox" value="1">I</label>
 								</div>
 							</td>
 							<td>
 								<div class="checkbox">
-  									<label><input type="checkbox" value="">II</label>
+  									<label><input id="riesgos2" type="checkbox" value="">II</label>
 								</div>
 							</td>
 							<td>
 								<div class="checkbox">
-  									<label><input type="checkbox" value="">III</label>
+  									<label><input id="riesgos3" type="checkbox" value="1">III</label>
 								</div>
 							</td>
 							<td>
 								<div class="checkbox">
-  									<label><input type="checkbox" value="">IV</label>
+  									<label><input id="riesgos4" type="checkbox" value="1">IV</label>
 								</div>
-							</td>						
+							</td>
+													
 						</tr>	
 					</table>
 					<table border=1>
 						<tr>
 							<td>
 								<div class="control-group">
-									<label class="control-label" for="name">Nombre del Ayudante 1</label>
+									<label class="control-label" for="name">Nombre del Ayudante 1:</label>
 									<div class="controls">
-										<input type="date" name="fechaProgramacion" id="fechaProgramacion"
-											placeholder="fecha de programación" required>
+										<input type="text" name="nombreAyudanteUno" id="nombreAyudanteUno"
+											placeholder="nombre completo" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 									</div>
 								</div>
 							</td>
 							<td>
 								<div class="control-group">
-									<label class="control-label" for="name">Nombre del Ayudante 2</label> 
+									<label class="control-label" for="name">Nombre del Ayudante 2:</label> 
 										<div class="controls">
-								        	<input type="number" class="form-control" id="apellidoP"
-										placeholder="apellidoP" data-error="apellido paterno" required>
+								        	<input type="text" class="form-control" id="nombreAyudanteDos"
+											placeholder="nombre completo" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 								      </div>
 								</div>
 							</td>
+						</tr>
+						<tr>
 							<td>
 								<div class="control-group">
-									<label for="apellidoP" class="control-label">Anestesiólogo</label> 
+									<label for="apellidoP" class="control-label">Nombre del Anestesiólogo:</label> 
 										<div class="controls">
-								        	<input type="number" class="form-control" id="tiempoSala"
-										placeholder="apellidoP" data-error="apellido paterno" required>
+								        	<input type="text" class="form-control" id="nombreAnestesiologo"
+											placeholder="nombre completo" required onkeyup="javascript:this.value=this.value.toUpperCase();">
 								      </div>
 								</div>
+							</td>
+							<td align="right">
+								<button type="button" onclick="guardar_p5();" style="background: none;border: none;"><img src="static/img/save.png" width="50px" /></button>					
 							</td>
 						</tr>
 					</table>

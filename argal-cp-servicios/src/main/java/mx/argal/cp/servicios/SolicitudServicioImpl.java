@@ -45,6 +45,22 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 			return true;
 		return false;
 	}
+	
+	@Override
+	public Boolean actualizarSolicitudProgramacionC(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
+		// TODO Auto-generated method stub
+		if (this.solicitudDao.guardarSolicitudProgramacionByParams(solicitudCirugiaProgramada)!=0)
+			return true;
+		return false;
+	}
+	
+	@Override
+	public Boolean actualizarSolicitudRiesgosYPersonalRequeridoByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
+		// TODO Auto-generated method stub
+		if (this.solicitudDao.actualizarSolicitudRiesgosYPersonalRequeridoByParams(solicitudCirugiaProgramada)!=0)
+			return true;
+		return false;
+	}
 
 	@Override
 	public SolicitudCirugiaProgramada getSolicitudById(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {

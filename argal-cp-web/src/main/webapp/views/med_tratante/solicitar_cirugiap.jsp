@@ -62,35 +62,17 @@
 		
 		<h3><img src="static/img/schedule.png" width="25px" />3)Programación</h3>
 		<div>
-			<jsp:include page="secciones/sec_programacion.jsp"></jsp:include>
-			<table width="1200px">
-				<tr>						
-					<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>
-					<td><button type="button" onclick="nextTab(1)" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
-				</tr>
-			</table>		
+			<jsp:include page="secciones/sec_programacion.jsp"></jsp:include>				
 		</div>
 			
 		<h3><img src="static/img/documents.png" width="25px" />4)Documentación</h3>
 		<div>	   
-			<jsp:include page="secciones/sec_documentacion.jsp"></jsp:include>
-			<table width="1200px">
-				<tr>						
-					<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>
-					<td><button type="button" onclick="nextTab(1)" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
-				</tr>
-			</table>		
+			<jsp:include page="secciones/sec_documentacion.jsp"></jsp:include>				
 		</div>	
 		
 		<h3><img src="static/img/person.png" width="25px" />5)Riesgos y Personal Requerido Adicional</h3>
 		<div>	    
-			<jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>
-			<table width="1200px">
-				<tr>						
-					<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>
-					<td><button type="button" onclick="nextTab(1)" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
-				</tr>
-			</table>		
+			<jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>				
 		</div>
 		
 		<h3><img src="static/img/person.png" width="25px" />6)Insumos</h3>

@@ -15,9 +15,21 @@
 		<result property="fechaSolicitudElaboracion" column="FECHA_SOLICITUD_ELABORACION"/>		
 		<result property="empresaBeneficiarioSolicitudCirugiaProgramada" column="EMPRESA_BENEFICIARIO"/>		
 		<result property="tipoSolicitudCirugiaProgramada" column="TIPO_CIRUGIA_PROGRAMADA"/>
-		<result property="status" column="STATUS"/>	
+		<result property="status" column="STATUS"/>
+		<result property="tiempoCirugia" column="TIEMPO_CIRUGIA"/>
+		<result property="tiempoSalaRecuperacion" column="TIEMPO_SALA_RECUPERACION"/>
+		<result property="resultadosPreoperatorios" column="RES_PREOPERATORIOS"/>
+		<result property="describirResultadosPreoperatorios" column="DESC_RES_PREOPERATORIOS"/>		
+		<result property="riesgosQuirurgicosUno" column="RIESGOS_QUIRURGICOS_1"/>
+		<result property="riesgosQuirurgicosDos" column="RIESGOS_QUIRURGICOS_2"/>
+		<result property="riesgosQuirurgicosTres" column="RIESGOS_QUIRURGICOS_3"/>
+		<result property="riesgosQuirurgicosCuatro" column="RIESGOS_QUIRURGICOS_4"/>
+		<result property="nombreAyudanteUno" column="NOMBRE_AYUDANTE_1"/>
+		<result property="nombreAyudanteDos" column="NOMBRE_AYUDANTE_2"/>
+		<result property="nombreAnestesiologo" column="NOMBRE_ANESTESIOLOGO"/>				
 		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>
-		<association property="empresa" column="ID_EMPRESA" javaType="Empresa" select="selectEmpresa"/>		
+		<association property="empresa" column="ID_EMPRESA" javaType="Empresa" select="selectEmpresa"/>
+		<association property="hospital" column="ID_HOSPITAL" javaType="Hospital" select="selectHospital"/>		
 		<association property="cirugiaSolicitadaUno" column="ID_CIRUGIA_SOLICITADA_1" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaUno"/>
 		<!--association property="cirugiaSolicitadaDos" column="ID_CIRUGIA_SOLICITADA" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaDos"/-->
 		<collection property="insumos" column="ID_SOLICITUD_CIRUGIA_PROGRAMADA" javaType="List" select="selectInsumos"/>				
@@ -29,6 +41,12 @@
 	
 	<resultMap id="empresaResult" type="Empresa">
 	    	<id property="idEmpresa" column="ID_EMPRESA" />
+	</resultMap>
+	
+	<resultMap id="hospitalResult" type="Hospital">
+    	<id property="idHospital" column="ID_HOSP" />
+    	<result property="nombreHospital" column="NOMBRE_HOSP" />    
+		<result property="activoHospital" column="ACTIVO_HOSP"/>    	
 	</resultMap>
 	
 	<resultMap id="icdResult" type="Icd">
@@ -113,6 +131,10 @@
 	
 	<select id="selectEmpresa" parameterType="int" resultMap="empresaResult" resultType="Empresa">		 
 		select "ID_EMPRESA" from "EMPRESA" where "ID_EMPRESA"=#{idEmpresa} 	
+	</select>
+	
+	<select id="selectHospital" parameterType="int" resultMap="hospitalResult" resultType="Hospital">		 
+		select "ID_HOSP","NOMBRE_HOSP","ACTIVO_HOSP" from "HOSPITAL" where "ID_HOSP"=#{idHospital} 	
 	</select> 
 			
 	<select id="selectCirugiaSolicitadaUno" parameterType="int" resultMap="cirugiaSolicitadaResult" resultType="CirugiaSolicitada">		 
@@ -240,7 +262,7 @@
 			 "ID_CPT"=#{id}
 				 WHERE "ID_PROCEDIMIENTO_SOLICITADO" =#{idProcedimientoSolicitado}				
 	</update>	
-	
+		
 	<update id="guardarSolicitudByParams" parameterType="SolicitudCirugiaProgramada">
 			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET		
 		<if test="nombreBeneficiarioSolicitudCirugiaProgramada != null">
@@ -273,6 +295,55 @@
 		<if test="empresa != null">	
 			,"ID_EMPRESA"=cast(#{empresa.idEmpresa} as int)
 		</if>						
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada};
+	</update>
+	
+	<update id="guardarSolicitudProgramacionByParams" parameterType="SolicitudCirugiaProgramada">
+			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET					
+		<if test="fechaSolicitudCirugiaProgramada != null">	
+			"FECHA_SOLICITUD"=#{fechaSolicitudCirugiaProgramada}
+		</if>
+		<if test="hospital.idHospital != null">
+			,"ID_HOSPITAL"=#{hospital.idHospital}
+		</if>
+		<if test="tiempoCirugia != null">	
+			,"TIEMPO_CIRUGIA"=#{tiempoCirugia}
+		</if>
+		<if test="tiempoSalaRecuperacion != null">
+			,"TIEMPO_SALA_RECUPERACION"=#{tiempoSalaRecuperacion}
+		</if>
+		<if test="describirResultadosPreoperatorios != null">	
+			,"DESC_RES_PREOPERATORIOS"=#{describirResultadosPreoperatorios}
+		</if>
+		<if test="resultadosPreoperatorios != null">	
+			,"RES_PREOPERATORIOS"=cast(#{resultadosPreoperatorios} as int)
+		</if>						
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada};
+	</update>
+	
+	<update id="actualizarSolicitudRiesgosYPersonalRequeridoByParams" parameterType="SolicitudCirugiaProgramada">
+			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET
+		<if test="riesgosQuirurgicosUno != null">	
+			"RIESGOS_QUIRURGICOS_1"=#{riesgosQuirurgicosUno}
+		</if>
+		<if test="riesgosQuirurgicosDos != null">	
+			,"RIESGOS_QUIRURGICOS_2"=#{riesgosQuirurgicosDos}
+		</if>
+		<if test="riesgosQuirurgicosTres != null">	
+			,"RIESGOS_QUIRURGICOS_3"=#{riesgosQuirurgicosTres}
+		</if>
+		<if test="riesgosQuirurgicosCuatro != null">	
+			,"RIESGOS_QUIRURGICOS_4"=#{riesgosQuirurgicosCuatro}
+		</if>
+		<if test="nombreAyudanteUno != null">	
+			,"NOMBRE_AYUDANTE_1"=#{nombreAyudanteUno}
+		</if>
+		<if test="nombreAyudanteDos != null">	
+			,"NOMBRE_AYUDANTE_2"=#{nombreAyudanteDos}
+		</if>
+		<if test="nombreAnestesiologo != null">
+			,"NOMBRE_ANESTESIOLOGO"=#{nombreAnestesiologo}
+		</if>
 			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada};
 	</update>
 

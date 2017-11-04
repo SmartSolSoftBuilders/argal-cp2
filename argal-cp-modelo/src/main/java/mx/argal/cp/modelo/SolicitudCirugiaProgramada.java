@@ -16,9 +16,21 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	private Date fechaSolicitudElaboracion; 
 	private Integer tipoSolicitudCirugiaProgramada;
 	private Integer status;
+	private String tiempoCirugia;
+	private String tiempoSalaRecuperacion;
+	private Integer resultadosPreoperatorios;
+	private String describirResultadosPreoperatorios;
 	private String empresaBeneficiarioSolicitudCirugiaProgramada;
 	private MedicoTratante medicoTratante;
 	private Empresa empresa;
+	private Hospital hospital;
+	private Integer riesgosQuirurgicosUno;
+	private Integer riesgosQuirurgicosDos;
+	private Integer riesgosQuirurgicosTres;
+	private Integer riesgosQuirurgicosCuatro;
+	private String nombreAyudanteUno;
+	private String nombreAyudanteDos;
+	private String nombreAnestesiologo;
 	private CirugiaSolicitada cirugiaSolicitadaUno;
 	private CirugiaSolicitada cirugiaSolicitadaDos;
 	private List<Insumo> insumos;
@@ -124,20 +136,95 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	}
 	public void setInsumos(List<Insumo> insumos) {
 		this.insumos = insumos;
+	}		
+	public Hospital getHospital() {
+		return hospital;
+	}
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
+	}	
+	public String getTiempoCirugia() {
+		return tiempoCirugia;
+	}
+	public void setTiempoCirugia(String tiempoCirugia) {
+		this.tiempoCirugia = tiempoCirugia;
+	}
+	public String getTiempoSalaRecuperacion() {
+		return tiempoSalaRecuperacion;
+	}
+	public void setTiempoSalaRecuperacion(String tiempoSalaRecuperacion) {
+		this.tiempoSalaRecuperacion = tiempoSalaRecuperacion;
+	}	
+	public Integer getResultadosPreoperatorios() {
+		return resultadosPreoperatorios;
+	}
+	public void setResultadosPreoperatorios(Integer resultadosPreoperatorios) {
+		this.resultadosPreoperatorios = resultadosPreoperatorios;
+	}
+	public String getDescribirResultadosPreoperatorios() {
+		return describirResultadosPreoperatorios;
+	}
+	public void setDescribirResultadosPreoperatorios(String describirResultadosPreoperatorios) {
+		this.describirResultadosPreoperatorios = describirResultadosPreoperatorios;
+	}	
+	public Integer getRiesgosQuirurgicosUno() {
+		return riesgosQuirurgicosUno;
+	}
+	public void setRiesgosQuirurgicosUno(Integer riesgosQuirurgicosUno) {
+		this.riesgosQuirurgicosUno = riesgosQuirurgicosUno;
+	}
+	public Integer getRiesgosQuirurgicosDos() {
+		return riesgosQuirurgicosDos;
+	}
+	public void setRiesgosQuirurgicosDos(Integer riesgosQuirurgicosDos) {
+		this.riesgosQuirurgicosDos = riesgosQuirurgicosDos;
+	}
+	public Integer getRiesgosQuirurgicosTres() {
+		return riesgosQuirurgicosTres;
+	}
+	public void setRiesgosQuirurgicosTres(Integer riesgosQuirurgicosTres) {
+		this.riesgosQuirurgicosTres = riesgosQuirurgicosTres;
+	}
+	public Integer getRiesgosQuirurgicosCuatro() {
+		return riesgosQuirurgicosCuatro;
+	}
+	public void setRiesgosQuirurgicosCuatro(Integer riesgosQuirurgicosCuatro) {
+		this.riesgosQuirurgicosCuatro = riesgosQuirurgicosCuatro;
+	}
+	public String getNombreAyudanteUno() {
+		return nombreAyudanteUno;
+	}
+	public void setNombreAyudanteUno(String nombreAyudanteUno) {
+		this.nombreAyudanteUno = nombreAyudanteUno;
+	}
+	public String getNombreAyudanteDos() {
+		return nombreAyudanteDos;
+	}
+	public void setNombreAyudanteDos(String nombreAyudanteDos) {
+		this.nombreAyudanteDos = nombreAyudanteDos;
+	}
+	public String getNombreAnestesiologo() {
+		return nombreAnestesiologo;
+	}
+	public void setNombreAnestesiologo(String nombreAnestesiologo) {
+		this.nombreAnestesiologo = nombreAnestesiologo;
 	}
 	
 	public SolicitudCirugiaProgramada(){
 		
 	}
-	
 	public SolicitudCirugiaProgramada(Integer idSolicitudCirugiaProgramada,
 			String nombreBeneficiarioSolicitudCirugiaProgramada, String apPBeneficiarioSolicitudCirugiaProgramada,
 			String apMBeneficiarioSolicitudCirugiaProgramada, String edadBeneficiarioSolicitudCirugiaProgramada,
 			String sexoBeneficiarioSolicitudCirugiaProgramada, String numNominaBeneficiarioSolicitudCirugiaProgramada,
 			Date fechaSolicitudCirugiaProgramada, Date fechaSolicitudElaboracion,
-			Integer tipoSolicitudCirugiaProgramada, Integer status,
+			Integer tipoSolicitudCirugiaProgramada, Integer status, String tiempoCirugia, String tiempoSalaRecuperacion,
+			Integer resultadosPreoperatorios, String describirResultadosPreoperatorios,
 			String empresaBeneficiarioSolicitudCirugiaProgramada, MedicoTratante medicoTratante, Empresa empresa,
-			CirugiaSolicitada cirugiaSolicitadaUno, CirugiaSolicitada cirugiaSolicitadaDos,List<Insumo> insumos) {
+			Hospital hospital, Integer riesgosQuirurgicosUno, Integer riesgosQuirurgicosDos,
+			Integer riesgosQuirurgicosTres, Integer riesgosQuirurgicosCuatro, String nombreAyudanteUno,
+			String nombreAyudanteDos, String nombreAnestesiologo, CirugiaSolicitada cirugiaSolicitadaUno,
+			CirugiaSolicitada cirugiaSolicitadaDos, List<Insumo> insumos) {
 		super();
 		this.idSolicitudCirugiaProgramada = idSolicitudCirugiaProgramada;
 		this.nombreBeneficiarioSolicitudCirugiaProgramada = nombreBeneficiarioSolicitudCirugiaProgramada;
@@ -150,12 +237,24 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 		this.fechaSolicitudElaboracion = fechaSolicitudElaboracion;
 		this.tipoSolicitudCirugiaProgramada = tipoSolicitudCirugiaProgramada;
 		this.status = status;
+		this.tiempoCirugia = tiempoCirugia;
+		this.tiempoSalaRecuperacion = tiempoSalaRecuperacion;
+		this.resultadosPreoperatorios = resultadosPreoperatorios;
+		this.describirResultadosPreoperatorios = describirResultadosPreoperatorios;
 		this.empresaBeneficiarioSolicitudCirugiaProgramada = empresaBeneficiarioSolicitudCirugiaProgramada;
 		this.medicoTratante = medicoTratante;
 		this.empresa = empresa;
+		this.hospital = hospital;
+		this.riesgosQuirurgicosUno = riesgosQuirurgicosUno;
+		this.riesgosQuirurgicosDos = riesgosQuirurgicosDos;
+		this.riesgosQuirurgicosTres = riesgosQuirurgicosTres;
+		this.riesgosQuirurgicosCuatro = riesgosQuirurgicosCuatro;
+		this.nombreAyudanteUno = nombreAyudanteUno;
+		this.nombreAyudanteDos = nombreAyudanteDos;
+		this.nombreAnestesiologo = nombreAnestesiologo;
 		this.cirugiaSolicitadaUno = cirugiaSolicitadaUno;
 		this.cirugiaSolicitadaDos = cirugiaSolicitadaDos;
 		this.insumos = insumos;
-	}
-	
+	}	
+
 }

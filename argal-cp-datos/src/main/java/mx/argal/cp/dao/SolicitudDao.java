@@ -22,5 +22,7 @@ public interface SolicitudDao {
 	public CirugiaSolicitada obtenerCirugiaSolicitadaById(@Param("idCirugiaSolicitada") Integer idCirugiaSolicitada);
 	public Integer actualizarCirugiaSolicitada(CirugiaSolicitada cirugiaSolicitada);
 	public Integer actualizarProcedimientoSolicitado(ProcedimientoSolicitado procedimientoUno);
-
+	public Integer guardarSolicitudProgramacionByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public Integer actualizarSolicitudRiesgosYPersonalRequeridoByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	
 }

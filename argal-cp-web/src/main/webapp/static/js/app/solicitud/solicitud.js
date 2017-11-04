@@ -55,6 +55,7 @@ $(document).ready(function() {
 	  });
   cargarIcdCpt();
   cargarEmpresas();
+  cargarHospitales();
   if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!=""){	   
 	  cargarSolicitud($("#idSolicitud").val());	  
   }
@@ -151,6 +152,87 @@ function guardar_p2(){
 	});	
 }
 
+
+function guardar_p3(){	
+	var fechaProgramacion;
+	var d2=new Date($("#fechaProgramacion").val());
+	dt=d2.getDate();
+	dt++;
+	mn=d2.getMonth();
+	mn++;
+	yy=d2.getFullYear();
+	fechaProgramacion=mn+"/"+dt+"/"+yy
+	
+	$.ajax({
+		async : false,
+		data : {
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),
+			"fechaSolicitudCirugiaProgramada" : fechaProgramacion,
+			"tiempoCirugia" : $("#tiempoCirugia").val(),
+			"tiempoSalaRecuperacion" : $("#tiempoSalaRecuperacion").val(),
+			"hospital.idHospital" : $("#hospital").val(),
+			"resultadosPreoperatorios": $("#resultadosPreoperatorios").val(),
+			"describirResultadosPreoperatorios": $("#desResultadosPreoperatorios").val()
+		},
+		dataType : 'json',
+		url : 'mvc/solicitud/guardar_solicitud_p3',
+		type : 'post',
+		beforeSend : function() {
+			$("#loading").show();
+			$("#contenidoSolicitud").hide();
+		},
+		success : function(response) {
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();
+			mensaje("La sección de programación de la cirugía fué guardada con éxito!");
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada+"<input type='hidden' id='idSolicitud' name='idSolicitud' value='" + response.idSolicitudCirugiaProgramada +"'/>");
+			cargarSolicitud();
+			// console.log(response)
+		},
+		error : function(response) {
+			alert("error!")
+			// console.log(response)
+		}
+	});	
+}
+
+function guardar_p5(){		
+	$.ajax({
+		async : false,
+		data : {
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),
+			"riesgosQuirurgicosUno" : $("#riesgos1").val(),
+			"riesgosQuirurgicosDos" : $("#riesgos2").val(),
+			"riesgosQuirurgicosTres" : $("#riesgos3").val(),
+			"riesgosQuirurgicosCuatro" : $("#riesgos4").val(),			
+			"nombreAyudanteUno" : $("#nombreAyudanteUno").val(),
+			"nombreAyudanteDos" : $("#nombreAyudanteDos").val(),
+			"nombreAnestesiologo" : $("#nombreAnestesiologo").val()			
+		},
+		dataType : 'json',
+		url : 'mvc/solicitud/guardar_solicitud_p5',
+		type : 'post',
+		beforeSend : function() {
+			$("#loading").show();
+			$("#contenidoSolicitud").hide();
+		},
+		success : function(response) {
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();
+			mensaje("La sección de personal requerido y riesgos de la cirugía fué guardada con éxito!");
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
+			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada+"<input type='hidden' id='idSolicitud' name='idSolicitud' value='" + response.idSolicitudCirugiaProgramada +"'/>");
+			cargarSolicitud();
+			// console.log(response)
+		},
+		error : function(response) {
+			alert("error!")
+			// console.log(response)
+		}
+	});	
+}
+
 function cargarSolicitud(){
 	$("#loading").show();
 	$("#contenidoSolicitud").hide();
@@ -179,6 +261,22 @@ function cargarSolicitud(){
 			$("#numNomina").val(response.numNominaBeneficiarioSolicitudCirugiaProgramada);
 			$("#tipoCirugiaSel").val(response.tipoSolicitudCirugiaProgramada);
 			$("#empresa").val(response.empresaBeneficiarioSolicitudCirugiaProgramada);
+			$("#fechaProgramacion").val(response.fechaSolicitudCirugiaProgramada);
+			$("#tiempoCirugia").val(response.tiempoCirugia);			
+			$("#tiempoSalaRecuperacion").val(response.tiempoSalaRecuperacion);			
+			$("#hospital").val(response.hospital.idHospital);
+			$("#resultadosPreoperatorios").val(response.resultadosPreoperatorios);
+			$("#desResultadosPreoperatorios").val(response.describirResultadosPreoperatorios);
+			//			
+			$("#riesgos1").val(response.riesgosQuirurgicosUno);
+			$("#riesgos2").val(response.riesgosQuirurgicosDos);
+			$("#riesgos3").val(response.riesgosQuirurgicosTres);
+			$("#riesgos4").val(response.riesgosQuirurgicosCuatro);			
+			$("#nombreAyudanteUno").val(response.nombreAyudanteUno);
+			$("#nombreAyudanteDos").val(response.nombreAyudanteDos);
+			$("#nombreAnestesiologo").val(response.nombreAnestesiologo);
+			//
+			
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada+"<input type='hidden' id='idSolicitud' name='idSolicitud' value='" + response.idSolicitudCirugiaProgramada +"'/>");			
 			console.log(response)
@@ -274,6 +372,21 @@ function cargarIcdCpt(){
 	});
 }
 
+
+function cargarHospitales(){
+	$.ajax({
+		method:"post",
+		async:false,
+		url: "mvc/hospital/gethospitalesactivos"
+	  	}).done(function(data) {
+	  		//console.log(data)
+	  		var optionsAsString = "";   		
+	   		for (i=0;i<data.length;i++){   			   		
+	   		    optionsAsString += "<option value='" + data[i].idHospital + "'>" + data[i].nombreHospital + "</option>";
+			}      		
+	   		$( 'select[name="hospital"]' ).append( optionsAsString );
+	 });	
+}
 function cargarEmpresas(){			  	
 	$.ajax({
 		method:"post",
@@ -428,6 +541,8 @@ function setVarInsumos(){
         },
 
         insertItem: function(insertingInsumo) {
+        	console.log(insertingInsumo);
+        	//Lógica para guardar el insumo nuevo
             this.insumos.push(insertingInsumo);
         },
 

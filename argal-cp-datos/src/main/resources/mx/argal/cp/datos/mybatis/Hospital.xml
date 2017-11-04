@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.argal.cp.dao.HospitalDao">
+	
+	<resultMap id="hospitalResult" type="Hospital">
+    	<id property="idHospital" column="ID_HOSP" />
+    	<result property="nombreHospital" column="NOMBRE_HOSP" />
+    	<result property="direccionHospital" column="DIR_HOSP"/>
+		<result property="coloniaHospital" column="COL_HOSP"/>
+		<result property="municipioDelHospital" column="MUN_DEL_HOSP"/>
+		<result property="estadoHospital" column="ESTADO_HOSP"/>		
+		<result property="cpHospital" column="CP_HOSP"/>
+		<result property="conmutadorHospital" column="CONMUTADOR_HOSP"/>		
+		<result property="telModuloHospital" column="TEL_DIR_MOD_HOSP"/>
+		<result property="ciudadHospital" column="CIUDAD_HOSP"/>
+		<result property="paisHospital" column="PAIS_HOSP"/>
+		<result property="activoHospital" column="ACTIVO_HOSP"/>    	
+	</resultMap>
+	
+	<select id="obtenerHospitalesActivos" resultMap="hospitalResult">
+		select * from "HOSPITAL" where "ACTIVO_HOSP" = true;
+	</select>
+		
+</mapper>
