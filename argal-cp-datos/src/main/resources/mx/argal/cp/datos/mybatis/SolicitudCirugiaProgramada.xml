@@ -171,6 +171,19 @@
 		select * from "CIRUGIA_SOLICITADA" where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada} 	
 	</select>	
 		
+	<insert id="guardarInsumo" parameterType="Insumo"  keyProperty="id">
+		<selectKey keyProperty="idInsumo" resultType="integer" order="BEFORE">
+  		   	SELECT nextVal('sec_insumo')
+  		</selectKey>	
+		INSERT INTO "INSUMO"(
+			"ID_INSUMO","DESCRIPCION","MONTO","ID_SOLICITUD_CIRUGIA_PROGRAMADA") VALUES (#{idInsumo},#{descripcion},#{monto},#{id});
+	</insert>
+	
+	<update id="actualizarInsumo" parameterType="Insumo">	
+		UPDATE "INSUMO" SET "DESCRIPCION"=#{descripcion},"MONTO"=#{monto}
+			where "ID_INSUMO"=#{idInsumo}
+	</update>
+	
 	<insert id="guardarSolicitud" parameterType="SolicitudCirugiaProgramada"  keyProperty="id">
 		<selectKey keyProperty="id" resultType="long" order="BEFORE">
   		   	SELECT nextVal('sec_solicitud_c_p')

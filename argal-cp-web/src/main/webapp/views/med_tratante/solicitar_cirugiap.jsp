@@ -75,17 +75,13 @@
 			<jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>				
 		</div>
 		
-		<h3><img src="static/img/person.png" width="25px" />6)Insumos</h3>
-		<div>	   
-			<div class="panel" id="panel5">
-				<div id="jsGridInsumos"></div>	
-				<table width="1200px">
-					<tr>						
-						<td><button type="submit" ><img src="static/img/save.png" width="50px" /></button></td>
-						<td><button type="button" onclick="nextTab(1)" style="background-color: #25726D;"><img src="static/img/continuar.png" width="90px" /></button></td>
-					</tr>
-				</table>
-			</div>
+		<h3><img src="static/img/insumo.png" width="25px" />6)Insumos</h3>
+		<div>	   			
+			<div id="jsGridInsumos"></div>								
+		</div>
+		<h3><img src="static/img/send.png" width="25px" />7)Enviar Solicitud de Cirugía Programada</h3>
+		<div>	   			
+			<jsp:include page="secciones/sec_solicitud_completa.jsp"></jsp:include>								
 		</div>	
 	</div>
 </div>

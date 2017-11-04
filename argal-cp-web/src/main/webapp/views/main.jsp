@@ -33,9 +33,13 @@
   
  <script>
  	function loadPage(pagina){
+ 		$("#mainContent").html("");
+ 		$("#loadingMain").show();
  		$("#mainContent").load(pagina+".jsp");
  	}
  	function loadPageData(pagina,param){
+ 		$("#mainContent").html("");
+ 		$("#loadingMain").show();
  		$("#mainContent").load("mvc/index/getpagecontent?page="+pagina+"&param="+param);
  	}
  	
@@ -61,14 +65,17 @@
 				<jsp:include page="menu/menu_dictaminador.jsp"/>				
 			</c:if>
 		</div>
-    </div><!-- /.nav-collapse -->    
+    </div><!-- /.nav-collapse -->       
     </div><!-- /.container -->
   </div><!-- /.navbar-inner -->
 </div><!-- /.navbar -->
 </header>
 </div>
+<div id="loadingMain" align="center" style="display:none;">
+    	Por favor espere....<br><img src="static/img/loading1.gif"/>    
+</div>
 <div id="mainContent">
-	PÁGINA DE INICIO 
+	 
 </div>
 </body>
 </html>

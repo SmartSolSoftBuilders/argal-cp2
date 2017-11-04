@@ -2,7 +2,8 @@ var accordionItems = new Array();
 var insumos;
 var dbInsumos;
 
-$(document).ready(function() {	
+$(document).ready(function() {
+	$("#loadingMain").hide();
 	crearAcordion();
 	$("#tabs").tabs();
 	$('#contact-form').validate({
@@ -444,7 +445,7 @@ function nextTab(id){
 
 function cargarGridInsumos(){	
 	$("#jsGridInsumos").jsGrid({
-        height: "70%",
+        height: "90%",
         width: "100%",
         filtering: false,
         editing: true,
@@ -543,12 +544,72 @@ function setVarInsumos(){
         insertItem: function(insertingInsumo) {
         	console.log(insertingInsumo);
         	//Lógica para guardar el insumo nuevo
+        	//descripcion, monto
+        	var idIns = 0;
+        	if (insertingInsumo.idInsumo!="")
+        		idIns=insertingInsumo.idInsumo;
+        	$.ajax({
+        		async : false,
+        		data : {
+        			"id" : $("#idSolicitud").val(),
+        			"idInsumo" : idIns,        			
+        			"descripcion" : insertingInsumo.descripcion,
+        			"monto" : insertingInsumo.monto
+        		},
+        		dataType : 'json',
+        		url : 'mvc/solicitud/guardar_solicitud_p6',
+        		type : 'post',
+        		beforeSend : function() {
+        			$("#loading").show();
+        			$("#contenidoSolicitud").hide();
+        		},
+        		success : function(response) {
+        			$("#loading").hide();
+        			$("#contenidoSolicitud").show();
+        			mensaje("El insumo fué guardado con éxito!");        			
+        			cargarSolicitud();
+        			// console.log(response)
+        		},
+        		error : function(response) {
+        			alert("error!")
+        			// console.log(response)
+        		}
+        	});
+        	
             this.insumos.push(insertingInsumo);
         },
 
-        updateItem: function(updatingProcedimiento) {
-        	alert(updatingProcedimiento);
-        	console.log(updatingProcedimiento)
+        updateItem: function(updatingInsumo) {
+        	var idIns = 0;
+        	if (updatingInsumo.idInsumo!="")
+        		idIns=updatingInsumo.idInsumo;
+        	$.ajax({
+        		async : false,
+        		data : {
+        			"id" : $("#idSolicitud").val(),
+        			"idInsumo" : idIns,        			
+        			"descripcion" : updatingInsumo.descripcion,
+        			"monto" : updatingInsumo.monto
+        		},
+        		dataType : 'json',
+        		url : 'mvc/solicitud/guardar_solicitud_p6',
+        		type : 'post',
+        		beforeSend : function() {
+        			$("#loading").show();
+        			$("#contenidoSolicitud").hide();
+        		},
+        		success : function(response) {
+        			$("#loading").hide();
+        			$("#contenidoSolicitud").show();
+        			mensaje("El insumo fué actualizado con éxito!");        			
+        			cargarSolicitud();
+        			// console.log(response)
+        		},
+        		error : function(response) {
+        			alert("error!")
+        			// console.log(response)
+        		}
+        	});
         },
 
         deleteItem: function(deletingInsumo) {

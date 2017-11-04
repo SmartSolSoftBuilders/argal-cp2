@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import mx.argal.cp.modelo.CirugiaSolicitada;
+import mx.argal.cp.modelo.Insumo;
 import mx.argal.cp.modelo.ProcedimientoSolicitado;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 
@@ -24,5 +25,7 @@ public interface SolicitudDao {
 	public Integer actualizarProcedimientoSolicitado(ProcedimientoSolicitado procedimientoUno);
 	public Integer guardarSolicitudProgramacionByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public Integer actualizarSolicitudRiesgosYPersonalRequeridoByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public Integer actualizarInsumo(Insumo insumo);
+	public Integer guardarInsumo(Insumo insumo);
 	
 }

@@ -1,4 +1,5 @@
-$(document).ready(function() {  
+$(document).ready(function() {
+	$("#loadingMain").hide();
 	$.ajax({
 		async : false,
 		data : {
