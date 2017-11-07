@@ -16,7 +16,7 @@
            	 	<th>FOLIO</th>
                 <th>PACIENTE</th>
                 <th>HOSPITAL</th>
-                <th>PROCEDIMIENTO (S)</th>
+                <th>PROCEDIMIENTO(S)</th>
                 <th>FECHA ELABORACIÓN</th>
                 <th>ESTATUS</th>
                 <th>ACCIONES</th>                
