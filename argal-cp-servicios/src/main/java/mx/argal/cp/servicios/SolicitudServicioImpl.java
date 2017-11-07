@@ -83,8 +83,22 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 				solicitudReturn = new ArrayList();
 				solicitudReturn.add(solicitudes.get(i).getIdSolicitudCirugiaProgramada());
 				solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
-				solicitudReturn.add("DALINDE");
-				solicitudReturn.add("PROC1");				
+				if (solicitudes.get(i).getHospital()!=null) 
+					solicitudReturn.add(solicitudes.get(i).getHospital().getNombreHospital());			
+				else
+					solicitudReturn.add("Sin información");
+				String procedimientos ="";
+				if (solicitudes.get(i).getCirugiaSolicitadaUno()!=null){
+					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno()!=null) 
+						procedimientos += solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno().getCpt().getDescripcion();
+					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos()!=null) 
+						procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos().getCpt().getDescripcion();
+					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres()!=null) 
+						procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres().getCpt().getDescripcion();
+					solicitudReturn.add(procedimientos);
+				}
+				else
+					solicitudReturn.add("");
 				solicitudReturn.add(format1.format(solicitudes.get(i).getFechaSolicitudElaboracion()));
 				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
 				if (solicitudes.get(i).getStatus()==1){
@@ -112,17 +126,32 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		List solicitudesReturn = new ArrayList();
 		List solicitudReturn = new ArrayList();
 		System.out.println(solicitudes);
-		String status[] = {"","RECIBIDA","ENVIADA","RECHAZADA","ACEPTADA"};		
+		String status[] = {"","","RECIBIDA","NEGOCIADA","RECHAZADA","ACEPTADA"};		
 		try{
+			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 			for (int i=0;i<solicitudes.size();i++){		
 				solicitudReturn = new ArrayList();
 				solicitudReturn.add(solicitudes.get(i).getIdSolicitudCirugiaProgramada());
 				solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
-				solicitudReturn.add("DALINDE");
-				solicitudReturn.add("PROC1");
-				solicitudReturn.add("2017-"+ (solicitudes.get(i).getFechaSolicitudElaboracion().getMonth()+1)+"-"+(solicitudes.get(i).getFechaSolicitudElaboracion().getDay()+1) );
+				if (solicitudes.get(i).getHospital()!=null) 
+					solicitudReturn.add(solicitudes.get(i).getHospital().getNombreHospital());			
+				else
+					solicitudReturn.add("Sin información");
+				String procedimientos ="";
+				if (solicitudes.get(i).getCirugiaSolicitadaUno()!=null){
+					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno()!=null) 
+						procedimientos += solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno().getCpt().getDescripcion();
+					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos()!=null) 
+						procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos().getCpt().getDescripcion();
+					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres()!=null) 
+						procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres().getCpt().getDescripcion();
+					solicitudReturn.add(procedimientos);
+				}
+				else
+					solicitudReturn.add("Error en la solicitud!");
+				solicitudReturn.add(format1.format(solicitudes.get(i).getFechaSolicitudElaboracion()));
 				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
-				if (solicitudes.get(i).getStatus()==1){
+				if (solicitudes.get(i).getStatus()==2){
 					solicitudReturn.add("<a href='#' onclick='loadPageData(200,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Dictaminar</a>");
 				}
 				else{
@@ -220,6 +249,12 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 	public Integer guardarInsumo(Insumo insumo) {
 		// TODO Auto-generated method stub
 		return this.solicitudDao.guardarInsumo(insumo);
+	}
+
+	@Override
+	public Integer cambiarStatusByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada,Integer status) {
+		// TODO Auto-generated method stub				
+		return this.solicitudDao.cambiarStatusByParams(solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada(), status);
 	}	
 	
 }

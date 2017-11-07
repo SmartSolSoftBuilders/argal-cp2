@@ -16,7 +16,8 @@ $(document).ready(function() {
 		    $('#solicitudesTable').DataTable( {
 		        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
 		        "data": response,"bDestroy": false
-		 });			
+		    });
+			$("#loadingMain").hide();
 		},
 		error : function(response) {
 			alert("error!")

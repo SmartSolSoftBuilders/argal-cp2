@@ -643,6 +643,20 @@ function crearAcordion(){
 	});
 }
 
+
+function mensajeRedirect(msj){
+	$( "#mensajeDialogo").html(msj);
+	$( "#dialog-mensaje" ).dialog({
+	      modal: true,
+	      buttons: {
+	        Ok: function() {
+	          $( this ).dialog( "close" );
+	          window.location.href="/argal-cp-web";
+	        }
+	     }
+	});
+}
+
 function mensaje(msj){
 	$( "#mensajeDialogo").html(msj);
 	$( "#dialog-mensaje" ).dialog({
@@ -653,4 +667,30 @@ function mensaje(msj){
 	        }
 	     }
 	});
+}
+
+function enviarSolicitud(){
+	$.ajax({
+		async : false,
+		data : {
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val()			
+		},
+		dataType : 'json',
+		url : 'mvc/solicitud/cambiarstatusenviada',
+		type : 'post',
+		beforeSend : function() {
+			$("#loading").show();
+			$("#contenidoSolicitud").hide();
+		},
+		success : function(response) {
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();
+			mensajeRedirect("La solicitud fué enviada con éxito!");        						
+			// console.log(response)
+		},
+		error : function(response) {
+			alert("error!")
+			// console.log(response)
+		}
+	});	
 }

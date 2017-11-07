@@ -16,10 +16,10 @@
            	 	<th>FOLIO</th>
                 <th>PACIENTE</th>
                 <th>HOSPITAL</th>
-                <th>PROCEDIMIENTO</th>
+                <th>PROCEDIMIENTO (S)</th>
                 <th>FECHA ELABORACIÓN</th>
                 <th>ESTATUS</th>
-                <th>ACCIONES-></th>                
+                <th>ACCIONES</th>                
             </tr>
         </thead> 
         <tbody>

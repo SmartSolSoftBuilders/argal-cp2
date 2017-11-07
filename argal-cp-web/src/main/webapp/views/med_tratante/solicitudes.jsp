@@ -21,7 +21,7 @@
                 <th>PROCEDIMIENTO</th>
                 <th>FECHA ELABORACIÓN</th>
                 <th>ESTATUS</th>
-                <th>EDITAR</th>                
+                <th>ACCIONES</th>                
             </tr>
         </thead> 
         <tbody>

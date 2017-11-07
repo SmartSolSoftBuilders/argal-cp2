@@ -17,5 +17,5 @@
 </ol>
 <p><strong>&nbsp;</strong></p>
 <center>
-	Por favor revise bien los Datos. Si está seguro de la información, de click en enviar para procesar la solicitud:<button type="button" onclick="guardar_p5();" style="background: none;border: none;"><img src="static/img/enviar.png" width="100px" /></button>					
+	Por favor revise bien los Datos. Si está seguro de la información, de click en enviar para procesar la solicitud:<button type="button" onclick="enviarSolicitud();" style="background: none;border: none;"><img src="static/img/enviar.png" width="100px" /></button>					
 </center>

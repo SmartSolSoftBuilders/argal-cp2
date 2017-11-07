@@ -7,6 +7,7 @@ $(document).ready(function() {
 	  cargarGrid();
 	  cargarGridInsumos();
   }
+  $("#loadingMain").hide();
 });
 
 function guardar(){

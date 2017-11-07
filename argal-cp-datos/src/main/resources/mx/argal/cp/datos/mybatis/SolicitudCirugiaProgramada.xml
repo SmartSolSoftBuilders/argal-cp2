@@ -274,7 +274,7 @@
 		UPDATE "PROCEDIMIENTO_SOLICITADO" SET 
 			 "ID_CPT"=#{id}
 				 WHERE "ID_PROCEDIMIENTO_SOLICITADO" =#{idProcedimientoSolicitado}				
-	</update>	
+	</update>
 		
 	<update id="guardarSolicitudByParams" parameterType="SolicitudCirugiaProgramada">
 			UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET		
@@ -358,6 +358,11 @@
 			,"NOMBRE_ANESTESIOLOGO"=#{nombreAnestesiologo}
 		</if>
 			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada};
+	</update>
+	
+	<update id="cambiarStatusByParams" parameterType="map">
+		UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "STATUS"=#{status}
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
 	</update>
 
 </mapper>

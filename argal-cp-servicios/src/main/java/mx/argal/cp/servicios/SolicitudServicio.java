@@ -21,6 +21,6 @@ public interface SolicitudServicio {
 	public Boolean actualizarSolicitudProgramacionC(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public Boolean actualizarSolicitudRiesgosYPersonalRequeridoByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public Integer actualizarInsumo(Insumo insumo);
-	public Integer guardarInsumo(Insumo insumo);
-	
+	public Integer guardarInsumo(Insumo insumo);	
+	public Integer cambiarStatusByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada, Integer status);	
 }

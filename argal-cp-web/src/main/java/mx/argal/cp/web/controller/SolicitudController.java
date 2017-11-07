@@ -177,5 +177,18 @@ public class SolicitudController {
 		CirugiaSolicitada cirugiaSolicitada = new CirugiaSolicitada();
 		cirugiaSolicitada=this.solicitudServicio.obtenerCirugiaSolicitadaById(1);
 		return cirugiaSolicitada;    	  
-	}		
+	}
+	
+	@RequestMapping(value="/cambiarstatusenviada",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean cambiarStatusEnviada(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
+		System.out.println("<OTIKA>Cambiar status enviada!!!");
+		try {
+			this.solicitudServicio.cambiarStatusByParams(solicitudCirugiaProgramada,2);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return true;    	  
+	}
 }

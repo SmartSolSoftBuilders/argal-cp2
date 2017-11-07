@@ -27,5 +27,6 @@ public interface SolicitudDao {
 	public Integer actualizarSolicitudRiesgosYPersonalRequeridoByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public Integer actualizarInsumo(Insumo insumo);
 	public Integer guardarInsumo(Insumo insumo);
+	public Integer cambiarStatusByParams (@Param("idSolicitudCirugiaProgramada")Integer idSolicitudCirugiaProgramada, @Param("status")Integer status);
 	
 }
