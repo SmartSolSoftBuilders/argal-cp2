@@ -2,7 +2,10 @@ var accordionItems = new Array();
 var insumos;
 var dbInsumos;
 
-$(document).ready(function() {
+$(document).ready(function() {	
+	$("#enviarSolicitudForm").click(function() {
+	    cargarSolicitudShow();
+	});
 	$("#loadingMain").hide();
 	crearAcordion();
 	$("#tabs").tabs();
@@ -75,6 +78,9 @@ function guardar(){
 			"nombreBeneficiarioSolicitudCirugiaProgramada" : $("#nombrePaciente").val(),
 			"apPBeneficiarioSolicitudCirugiaProgramada" : $("#apellidoP").val(),
 			"apMBeneficiarioSolicitudCirugiaProgramada" : $("#apellidoM").val(),
+			"nombreTitularSolicitudCirugiaProgramada" : $("#nombreTitular").val(),
+			"apPTitularSolicitudCirugiaProgramada" : $("#apellidoPTitular").val(),
+			"apMTitularSolicitudCirugiaProgramada" : $("#apellidoMTitular").val(),
 			"edadBeneficiarioSolicitudCirugiaProgramada" : $("#edad").val(),
 			"sexoBeneficiarioSolicitudCirugiaProgramada" : $("#sexobenefradiobutton").val(),
 			"numNominaBeneficiarioSolicitudCirugiaProgramada" : $("#numNomina").val(),
@@ -90,11 +96,10 @@ function guardar(){
 		},
 		success : function(response) {
 			$("#loading").hide();
-			$("#contenidoSolicitud").show();
-			mensaje("La sección de datos del beneficiario fué guardada con éxito!");
+			$("#contenidoSolicitud").show();			
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
 			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada+"<input type='hidden' id='idSolicitud' name='idSolicitud' value='" + response.idSolicitudCirugiaProgramada +"'/>");
-			cargarSolicitud();
+			mensaje("La sección de captura del beneficiario fué guardada con éxito!");
 			// console.log(response)
 		},
 		error : function(response) {
@@ -234,6 +239,81 @@ function guardar_p5(){
 	});	
 }
 
+function cargarSolicitudShow(){
+	$("#loading").show();
+	$("#contenidoSolicitud").hide();
+	$.ajax({
+		async : false,
+		data : {
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val()
+		},
+		dataType : 'json',
+		url : 'mvc/solicitud/getsolicitudbyid',
+		type : 'post',
+		beforeSend : function() {
+			// $("#resultado").html("Procesando, espere por favor..."),
+			// alert("OK!")
+		},
+		success : function(response) {
+			console.log(response)
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();			
+			$("#medTratShow").val(response.medicoTratante.nombreMedicoTratante + " " +response.medicoTratante.appMedicoTratante +" "+response.medicoTratante.apmMedicoTratante);
+			$("#titularShow").val(response.nombreTitularSolicitudCirugiaProgramada + " " +response.apPBeneficiarioSolicitudCirugiaProgramada +" "+response.apMBeneficiarioSolicitudCirugiaProgramada);
+			$("#empresaShow").val(response.empresa.nombreEmpresa);
+			//Cargar icdscpts			
+			/*
+			if (response.cirugiaSolicitadaUno!=null){
+				$("#idCirugia1").val(response.cirugiaSolicitadaUno.idCirugiaSolicitada);			
+				$("#idIcd1").val(response.cirugiaSolicitadaUno.diagnosticoIngreso.idIcd);
+				$("#icd1").val(response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
+				$("#fundamentosDiagnostico1").val(response.cirugiaSolicitadaUno.fundamentosDiagnostico);
+				if (response.cirugiaSolicitadaUno.procedimientoUno!=null){
+					$("#idProcedimiento1").val(response.cirugiaSolicitadaUno.procedimientoUno.idProcedimientoSolicitado);
+					$("#idCpt1").val(response.cirugiaSolicitadaUno.procedimientoUno.cpt.idCpt);
+					$("#cpt1").val(response.cirugiaSolicitadaUno.procedimientoUno.cpt.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.procedimientoDos!=null){
+					$("#idProcedimiento2").val(response.cirugiaSolicitadaUno.procedimientoDos.idProcedimientoSolicitado);
+					$("#idCpt2").val(response.cirugiaSolicitadaUno.procedimientoDos.cpt.idCpt);
+					$("#cpt2").val(response.cirugiaSolicitadaUno.procedimientoDos.cpt.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.procedimientoTres!=null){
+					$("#idProcedimiento2").val(response.cirugiaSolicitadaUno.procedimientoTres.idProcedimientoSolicitado);
+					$("#idCpt2").val(response.cirugiaSolicitadaUno.procedimientoTres.cpt.idCpt);
+					$("#cpt2").val(response.cirugiaSolicitadaUno.procedimientoTres.cpt.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfUno!=null){
+					$("#idIcd2").val(response.cirugiaSolicitadaUno.otrasEnfUno.idIcd);
+					$("#icd2").val(response.cirugiaSolicitadaUno.otrasEnfUno.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfDos!=null){
+					$("#idIcd3").val(response.cirugiaSolicitadaUno.otrasEnfDos.idIcd);
+					$("#icd3").val(response.cirugiaSolicitadaUno.otrasEnfDos.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfTres!=null){
+					$("#idIcd4").val(response.cirugiaSolicitadaUno.otrasEnfTres.idIcd);
+					$("#icd4").val(response.cirugiaSolicitadaUno.otrasEnfTres.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfCuatro!=null){
+					$("#idIcd5").val(response.cirugiaSolicitadaUno.otrasEnfCuatro.idIcd);
+					$("#icd5").val(response.cirugiaSolicitadaUno.otrasEnfCuatro.descripcion);
+				}
+				if (response.cirugiaSolicitadaUno.otrasEnfCinco!=null){
+					$("#idIcd6").val(response.cirugiaSolicitadaUno.otrasEnfCinco.idIcd);
+					$("#icd6").val(response.cirugiaSolicitadaUno.otrasEnfCinco.descripcion);
+				}
+				
+				
+			}
+			*/					
+		},
+		error : function(response) {
+			alert("error cargando la solicitud!")
+			// console.log(response)
+		}
+	});
+}
 function cargarSolicitud(){
 	$("#loading").show();
 	$("#contenidoSolicitud").hide();
@@ -255,6 +335,9 @@ function cargarSolicitud(){
 			$("#nombrePaciente").val(response.nombreBeneficiarioSolicitudCirugiaProgramada);
 			$("#apellidoP").val(response.apPBeneficiarioSolicitudCirugiaProgramada);
 			$("#apellidoM").val(response.apMBeneficiarioSolicitudCirugiaProgramada);
+			$("#nombreTitular").val(response.nombreTitularSolicitudCirugiaProgramada);
+			$("#apellidoPTitular").val(response.apPTitularSolicitudCirugiaProgramada);
+			$("#apellidoMTitular").val(response.apMTitularSolicitudCirugiaProgramada);
 			$("#edad").val(response.edadBeneficiarioSolicitudCirugiaProgramada);
 			console.log($("input[name='sexobenefradiobutton'][value=" + response.sexoBeneficiarioSolicitudCirugiaProgramada + "]"));
 			$("input[name='sexobenefradiobutton'][value=" + response.sexoBeneficiarioSolicitudCirugiaProgramada + "]").attr('checked', 'checked');

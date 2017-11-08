@@ -8,6 +8,9 @@
 		<result property="nombreBeneficiarioSolicitudCirugiaProgramada" column="NOMBRE_BENEFICIARIO"/>
 		<result property="apPBeneficiarioSolicitudCirugiaProgramada" column="APP_BENEFICIARIO"/>
 		<result property="apMBeneficiarioSolicitudCirugiaProgramada" column="APM_BENEFICIARIO"/>
+		<result property="nombreTitularSolicitudCirugiaProgramada" column="NOMBRE_TITULAR"/>
+		<result property="apPTitularSolicitudCirugiaProgramada" column="APP_TITULAR"/>
+		<result property="apMTitularSolicitudCirugiaProgramada" column="APM_TITULAR"/>
 		<result property="edadBeneficiarioSolicitudCirugiaProgramada" column="EDAD_BENEFICIARIO"/>
 		<result property="sexoBeneficiarioSolicitudCirugiaProgramada" column="SEXO_BENEFICIARIO"/>		
 		<result property="numNominaBeneficiarioSolicitudCirugiaProgramada" column="NUM_NOMINA_BENEFICIARIO"/>
@@ -36,11 +39,17 @@
 	</resultMap>
 	
 	<resultMap id="medicoTratanteResult" type="MedicoTratante">
-	    	<id property="idMedicoTratante" column="ID_MEDICO_TRATANTE" />
+	    <id property="idMedicoTratante" column="ID_MEDICO_TRATANTE" />
+	    <result property="nombreMedicoTratante" column="NOMBRE_MEDICO_TRATANTE"/>
+	    <result property="appMedicoTratante" column="APP_MEDICO_TRATANTE"/>
+	    <result property="apmMedicoTratante" column="APM_MEDICO_TRATANTE"/>
 	</resultMap>
 	
 	<resultMap id="empresaResult" type="Empresa">
-	    	<id property="idEmpresa" column="ID_EMPRESA" />
+	    <id property="idEmpresa" column="ID_EMPRESA" />
+	    <result property="nombreEmpresa" column="NOMBRE_EMPRESA"/>
+		<result property="nombreCorto" column="NOMBRE_CORTO"/>
+		<result property="activa" column="ACTIVA"/>				
 	</resultMap>
 	
 	<resultMap id="hospitalResult" type="Hospital">
@@ -126,11 +135,11 @@
 	</select>
 	
 	<select id="selectMedicoTratante" parameterType="int" resultMap="medicoTratanteResult" resultType="MedicoTratante">		 
-		select "ID_MEDICO_TRATANTE" from "MEDICO_TRATANTE" where "ID_MEDICO_TRATANTE"=#{idMedicoTratante} 	
+		select * from "MEDICO_TRATANTE" where "ID_MEDICO_TRATANTE"=#{idMedicoTratante} 	
 	</select>
 	
 	<select id="selectEmpresa" parameterType="int" resultMap="empresaResult" resultType="Empresa">		 
-		select "ID_EMPRESA" from "EMPRESA" where "ID_EMPRESA"=#{idEmpresa} 	
+		select * from "EMPRESA" where "ID_EMPRESA"=#{idEmpresa} 	
 	</select>
 	
 	<select id="selectHospital" parameterType="int" resultMap="hospitalResult" resultType="Hospital">		 
@@ -286,6 +295,15 @@
 		</if>
 		<if test="apMBeneficiarioSolicitudCirugiaProgramada != null">
 			,"APM_BENEFICIARIO"=#{apMBeneficiarioSolicitudCirugiaProgramada}
+		</if>
+		<if test="nombreTitularSolicitudCirugiaProgramada != null">
+			,"NOMBRE_TITULAR"=#{nombreTitularSolicitudCirugiaProgramada}
+		</if>
+		<if test="apPTitularSolicitudCirugiaProgramada != null">
+			,"APP_TITULAR"=#{apPTitularSolicitudCirugiaProgramada}
+		</if>
+		<if test="apMTitularSolicitudCirugiaProgramada != null">
+			,"APM_TITULAR"=#{apMTitularSolicitudCirugiaProgramada}
 		</if>		
 		<if test="numNominaBeneficiarioSolicitudCirugiaProgramada != null">	
 			,"NUM_NOMINA_BENEFICIARIO"=#{numNominaBeneficiarioSolicitudCirugiaProgramada}

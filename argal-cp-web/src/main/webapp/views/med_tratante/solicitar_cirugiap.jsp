@@ -50,7 +50,7 @@
 	</table>	
 	
 	<div id="accordionSolicitud">
-		<h3><img src="static/img/benef.png" width="25px" />1) Registro del Beneficiario</h3>
+		<h3><img src="static/img/benef.png" width="25px" />1) Registro del Paciente</h3>
 		 <div>	   
 			<jsp:include page="secciones/sec_beneficiario.jsp"></jsp:include>			
 		</div>		
@@ -79,7 +79,7 @@
 		<div>	   			
 			<div id="jsGridInsumos"></div>								
 		</div>
-		<h3><img src="static/img/send.png" width="25px" />7)Enviar Solicitud de Cirugía Programada</h3>
+		<h3 id = "enviarSolicitudForm"><img src="static/img/send.png" width="25px" />7)Enviar Solicitud de Cirugía Programada</h3>
 		<div>	   			
 			<jsp:include page="secciones/sec_solicitud_completa.jsp"></jsp:include>								
 		</div>	

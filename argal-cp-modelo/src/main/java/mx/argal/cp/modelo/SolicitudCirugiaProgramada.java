@@ -9,6 +9,9 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	private String nombreBeneficiarioSolicitudCirugiaProgramada;
 	private String apPBeneficiarioSolicitudCirugiaProgramada;
 	private String apMBeneficiarioSolicitudCirugiaProgramada;
+	private String nombreTitularSolicitudCirugiaProgramada;
+	private String apPTitularSolicitudCirugiaProgramada;
+	private String apMTitularSolicitudCirugiaProgramada;
 	private String edadBeneficiarioSolicitudCirugiaProgramada;
 	private String sexoBeneficiarioSolicitudCirugiaProgramada;
 	private String numNominaBeneficiarioSolicitudCirugiaProgramada;
@@ -208,28 +211,50 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	}
 	public void setNombreAnestesiologo(String nombreAnestesiologo) {
 		this.nombreAnestesiologo = nombreAnestesiologo;
+	}	
+	public String getNombreTitularSolicitudCirugiaProgramada() {
+		return nombreTitularSolicitudCirugiaProgramada;
 	}
-	
+	public void setNombreTitularSolicitudCirugiaProgramada(String nombreTitularSolicitudCirugiaProgramada) {
+		this.nombreTitularSolicitudCirugiaProgramada = nombreTitularSolicitudCirugiaProgramada;
+	}
+	public String getApPTitularSolicitudCirugiaProgramada() {
+		return apPTitularSolicitudCirugiaProgramada;
+	}
+	public void setApPTitularSolicitudCirugiaProgramada(String apPTitularSolicitudCirugiaProgramada) {
+		this.apPTitularSolicitudCirugiaProgramada = apPTitularSolicitudCirugiaProgramada;
+	}
+	public String getApMTitularSolicitudCirugiaProgramada() {
+		return apMTitularSolicitudCirugiaProgramada;
+	}
+	public void setApMTitularSolicitudCirugiaProgramada(String apMTitularSolicitudCirugiaProgramada) {
+		this.apMTitularSolicitudCirugiaProgramada = apMTitularSolicitudCirugiaProgramada;
+	}
+
 	public SolicitudCirugiaProgramada(){
 		
 	}
 	public SolicitudCirugiaProgramada(Integer idSolicitudCirugiaProgramada,
 			String nombreBeneficiarioSolicitudCirugiaProgramada, String apPBeneficiarioSolicitudCirugiaProgramada,
-			String apMBeneficiarioSolicitudCirugiaProgramada, String edadBeneficiarioSolicitudCirugiaProgramada,
-			String sexoBeneficiarioSolicitudCirugiaProgramada, String numNominaBeneficiarioSolicitudCirugiaProgramada,
-			Date fechaSolicitudCirugiaProgramada, Date fechaSolicitudElaboracion,
-			Integer tipoSolicitudCirugiaProgramada, Integer status, String tiempoCirugia, String tiempoSalaRecuperacion,
-			Integer resultadosPreoperatorios, String describirResultadosPreoperatorios,
-			String empresaBeneficiarioSolicitudCirugiaProgramada, MedicoTratante medicoTratante, Empresa empresa,
-			Hospital hospital, Integer riesgosQuirurgicosUno, Integer riesgosQuirurgicosDos,
-			Integer riesgosQuirurgicosTres, Integer riesgosQuirurgicosCuatro, String nombreAyudanteUno,
-			String nombreAyudanteDos, String nombreAnestesiologo, CirugiaSolicitada cirugiaSolicitadaUno,
-			CirugiaSolicitada cirugiaSolicitadaDos, List<Insumo> insumos) {
+			String apMBeneficiarioSolicitudCirugiaProgramada, String nombreTitularSolicitudCirugiaProgramada,
+			String apPTitularSolicitudCirugiaProgramada, String apMTitularSolicitudCirugiaProgramada,
+			String edadBeneficiarioSolicitudCirugiaProgramada, String sexoBeneficiarioSolicitudCirugiaProgramada,
+			String numNominaBeneficiarioSolicitudCirugiaProgramada, Date fechaSolicitudCirugiaProgramada,
+			Date fechaSolicitudElaboracion, Integer tipoSolicitudCirugiaProgramada, Integer status,
+			String tiempoCirugia, String tiempoSalaRecuperacion, Integer resultadosPreoperatorios,
+			String describirResultadosPreoperatorios, String empresaBeneficiarioSolicitudCirugiaProgramada,
+			MedicoTratante medicoTratante, Empresa empresa, Hospital hospital, Integer riesgosQuirurgicosUno,
+			Integer riesgosQuirurgicosDos, Integer riesgosQuirurgicosTres, Integer riesgosQuirurgicosCuatro,
+			String nombreAyudanteUno, String nombreAyudanteDos, String nombreAnestesiologo,
+			CirugiaSolicitada cirugiaSolicitadaUno, CirugiaSolicitada cirugiaSolicitadaDos, List<Insumo> insumos) {
 		super();
 		this.idSolicitudCirugiaProgramada = idSolicitudCirugiaProgramada;
 		this.nombreBeneficiarioSolicitudCirugiaProgramada = nombreBeneficiarioSolicitudCirugiaProgramada;
 		this.apPBeneficiarioSolicitudCirugiaProgramada = apPBeneficiarioSolicitudCirugiaProgramada;
 		this.apMBeneficiarioSolicitudCirugiaProgramada = apMBeneficiarioSolicitudCirugiaProgramada;
+		this.nombreTitularSolicitudCirugiaProgramada = nombreTitularSolicitudCirugiaProgramada;
+		this.apPTitularSolicitudCirugiaProgramada = apPTitularSolicitudCirugiaProgramada;
+		this.apMTitularSolicitudCirugiaProgramada = apMTitularSolicitudCirugiaProgramada;
 		this.edadBeneficiarioSolicitudCirugiaProgramada = edadBeneficiarioSolicitudCirugiaProgramada;
 		this.sexoBeneficiarioSolicitudCirugiaProgramada = sexoBeneficiarioSolicitudCirugiaProgramada;
 		this.numNominaBeneficiarioSolicitudCirugiaProgramada = numNominaBeneficiarioSolicitudCirugiaProgramada;
@@ -255,6 +280,6 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 		this.cirugiaSolicitadaUno = cirugiaSolicitadaUno;
 		this.cirugiaSolicitadaDos = cirugiaSolicitadaDos;
 		this.insumos = insumos;
-	}	
+	}
 
 }

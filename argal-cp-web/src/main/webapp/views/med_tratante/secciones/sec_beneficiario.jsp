@@ -5,7 +5,7 @@
 				<tr>
 					<td>
 						<div class="control-group">
-							<label class="control-label" for="name">Nombre:</label>
+							<label class="control-label" for="name">Nombre del Paciente:</label>
 							<div class="controls">
 								<input type="text" name="nombrePaciente" id="nombrePaciente"
 									placeholder="nombre (s)" required onkeyup="javascript:this.value=this.value.toUpperCase();">
@@ -15,7 +15,7 @@
 					<td>
 						<div class="control-group">
 							<label for="apellidoP" class="control-label">Apellido
-								Paterno:</label>
+								Paterno del Paciente:</label>
 							<div class="controls">
 								<input type="text" class="form-control" id="apellidoP"
 									placeholder="apellidoP" data-error="apellido paterno" required onkeyup="javascript:this.value=this.value.toUpperCase();">
@@ -25,7 +25,7 @@
 					<td>
 						<div class="control-group">
 							<label for="apellidoM" class="control-label">Apellido
-								Materno:</label>
+								Materno del Paciente:</label>
 							<div class="controls">
 								<input type="text" class="form-control" id="apellidoM"
 									placeholder="apellidoM" data-error="apellido materno" required onkeyup="javascript:this.value=this.value.toUpperCase();">
@@ -36,7 +36,38 @@
 				<tr>
 					<td>
 						<div class="control-group">
-							<label for="edad" class="control-label">Edad:</label>
+							<label class="control-label" for="name">Nombre del Titular:</label>
+							<div class="controls">
+								<input type="text" name="nombrePaciente" id="nombreTitular"
+									placeholder="nombre (s)" required onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="control-group">
+							<label for="apellidoP" class="control-label">Apellido
+								Paterno del Titular:</label>
+							<div class="controls">
+								<input type="text" class="form-control" id="apellidoPTitular"
+									placeholder="apellidoP" data-error="apellido paterno" required onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="control-group">
+							<label for="apellidoM" class="control-label">Apellido
+								Materno:</label>
+							<div class="controls">
+								<input type="text" class="form-control" id="apellidoMTitular"
+									placeholder="apellidoM" data-error="apellido materno" required onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="control-group">
+							<label for="edad" class="control-label">Edad del Paciente:</label>
 							<div class="controls">
 								<input type="text" class="form-control" id="edad"
 									placeholder="edad" required>
@@ -46,7 +77,7 @@
 					<td align="center">
 						<div class="control-group">
 							<div class="control-group">
-								Sexo: <input type="radio" class="form-check-input"
+								Sexo del Paciente: <input type="radio" class="form-check-input"
 									name="sexobenefradiobutton" id="sexobenefradiobutton"
 									value="MASCULINO"> Masculino <input type="radio"
 									class="form-check-input" name="sexobenefradiobutton"
