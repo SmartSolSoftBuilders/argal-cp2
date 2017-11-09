@@ -259,54 +259,60 @@ function cargarSolicitudShow(){
 			$("#loading").hide();
 			$("#contenidoSolicitud").show();			
 			$("#medTratShow").val(response.medicoTratante.nombreMedicoTratante + " " +response.medicoTratante.appMedicoTratante +" "+response.medicoTratante.apmMedicoTratante);
-			$("#titularShow").val(response.nombreTitularSolicitudCirugiaProgramada + " " +response.apPBeneficiarioSolicitudCirugiaProgramada +" "+response.apMBeneficiarioSolicitudCirugiaProgramada);
+			$("#titularShow").val(response.nombreTitularSolicitudCirugiaProgramada + " " +response.apPTitularSolicitudCirugiaProgramada +" "+response.apMTitularSolicitudCirugiaProgramada);
+			$("#pacienteShow").val(response.nombreBeneficiarioSolicitudCirugiaProgramada + " " +response.apPBeneficiarioSolicitudCirugiaProgramada +" "+response.apMBeneficiarioSolicitudCirugiaProgramada);
 			$("#empresaShow").val(response.empresa.nombreEmpresa);
-			//Cargar icdscpts			
-			/*
-			if (response.cirugiaSolicitadaUno!=null){
-				$("#idCirugia1").val(response.cirugiaSolicitadaUno.idCirugiaSolicitada);			
-				$("#idIcd1").val(response.cirugiaSolicitadaUno.diagnosticoIngreso.idIcd);
-				$("#icd1").val(response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
-				$("#fundamentosDiagnostico1").val(response.cirugiaSolicitadaUno.fundamentosDiagnostico);
+			$("#edadShow").val(response.edadBeneficiarioSolicitudCirugiaProgramada);
+			$("#sexoBenefShow").val(response.sexoBeneficiarioSolicitudCirugiaProgramada);
+			$("#nominaShow").val(response.numNominaBeneficiarioSolicitudCirugiaProgramada);
+			var tipoCirugia=["","AMBULATORIA","HOSPITALIZACION"];
+			$("#tipoCirugiaShow").val(tipoCirugia[response.tipoSolicitudCirugiaProgramada]);
+			$("#otrasEnfShow").val("");
+			if (response.cirugiaSolicitadaUno!=null){	
+				$("#icdShow").val(response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
+				$("#fundamentosdiagShow").val(response.cirugiaSolicitadaUno.fundamentosDiagnostico);
 				if (response.cirugiaSolicitadaUno.procedimientoUno!=null){
-					$("#idProcedimiento1").val(response.cirugiaSolicitadaUno.procedimientoUno.idProcedimientoSolicitado);
-					$("#idCpt1").val(response.cirugiaSolicitadaUno.procedimientoUno.cpt.idCpt);
-					$("#cpt1").val(response.cirugiaSolicitadaUno.procedimientoUno.cpt.descripcion);
+					$("#cpt1Show").val(response.cirugiaSolicitadaUno.procedimientoUno.cpt.descripcion);
 				}
 				if (response.cirugiaSolicitadaUno.procedimientoDos!=null){
-					$("#idProcedimiento2").val(response.cirugiaSolicitadaUno.procedimientoDos.idProcedimientoSolicitado);
-					$("#idCpt2").val(response.cirugiaSolicitadaUno.procedimientoDos.cpt.idCpt);
-					$("#cpt2").val(response.cirugiaSolicitadaUno.procedimientoDos.cpt.descripcion);
+					$("#cpt2Show").val(response.cirugiaSolicitadaUno.procedimientoDos.cpt.descripcion);
 				}
-				if (response.cirugiaSolicitadaUno.procedimientoTres!=null){
-					$("#idProcedimiento2").val(response.cirugiaSolicitadaUno.procedimientoTres.idProcedimientoSolicitado);
-					$("#idCpt2").val(response.cirugiaSolicitadaUno.procedimientoTres.cpt.idCpt);
-					$("#cpt2").val(response.cirugiaSolicitadaUno.procedimientoTres.cpt.descripcion);
+				if (response.cirugiaSolicitadaUno.procedimiento!=null){
+					$("#cpt3Show").val(response.cirugiaSolicitadaUno.procedimientoTres.cpt.descripcion);
 				}
 				if (response.cirugiaSolicitadaUno.otrasEnfUno!=null){
-					$("#idIcd2").val(response.cirugiaSolicitadaUno.otrasEnfUno.idIcd);
-					$("#icd2").val(response.cirugiaSolicitadaUno.otrasEnfUno.descripcion);
+					$("#otrasEnfShow").val($("#otrasEnfShow").val()+response.cirugiaSolicitadaUno.otrasEnfUno.descripcion);					
 				}
 				if (response.cirugiaSolicitadaUno.otrasEnfDos!=null){
-					$("#idIcd3").val(response.cirugiaSolicitadaUno.otrasEnfDos.idIcd);
-					$("#icd3").val(response.cirugiaSolicitadaUno.otrasEnfDos.descripcion);
+					$("#otrasEnfShow").val($("#otrasEnfShow").val()+","+response.cirugiaSolicitadaUno.otrasEnfDos.descripcion);					
 				}
 				if (response.cirugiaSolicitadaUno.otrasEnfTres!=null){
-					$("#idIcd4").val(response.cirugiaSolicitadaUno.otrasEnfTres.idIcd);
-					$("#icd4").val(response.cirugiaSolicitadaUno.otrasEnfTres.descripcion);
+					$("#otrasEnfShow").val($("#otrasEnfShow").val()+","+response.cirugiaSolicitadaUno.otrasEnfTres.descripcion);					
 				}
 				if (response.cirugiaSolicitadaUno.otrasEnfCuatro!=null){
-					$("#idIcd5").val(response.cirugiaSolicitadaUno.otrasEnfCuatro.idIcd);
-					$("#icd5").val(response.cirugiaSolicitadaUno.otrasEnfCuatro.descripcion);
-				}
-				if (response.cirugiaSolicitadaUno.otrasEnfCinco!=null){
-					$("#idIcd6").val(response.cirugiaSolicitadaUno.otrasEnfCinco.idIcd);
-					$("#icd6").val(response.cirugiaSolicitadaUno.otrasEnfCinco.descripcion);
-				}
-				
-				
+					$("#otrasEnfShow").val($("#otrasEnfShow").val()+","+response.cirugiaSolicitadaUno.otrasEnfCuatro.descripcion);					
+				}				
 			}
-			*/					
+			
+			$("#fechaProgShow").val(response.fechaSolicitudCirugiaProgramada);
+			if(response.hospital!=null)
+				$("#hospitalShow").val(response.hospital.nombreHospital);
+			$("#tiempoCirugiaShow").val(response.tiempoCirugia);
+			$("#tiempoSalaRecuperacionShow").val(response.tiempoSalaRecuperacion);
+			$("#resultadosPreoperatoriosShow").val(response.resultadosPreoperatorios);
+			$("#descResultadosPreoperatoriosShow").val(response.resultadosPreoperatorios);
+			if (response.riesgosQuirurgicosUno==1)
+				$("#riesgosShow").val(response.riesgosQuirurgicosUno);
+			if (response.riesgosQuirurgicosDos==1)
+				$("#riesgosShow").val($("#riesgosShow").val()+","+response.riesgosQuirurgicosDos);
+			$("#ayudante1Show").val(response.nombreAyudanteUno);
+			$("#ayudante2Show").val(response.nombreAyudanteDos);
+			$("#anestesiologoShow").val(response.nombreAnestesiologo);
+			$("#insumosShow").val("");
+			if (response.insumos!=null){
+				for (i=0;i<insumos.length;i++)
+					$("#insumosShow").val($("#insumosShow").val()+response.insumos[i].descripcion + " Monto Solicitado:$"+response.insumos[i].monto);
+			}							
 		},
 		error : function(response) {
 			alert("error cargando la solicitud!")
@@ -348,7 +354,8 @@ function cargarSolicitud(){
 			$("#fechaProgramacion").val(response.fechaSolicitudCirugiaProgramada);
 			$("#tiempoCirugia").val(response.tiempoCirugia);			
 			$("#tiempoSalaRecuperacion").val(response.tiempoSalaRecuperacion);			
-			$("#hospital").val(response.hospital.idHospital);
+			if (response.hospital!=null)
+				$("#hospital").val(response.hospital.idHospital);
 			$("#resultadosPreoperatorios").val(response.resultadosPreoperatorios);
 			$("#desResultadosPreoperatorios").val(response.describirResultadosPreoperatorios);
 			//			
