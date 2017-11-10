@@ -1,4 +1,6 @@
-<div id="jsGrid"></div>
+<div id="jsGrid">
+
+</div>
 
 <div id="detailsDialog">
     <form id="detailsForm">
@@ -36,3 +38,4 @@
     </form>
 </div>
 
+Test

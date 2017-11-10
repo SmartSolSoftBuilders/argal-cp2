@@ -5,45 +5,11 @@ $(document).ready(function() {
   if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!=""){	  
 	  cargarSolicitud($("#idSolicitud").val());
 	  cargarGrid();
-	  cargarGridInsumos();
+	  cargarGridInsumos();	  
+	  $( ".jsgrid-grid-body" ).css( "height", "auto" );
   }
   $("#loadingMain").hide();
 });
-
-function guardar(){
-	console.log($("#sexobenefradiobutton").val());
-	$.ajax({
-		async : false,
-		data : {
-			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),
-			"nombreBeneficiarioSolicitudCirugiaProgramada" : $("#nombrePaciente").val(),
-			"apPBeneficiarioSolicitudCirugiaProgramada" : $("#apellidoP").val(),
-			"apMBeneficiarioSolicitudCirugiaProgramada" : $("#apellidoM").val(),
-			"edadBeneficiarioSolicitudCirugiaProgramada" : $("#edad").val(),
-			"sexoBeneficiarioSolicitudCirugiaProgramada" : $("#sexobenefradiobutton").val(),
-			"numNominaBeneficiarioSolicitudCirugiaProgramada" : $("#numNomina").val(),
-			"tipoSolicitudCirugiaProgramada" : $("#tipoCirugiaSel").val(),
-			"empresaBeneficiarioSolicitudCirugiaProgramada" : $("#empresa").val()
-		},
-		dataType : 'json',
-		url : 'mvc/solicitud/guardar_solicitud',
-		type : 'post',
-		beforeSend : function() {
-			// $("#resultado").html("Procesando, espere por favor..."),
-			// alert("OK!")
-		},
-		success : function(response) {
-			alert(response)
-			$("#idSolDiv").html("Solicitud:"+response.idSolicitudCirugiaProgramada);
-			$("#idSolicitud").val(response.idSolicitudCirugiaProgramada);
-			// console.log(response)
-		},
-		error : function(response) {
-			alert("error!")
-			// console.log(response)
-		}
-	});	
-}
 
 function cargarSolicitud(){
 	$.ajax({
@@ -61,6 +27,7 @@ function cargarSolicitud(){
 		success : function(response) {
 			console.log(response)
 			var tipoSolicitud=["","CORTA ESTANCIA","PROGRAMADA"];
+			$("#divDatosTitular").html("<font color='darkblue'>Nombre: </font>" + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Edad: </font>" + response.edadBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Sexo: </font>" + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");
 			$("#divDatosBeneficiario").html("<font color='blue'>Nombre: </font>" + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Edad: </font>" + response.edadBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Sexo: </font>" + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");		
 			$("#divDatosEmpresaBeneficiario").html("<font color='blue'>Empresa: </font>: " + response.empresaBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Número Nómina: </font>" + response.numNominaBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> Tipo Solicitud: </font>" +tipoSolicitud[response.tipoSolicitudCirugiaProgramada]+"<font color='blue'> Fecha de Elaboración: </font>2017-10-14");
 			$("#idSolicitud").val();
