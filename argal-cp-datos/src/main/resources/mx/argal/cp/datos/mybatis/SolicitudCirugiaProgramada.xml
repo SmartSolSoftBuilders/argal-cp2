@@ -29,7 +29,8 @@
 		<result property="riesgosQuirurgicosCuatro" column="RIESGOS_QUIRURGICOS_4"/>
 		<result property="nombreAyudanteUno" column="NOMBRE_AYUDANTE_1"/>
 		<result property="nombreAyudanteDos" column="NOMBRE_AYUDANTE_2"/>
-		<result property="nombreAnestesiologo" column="NOMBRE_ANESTESIOLOGO"/>				
+		<result property="nombreAnestesiologo" column="NOMBRE_ANESTESIOLOGO"/>
+		<result property="autorizado" column="AUTORIZADO"/>				
 		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>
 		<association property="empresa" column="ID_EMPRESA" javaType="Empresa" select="selectEmpresa"/>
 		<association property="hospital" column="ID_HOSPITAL" javaType="Hospital" select="selectHospital"/>		
@@ -382,5 +383,18 @@
 		UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "STATUS"=#{status}
 			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
 	</update>
-
+	
+	<update id="aceptarRechazarProcedimiento" parameterType="ProcedimientoSolicitado">
+		UPDATE "PROCEDIMIENTO_SOLICITADO" SET "AUTORIZADO"=#{autorizado}, "HONORARIOS_MED_DICTAMINADOS"=#{honorariosMedicosDictaminados},
+			"HONORARIOS_AY1_DICTAMINADOS"=#{honorariosAyudanteUnoDictaminados},
+			"HONORARIOS_AY2_DICTAMINADOS"=#{honorariosAyudanteDosDictaminados},
+			"HONORARIOS_ANE_DICTAMINADOS"=#{honorariosAnestesiologoDictaminados} 
+				WHERE "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado}
+	</update>
+	
+	<update id="aceptarRechazarInsumo" parameterType="Insumo">
+		UPDATE "INSUMO" SET "AUTORIZADO"=#{autorizado}
+			WHERE "ID_INSUMO"=#{idInsumo}
+	</update>	
+	
 </mapper>

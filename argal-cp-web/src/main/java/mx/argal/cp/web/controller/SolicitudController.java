@@ -15,6 +15,7 @@ import mx.argal.cp.modelo.CirugiaSolicitada;
 import mx.argal.cp.modelo.Cpt;
 import mx.argal.cp.modelo.Insumo;
 import mx.argal.cp.modelo.MedicoTratante;
+import mx.argal.cp.modelo.ProcedimientoSolicitado;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.servicios.SolicitudServicio;
 import mx.argal.cp.servicios.UsuarioServicio;
@@ -185,6 +186,32 @@ public class SolicitudController {
 		System.out.println("<OTIKA>Cambiar status enviada!!!");
 		try {
 			this.solicitudServicio.cambiarStatusByParams(solicitudCirugiaProgramada,2);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return true;    	  
+	}
+	
+	@RequestMapping(value="/aceptar_rechazar_procedimiento",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean aceptarRechazarProcedimiento(@ModelAttribute(value="procedimiento") ProcedimientoSolicitado procedimientoSolicitado, HttpServletRequest request){
+		System.out.println("<OTIKA>Aceptar/Rechazar Procedimiento!!!");
+		try {
+			this.solicitudServicio.aceptarRechazarProcedimiento(procedimientoSolicitado);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return true;    	  
+	}
+	
+	@RequestMapping(value="/aceptar_rechazar_insumo",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean aceptarRechazarInsumo(@ModelAttribute(value="insumo") Insumo insumo, HttpServletRequest request){
+		System.out.println("<OTIKA>Aceptar/Rechazar Insumo!!!");
+		try {
+			this.solicitudServicio.aceptarRechazarInsumo(insumo);
 		}
 		catch(Exception e) {
 			e.printStackTrace();

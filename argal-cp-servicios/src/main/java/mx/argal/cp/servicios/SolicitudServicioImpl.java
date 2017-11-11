@@ -5,6 +5,7 @@ import mx.argal.cp.dao.UsuarioDao;
 import mx.argal.cp.modelo.CirugiaSolicitada;
 import mx.argal.cp.modelo.Insumo;
 import mx.argal.cp.modelo.MedicoTratante;
+import mx.argal.cp.modelo.ProcedimientoSolicitado;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.modelo.Usuario;
 
@@ -255,6 +256,17 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 	public Integer cambiarStatusByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada,Integer status) {
 		// TODO Auto-generated method stub				
 		return this.solicitudDao.cambiarStatusByParams(solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada(), status);
+	}
+
+	@Override
+	public Integer aceptarRechazarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado) {
+		// TODO Auto-generated method stub
+		return this.solicitudDao.aceptarRechazarProcedimiento(procedimientoSolicitado);
 	}	
+	
+	@Override
+	public Integer aceptarRechazarInsumo(Insumo insumo) {
+		return this.solicitudDao.aceptarRechazarInsumo(insumo);
+	}
 	
 }

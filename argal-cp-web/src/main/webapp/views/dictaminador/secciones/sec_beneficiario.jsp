@@ -13,4 +13,5 @@
 	<div id="divMedicoTratante"></div>
 	<div id="divDatosTitular"></div>
 	<div id="divDatosBeneficiario"></div>	
+	<div id="divDatosSolicitudBeneficiario"></div>	
 </div>
