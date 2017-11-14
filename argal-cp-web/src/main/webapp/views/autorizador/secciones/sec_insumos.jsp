@@ -15,7 +15,7 @@
                 <option value="1">SI</option>
                 <option value="2">NO</option>                
             </select>
-            <br>Monto a Autorizar<input id="montoAutorizado" name="montoAutorizado" type="text" readonly/>
+            <br>Monto a Autorizar<input id="montoAutorizado" name="montoAutorizado" type="text"/>
         </div>        
         <div class="details-form-field">
             <button type="submit" id="saveInsumo">Save</button>

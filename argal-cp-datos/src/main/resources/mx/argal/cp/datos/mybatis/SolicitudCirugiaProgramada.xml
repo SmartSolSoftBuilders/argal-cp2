@@ -421,7 +421,7 @@
 	</update>
 	
 	<update id="guardarInsumoAutorizado" parameterType="Insumo">
-		UPDATE "INSUMO" SET "MONTO_AUTORIZADO"=#{montoAutorizado}
+		UPDATE "INSUMO" SET "MONTO_AUTORIZADO"=#{montoAutorizado},"AUTORIZADO"=#{autorizado} 
 			WHERE "ID_INSUMO"=#{idInsumo}
 	</update>	
 	

@@ -74,7 +74,7 @@ public class AutorizadorController {
     public Boolean cambiarStatusAutorizada(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
 		System.out.println("<OTIKA>Cambiar status negociada!!!");
 		try {
-			this.solicitudServicio.cambiarStatusByParams(solicitudCirugiaProgramada,5);
+			this.solicitudServicio.cambiarStatusByParams(solicitudCirugiaProgramada,6);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -95,12 +95,12 @@ public class AutorizadorController {
 		return true;    	  
 	}
 	
-	@RequestMapping(value="/guardar_insumo_negociado",method = RequestMethod.POST)
+	@RequestMapping(value="/aceptar_rechazar_insumo",method = RequestMethod.POST)
     @ResponseBody
     public Boolean aceptarRechazarProcedimiento(@ModelAttribute(value="insumo") Insumo insumo, HttpServletRequest request){
-		System.out.println("<OTIKA>negociando insumo!!!");
+		System.out.println("<OTIKA>autorizando insumo!!!");
 		try {
-			Integer resp=this.solicitudServicio.guardarInsumoNegociado(insumo);
+			Integer resp=this.solicitudServicio.guardarInsumoAutorizado(insumo);
 		}
 		catch(Exception e) {
 			e.printStackTrace();

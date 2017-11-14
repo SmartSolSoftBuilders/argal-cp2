@@ -116,7 +116,7 @@ public class SolicitudController {
     	if (solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada()!=null || solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada()!=0){    		
     		idSolicitudGuardada = this.solicitudServicio.actualizarSolicitudProgramacionC(solicitudCirugiaProgramada);    		    	
     	}    	
-    	System.out.println("Actualizada la programación de la solicitud:"+idSolicitudGuardada);
+    	System.out.println("Actualizada la programaciï¿½n de la solicitud:"+idSolicitudGuardada);
     	return solicitudCirugiaProgramada;    	  
 	}
 	
@@ -169,6 +169,13 @@ public class SolicitudController {
     public List obtenerSolicitudesAll(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
 		System.out.println("<OTIKA>get tipo cirugia!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
 		return this.solicitudServicio.obtenerSolicitudesAll(solicitudCirugiaProgramada);    	  
+	}
+	
+	@RequestMapping(value="/getsolicitudesdictaminador",method = RequestMethod.POST)
+    @ResponseBody
+    public List obtenerSolicitudesDictaminador(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
+		System.out.println("<OTIKA>get sols dict!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
+		return this.solicitudServicio.obtenerSolicitudesDictaminador(solicitudCirugiaProgramada);    	  
 	}
 
 	@RequestMapping(value="/getsolicitudesnegociador",method = RequestMethod.POST)

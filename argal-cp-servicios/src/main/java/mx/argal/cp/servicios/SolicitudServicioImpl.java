@@ -77,7 +77,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		List solicitudesReturn = new ArrayList();
 		List solicitudReturn = new ArrayList();
 		System.out.println(solicitudes);
-		String status[] = {"","CAPTURANDO","ENVIADA","RECHAZADA","ACEPTADA"};
+		String status[] = {"","CAPTURANDO","SOLICITUD DE INFORMACIÓN","POR AUTORIZAR","POR AUTORIZAR","POR AUTORIZAR","AUTORIZADA"};
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");          
 		try{
 			for (int i=0;i<solicitudes.size();i++){		
@@ -106,11 +106,11 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Seguir Capturando</a>" + "<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Eliminar</a>");
 				}
 				
-				if (solicitudes.get(i).getStatus()==4){
+				if (solicitudes.get(i).getStatus()==6){
 					solicitudReturn.add("Carta Autorización:<img  src=\"static/img/pdf-icon.png\" onclick =\"window.open('static/img/cartaaut.pdf','_blank', 'width=800,height=800');\" width=\"25px\"/>\n");
 				}
 				else
-					solicitudReturn.add("-");
+					solicitudReturn.add("");
 				solicitudesReturn.add(solicitudReturn);
 			}
 		}
@@ -159,6 +159,55 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 					solicitudReturn.add("-");
 				}
 				solicitudesReturn.add(solicitudReturn);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return solicitudesReturn;
+	}
+	
+	@Override
+	public List obtenerSolicitudesDictaminador(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
+		// TODO Auto-generated method stub
+		List<SolicitudCirugiaProgramada> solicitudes = this.solicitudDao.obtenerSolicitudesByStatus(solicitudCirugiaProgramada.getStatus());
+		List solicitudesReturn = new ArrayList();
+		List solicitudReturn = new ArrayList();
+		System.out.println(solicitudes);
+		String status[] = {"","","RECIBIDA","NEGOCIADA","RECHAZADA","ACEPTADA"};		
+		try{
+			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+			for (int i=0;i<solicitudes.size();i++){		
+				if (solicitudes.get(i).getStatus()==2) {
+					solicitudReturn = new ArrayList();
+					solicitudReturn.add(solicitudes.get(i).getIdSolicitudCirugiaProgramada());
+					solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
+					if (solicitudes.get(i).getHospital()!=null) 
+						solicitudReturn.add(solicitudes.get(i).getHospital().getNombreHospital());			
+					else
+						solicitudReturn.add("Sin información");
+					String procedimientos ="";
+					if (solicitudes.get(i).getCirugiaSolicitadaUno()!=null){
+						if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno()!=null) 
+							procedimientos += solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno().getCpt().getDescripcion();
+						if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos()!=null) 
+							procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos().getCpt().getDescripcion();
+						if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres()!=null) 
+							procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres().getCpt().getDescripcion();
+						solicitudReturn.add(procedimientos);
+					}
+					else
+						solicitudReturn.add("Error en la solicitud!");
+					solicitudReturn.add(format1.format(solicitudes.get(i).getFechaSolicitudElaboracion()));
+					solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
+					if (solicitudes.get(i).getStatus()==2){
+						solicitudReturn.add("<a href='#' onclick='loadPageData(200,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Dictaminar</a>");
+					}
+					else{
+						solicitudReturn.add("-");
+					}
+					solicitudesReturn.add(solicitudReturn);
+					}
 			}
 		}
 		catch(Exception e) {

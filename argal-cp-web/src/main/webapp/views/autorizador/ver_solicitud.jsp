@@ -147,12 +147,12 @@ a[x-apple-data-detectors] {
 <jsp:include page="secciones/sec_insumos.jsp"></jsp:include>
 
 <div class="subtitle" style="font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:600;color:#2469A0">
-	Si ha validado todo, de clic en Finalizar Dictamen:<button type="button" onclick="finalizarDictamen();" class="btn btn-primary">Finalizar Dictamen</button>
+	Si ha validado todo, de clic en Finalizar Dictamen:<br><button type="button" onclick="finalizarAutorizacion();" class="btn btn-primary">Finalizar Dictamen</button>
 </div>
 
 <div class="body-text" style="font-family:Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:left;color:#333333">
     <br>
-  	<em><small>Dictaminar Solicitud</small></em>
+  	<em><small>Autorizar Solicitud</small></em>
 </div>
 
 <br>
@@ -183,13 +183,13 @@ a[x-apple-data-detectors] {
   </p>
 </div>
 
-<div id="dialog-confirm" title="Finalizar dictámen" style="display:none;">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Ha terminado de dictaminar la solicitud? De ser así, proceda a emitir un dictamen dándo click en el botón según lo desee:</p>
+<div id="dialog-confirm" title="Finalizar Solicitud" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Ha terminado de supervisar la solicitud? De ser así, proceda a emitir una autorización ó rechazo dándo click en el botón según lo desee:</p>
 </div>
 
 <div id="dialog-confirm2" title="¿Confirmar?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿SEGURO QUE DESEA RECHAZAR LA SOLICITUD?</p>
-  <p>La solicitud será regresada al Médico Tratante con el status RECHAZO</p>
+  <p>La solicitud será regresada al Médico Tratante con el status RECHAZADA</p>
   Motivo por el cual rechaza la solicitud:
   <br><textarea style=" width: 596px; " rows="8" cols="100"></textarea>
 </div>

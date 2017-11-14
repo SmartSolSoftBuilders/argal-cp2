@@ -13,7 +13,7 @@
 </table>
 
 <div id="divAgregarMedicoTratanteEvento" title="Agregar Médico Tratante" style="display: none" align="center">					
-	<jsp:include page="..\catalogos\alta_medico_tratante.jsp" />
+	<!--  jsp:include page="..\catalogos\alta_medico_tratante.jsp" />-->
 </div>
 		
 			

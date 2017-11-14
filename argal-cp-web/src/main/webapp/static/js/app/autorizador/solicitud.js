@@ -201,11 +201,12 @@ function getCirugiaSolicitadaGridInsumos(insumos){
 	        		async:false,
 	        		data : {
 	        			"idInsumo" :  updatingInsumo.idInsumo,
+	        			"montoAutorizado" : updatingInsumo.montoAutorizado,
 	        			"autorizado" : autorizado
 	        		},
 	        		dataType : 'json',
 	        		type : 'post',
-					url: "mvc/solicitud/aceptar_rechazar_insumo"		  
+					url: "mvc/autorizador/aceptar_rechazar_insumo"		  
 					})
 					  .done(function( data ) {
 						mensaje("Se guardaron los cambios con éxito");									   
@@ -381,10 +382,11 @@ function cargarGridInsumos(){
 
 	    var showDetailsInsumosDialog = function(dialogType, insumo) {
 	    	console.log(insumo)
-	    	$("#idInsumo").val(insumo.idInsumo);
-	        $("#descripcionInsumo").val(insumo.descripcion);
-	    	$("#montoInsumo").val(insumo.monto);
-	        $("#autorizadoInsumo").val(insumo.autorizado);	        	        
+	    		$("#idInsumo").val(insumo.idInsumo);
+	    		$("#descripcionInsumo").val(insumo.descripcion);
+	    		$("#montoInsumo").val(insumo.monto);
+	    		$("#montoAutorizado").val(insumo.montoAutorizado);		       
+	    		$("#autorizadoInsumo").val(insumo.autorizado);	        	        
 	        formSubmitHandler2 = function() {
 	            saveInsumo(insumo, dialogType === "Add");
 	        };
@@ -397,6 +399,7 @@ function cargarGridInsumos(){
 	        $.extend(insumo, {	        			        		      
 		        autorizado:$("#autorizadoInsumo").val(),
 		        monto: $("#montoInsumo").val(),
+		        montoAutorizado: $("#montoAutorizado").val(),		       
 		        descripcion: $("#descripcionInsumo").val()		        
 	        });
 
@@ -435,35 +438,12 @@ function mensaje(msj){
 
 function actualizarHonorarios(id){
 	var monto = parseFloat($("#honorariosBase").val());
-	var porcHM = parseFloat($("#porcHM").val())/100;
-	var porcA1 = parseFloat($("#porcA1").val())/100;
-	var porcA2 = parseFloat($("#porcA2").val())/100;
-	var porcAN = parseFloat($("#porcAN").val())/100;			
-	if (id==1){
-		$("#honorariosMedicosDictaminados").val(monto*porcHM);	
-	}
-	if (id==2){
-		$("#honorariosAyudanteUnoDictaminados").val(monto*porcA1);
-	}
-	if (id==3){
-		$("#honorariosAyudanteDosDictaminados").val(monto*porcA2);
-	}
-	if (id==4){
-		$("#honorariosAnestesiologoDictaminados").val(monto*porcAN);
-	}
+	
 	actualizarMontoFinal();
 }
 
 function actualizarMontosGrid(){
 	var monto = parseFloat($("#honorariosBase").val());
-	var porcHM = parseFloat($("#porcHM").val());
-	var porcA1 = parseFloat($("#porcA1").val());
-	var porcA2 = parseFloat($("#porcA2").val());
-	var porcAN = parseFloat($("#porcAN").val());	
-	$("#honorariosMedicosDictaminados").val(monto-(monto*.30));
-	$("#honorariosAyudanteUnoDictaminados").val(monto-(monto*.15));
-	$("#honorariosAyudanteDosDictaminados").val(monto-(monto*.15));
-	$("#honorariosAnestesiologoDictaminados").val(monto-(monto*.10));
 	actualizarMontoFinal();
 }
 
@@ -520,7 +500,7 @@ function aceptarSolicitud(){
 			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val()			
 		},
 		dataType : 'json',
-		url : 'mvc/autorizar/cambiarstatusautorizada',
+		url : 'mvc/autorizador/cambiarstatusautorizada',
 		type : 'post',
 		beforeSend : function() {
 			$("#loading").show();			
