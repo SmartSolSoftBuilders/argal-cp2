@@ -53,6 +53,8 @@ public class IndexController {
 	public final String ROLE_ADMINISTRADOR="ROLE_ADMINISTRADOR";
 	public final String ROLE_MEDICO_TRATANTE="ROLE_MEDICO_TRATANTE";
 	public final String ROLE_DICTAMINADOR="ROLE_DICTAMINADOR";
+	public final String ROLE_NEGOCIADOR="ROLE_NEGOCIADOR";
+	public final String ROLE_AUTORIZADOR="ROLE_AUTORIZADOR";
 			
 	@Autowired
 	private MttoSeguridadServicio mttoSeguridadServicio;
@@ -92,7 +94,7 @@ public class IndexController {
 			request.getSession().setAttribute("idMedicoTratanteSession",medicoTratante.getIdTUsuario());
     		return new ModelAndView("main", "usuario", usuario);
     	}
-    	if ( rol.equals(ROLE_DICTAMINADOR)) {    		
+    	if ( rol.equals(ROLE_DICTAMINADOR) || rol.equals(ROLE_NEGOCIADOR) || rol.equals(ROLE_AUTORIZADOR)) {    		
     		return new ModelAndView("main", "usuario", usuario);
     	}
     	    	    	    	  
@@ -152,6 +154,16 @@ public class IndexController {
     		ModelMap modelo = new ModelMap();
     		modelo.addAttribute("idSolicitud", param);    		
 			return new ModelAndView("dictaminador/ver_solicitud",modelo);
+		}
+    	if (page.equals("300")){    		
+    		ModelMap modelo = new ModelMap();
+    		modelo.addAttribute("idSolicitud", param);    		
+			return new ModelAndView("negociador/ver_solicitud",modelo);
+		}
+    	if (page.equals("400")){    		
+    		ModelMap modelo = new ModelMap();
+    		modelo.addAttribute("idSolicitud", param);    		
+			return new ModelAndView("autorizador/ver_solicitud",modelo);
 		}
 		return new ModelAndView("index");
 	}

@@ -64,6 +64,12 @@
 			<c:if test='${usuario.roles[0].rol=="ROLE_DICTAMINADOR"}'>
 				<jsp:include page="menu/menu_dictaminador.jsp"/>				
 			</c:if>
+			<c:if test='${usuario.roles[0].rol=="ROLE_NEGOCIADOR"}'>
+				<jsp:include page="menu/menu_negociador.jsp"/>				
+			</c:if>
+			<c:if test='${usuario.roles[0].rol=="ROLE_AUTORIZADOR"}'>
+				<jsp:include page="menu/menu_autorizador.jsp"/>				
+			</c:if>
 		</div>
     </div><!-- /.nav-collapse -->       
     </div><!-- /.container -->

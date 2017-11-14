@@ -9,7 +9,7 @@
 <script src="static/js/lib/form/jquery.validate.js"></script>
 <script src="static/js/lib/form/bootstrap.min.js"></script>
 <script src="static/js/lib/form/additional-methods.js"></script>
-<script src="static/js/app/dictaminador/solicitud.js"></script>
+<script src="static/js/app/negociador/solicitud.js"></script>
 <link rel="stylesheet" href="static/css/v2.0/jquery.dataTables.min.css" />
 
 
@@ -68,14 +68,14 @@ img {
   border-bottom: none !important;
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 999px) {
   .force-row,
   .container {
     width: 100% !important;
     max-width: 100% !important;
   }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 800px) {
   .container-padding {
     padding-left: 12px !important;
     padding-right: 12px !important;
@@ -110,7 +110,7 @@ a[x-apple-data-detectors] {
       <table border="0" width="800" cellpadding="0" cellspacing="0" class="container" style="width:800px;max-width:800px">
         <tr>
           <td class="container-padding header" align="left" style="font-family:Helvetica, Arial, sans-serif;font-size:24px;font-weight:bold;padding-bottom:12px;color:#DF4726;padding-left:24px;padding-right:24px">
-            Dictaminar Solicitud de Cirugía Programada
+            Negociar Montos de Solicitud de Cirugía Programada Dictaminada
           </td>
         </tr>
         <tr>
@@ -122,19 +122,11 @@ a[x-apple-data-detectors] {
 
 <div class="body-text" style="font-family:Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:left;color:#333333">
 <div class="title"><h4><img src="static/img/benef.png" width="25px" />Datos del Beneficiario</h4></div>
-<jsp:include page="secciones/sec_beneficiario.jsp"></jsp:include>	
-				
+<jsp:include page="secciones/sec_beneficiario.jsp"></jsp:include>					
 <br>
 </div>
-
-<div class="hr" style="height:1px;border-bottom:1px solid #cccccc">&nbsp;</div>
-<br>
-<div class="title"><h4><img src="static/img/documents.png" width="25px" />Documentacíon</h4></div>
-<jsp:include page="secciones/sec_documentacion.jsp"></jsp:include>	
-
-<div class="hr" style="height:1px;border-bottom:1px solid #cccccc;clear: both;">&nbsp;</div>
-<br>
-<div class="title"><h4><img src="static/img/surgery.png" width="25px" />Datos de la cirugía</h4></div>
+ 
+<div class="title"><h4><img src="static/img/surgery.png" width="25px" />Importes de la cirugía a Negociar</h4></div>
 <jsp:include page="secciones/sec_cirugia_grid.jsp"></jsp:include>
 
 <div class="title"><h4><img src="static/img/schedule.png" width="25px" />Programación de la cirugía</h4></div>
@@ -147,12 +139,12 @@ a[x-apple-data-detectors] {
 <jsp:include page="secciones/sec_insumos.jsp"></jsp:include>
 
 <div class="subtitle" style="font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:600;color:#2469A0">
-	Si ha validado todo, de clic en Finalizar Dictamen:<button type="button" onclick="finalizarDictamen();" class="btn btn-primary">Finalizar Dictamen</button>
+	Si ha validado todo, de clic en Finalizar Negociación:<br><button type="button" onclick="finalizarNegociacion();" class="btn btn-primary">Finalizar Negociación</button>
 </div>
 
 <div class="body-text" style="font-family:Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:left;color:#333333">
     <br>
-  	<em><small>Dictaminar Solicitud</small></em>
+  	<em><small>Negociar Solicitud</small></em>
 </div>
 
 <br>
@@ -183,22 +175,8 @@ a[x-apple-data-detectors] {
   </p>
 </div>
 
-<div id="dialog-confirm" title="Finalizar dictámen" style="display:none;">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Ha terminado de dictaminar la solicitud? De ser así, proceda a emitir un dictamen dándo click en el botón según lo desee:</p>
-</div>
-
-<div id="dialog-confirm2" title="¿Confirmar?" style="display:none;">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿SEGURO QUE DESEA RECHAZAR LA SOLICITUD?</p>
-  <p>La solicitud será regresada al Médico Tratante con el status RECHAZO</p>
-  Motivo por el cual rechaza la solicitud:
-  <br><textarea style=" width: 596px; " rows="8" cols="100"></textarea>
-</div>
-
-<div id="dialog-confirm3" title="¿Regresar Solicitud al Médico Tratante?" style="display:none;">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿SEGURO QUE DESEA REGRESAR LA SOLICITUD?</p>
-  <p>La solicitud será regresada al Médico Tratante con el status "INFORMACIÓN INCOMPLETA"</p>
-	Motivo por el cual regresa la solicitud:  
-	<br><textarea style=" width: 596px; " rows="8" cols="100"></textarea>
+<div id="dialog-confirm" title="Finalizar Negociación" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Ha terminado de negociar la solicitud? De ser así, proceda a emitir un dictamen dándo click en el botón según lo desee:</p>
 </div>
 
 </body>

@@ -170,7 +170,14 @@ public class SolicitudController {
 		System.out.println("<OTIKA>get tipo cirugia!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
 		return this.solicitudServicio.obtenerSolicitudesAll(solicitudCirugiaProgramada);    	  
 	}
-	
+
+	@RequestMapping(value="/getsolicitudesnegociador",method = RequestMethod.POST)
+    @ResponseBody
+    public List obtenerSolicitudesNegociador(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
+		System.out.println("<OTIKA>getsols negociador!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
+		return this.solicitudServicio.obtenerSolicitudesNegociador(solicitudCirugiaProgramada);    	  
+	}
+
 	@RequestMapping(value="/getcirugiabyid",method = RequestMethod.GET)
     @ResponseBody
     public CirugiaSolicitada getCirugiabById(HttpServletRequest request){
@@ -186,6 +193,32 @@ public class SolicitudController {
 		System.out.println("<OTIKA>Cambiar status enviada!!!");
 		try {
 			this.solicitudServicio.cambiarStatusByParams(solicitudCirugiaProgramada,2);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return true;    	  
+	}
+	
+	@RequestMapping(value="/cambiarstatusdictaminada",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean cambiarStatusDictaminada(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
+		System.out.println("<OTIKA>Cambiar status dictaminada!!!");
+		try {
+			this.solicitudServicio.cambiarStatusByParams(solicitudCirugiaProgramada,4);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return true;    	  
+	}
+	
+	@RequestMapping(value="/negociar_procedimiento",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean negociarProcedimiento(@ModelAttribute(value="procedimiento") ProcedimientoSolicitado procedimientoSolicitado, HttpServletRequest request){
+		System.out.println("<OTIKA>Aceptar/Rechazar Procedimiento!!!");
+		try {
+			this.solicitudServicio.negociarProcedimiento(procedimientoSolicitado);
 		}
 		catch(Exception e) {
 			e.printStackTrace();

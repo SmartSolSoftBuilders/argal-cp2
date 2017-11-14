@@ -7,6 +7,8 @@ public class Insumo extends BaseModelo {
 	private Integer idInsumo;
 	private String descripcion;
 	private Double monto;
+	private Double montoNegociado;
+	private Double montoAutorizado;
 	private Boolean autorizado;
 	
 	public Integer getIdInsumo() {
@@ -32,15 +34,30 @@ public class Insumo extends BaseModelo {
 	}
 	public void setAutorizado(Boolean autorizado) {
 		this.autorizado = autorizado;
+	}		
+	public Double getMontoNegociado() {
+		return montoNegociado;
 	}
-	public Insumo(){		
+	public void setMontoNegociado(Double montoNegociado) {
+		this.montoNegociado = montoNegociado;
+	}
+	public Double getMontoAutorizado() {
+		return montoAutorizado;
+	}
+	public void setMontoAutorizado(Double montoAutorizado) {
+		this.montoAutorizado = montoAutorizado;
 	}
 
-	public Insumo(Integer idInsumo, String descripcion, Double monto, Boolean autorizado) {
+	public Insumo(){		
+	}
+	public Insumo(Integer idInsumo, String descripcion, Double monto, Double montoNegociado, Double montoAutorizado,
+			Boolean autorizado) {
 		super();
 		this.idInsumo = idInsumo;
 		this.descripcion = descripcion;
 		this.monto = monto;
+		this.montoNegociado = montoNegociado;
+		this.montoAutorizado = montoAutorizado;
 		this.autorizado = autorizado;
 	}
 	

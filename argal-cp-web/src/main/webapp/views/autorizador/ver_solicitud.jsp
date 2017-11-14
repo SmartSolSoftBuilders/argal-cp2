@@ -9,7 +9,7 @@
 <script src="static/js/lib/form/jquery.validate.js"></script>
 <script src="static/js/lib/form/bootstrap.min.js"></script>
 <script src="static/js/lib/form/additional-methods.js"></script>
-<script src="static/js/app/dictaminador/solicitud.js"></script>
+<script src="static/js/app/autorizador/solicitud.js"></script>
 <link rel="stylesheet" href="static/css/v2.0/jquery.dataTables.min.css" />
 
 
@@ -110,7 +110,7 @@ a[x-apple-data-detectors] {
       <table border="0" width="800" cellpadding="0" cellspacing="0" class="container" style="width:800px;max-width:800px">
         <tr>
           <td class="container-padding header" align="left" style="font-family:Helvetica, Arial, sans-serif;font-size:24px;font-weight:bold;padding-bottom:12px;color:#DF4726;padding-left:24px;padding-right:24px">
-            Dictaminar Solicitud de Cirugía Programada
+            Autorizar Solicitud de Cirugía Programada
           </td>
         </tr>
         <tr>

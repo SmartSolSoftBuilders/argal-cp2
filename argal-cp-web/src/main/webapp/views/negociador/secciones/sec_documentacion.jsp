@@ -1,4 +1,10 @@
-<table width="800" border="0" cellpadding="0" cellspacing="0" class="force-row" style="width: 800px;">  
+<table width="800" border="0" cellpadding="0" cellspacing="0" class="force-row" style="width: 800px;">
+  <tr>
+    <td class="content-wrapper">
+      <br>
+      <div class="title"><h4><img src="static/img/documents.png" width="25px" />Documentacíon</h4></div>
+    </td>
+  </tr>
   <tr>
     <td class="cols-wrapper">
 

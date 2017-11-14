@@ -74,7 +74,9 @@
 	<resultMap id="insumoResult" type="Insumo">
     	<id property="idInsumo" column="ID_INSUMO" />
     	<result property="descripcion" column="DESCRIPCION" />
-    	<result property="monto" column="MONTO" /> 	    	
+    	<result property="monto" column="MONTO" />
+    	<result property="montoNegociado" column="MONTO_NEGOCIADO" />
+    	<result property="montoAutorizado" column="MONTO_AUTORIZADO" /> 	    	
 	</resultMap>
 		
 	<resultMap id="cirugiaSolicitadaResult" type="CirugiaSolicitada">
@@ -384,6 +386,14 @@
 			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
 	</update>
 	
+	<update id="aceptarRechazarAutorizarProcedimiento" parameterType="ProcedimientoSolicitado">
+		UPDATE "PROCEDIMIENTO_SOLICITADO" SET "AUTORIZADO"=#{autorizado}, "HONORARIOS_MED_AUTORIZADOS"=#{honorariosMedicosAutorizados},
+			"HONORARIOS_AY1_AUTORIZADOS"=#{honorariosAyudanteUnoAutorizados},
+			"HONORARIOS_AY2_AUTORIZADOS"=#{honorariosAyudanteDosAutorizados},
+			"HONORARIOS_ANE_AUTORIZADOS"=#{honorariosAnestesiologoAutorizados} 
+				WHERE "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado}
+	</update>
+	
 	<update id="aceptarRechazarProcedimiento" parameterType="ProcedimientoSolicitado">
 		UPDATE "PROCEDIMIENTO_SOLICITADO" SET "AUTORIZADO"=#{autorizado}, "HONORARIOS_MED_DICTAMINADOS"=#{honorariosMedicosDictaminados},
 			"HONORARIOS_AY1_DICTAMINADOS"=#{honorariosAyudanteUnoDictaminados},
@@ -392,8 +402,26 @@
 				WHERE "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado}
 	</update>
 	
+	<update id="negociarProcedimiento" parameterType="ProcedimientoSolicitado">
+		UPDATE "PROCEDIMIENTO_SOLICITADO" SET "HONORARIOS_MED_NEGOCIADOS"=#{honorariosMedicosNegociados},
+			"HONORARIOS_AY1_NEGOCIADOS"=#{honorariosAyudanteUnoNegociados},
+			"HONORARIOS_AY2_NEGOCIADOS"=#{honorariosAyudanteDosNegociados},
+			"HONORARIOS_ANE_NEGOCIADOS"=#{honorariosAnestesiologoNegociados} 
+				WHERE "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado}
+	</update>
+		
 	<update id="aceptarRechazarInsumo" parameterType="Insumo">
 		UPDATE "INSUMO" SET "AUTORIZADO"=#{autorizado}
+			WHERE "ID_INSUMO"=#{idInsumo}
+	</update>
+	
+	<update id="guardarInsumoNegociado" parameterType="Insumo">
+		UPDATE "INSUMO" SET "MONTO_NEGOCIADO"=#{montoNegociado}
+			WHERE "ID_INSUMO"=#{idInsumo}
+	</update>
+	
+	<update id="guardarInsumoAutorizado" parameterType="Insumo">
+		UPDATE "INSUMO" SET "MONTO_AUTORIZADO"=#{montoAutorizado}
 			WHERE "ID_INSUMO"=#{idInsumo}
 	</update>	
 	

@@ -18,7 +18,7 @@ function cargarSolicitud(){
 			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val()
 		},
 		dataType : 'json',
-		url : 'mvc/solicitud/getsolicitudbyid',
+		url : 'mvc/autorizador/getsolicitudbyid',
 		type : 'post',
 		beforeSend : function() {
 			// $("#resultado").html("Procesando, espere por favor..."),
@@ -31,6 +31,33 @@ function cargarSolicitud(){
 			$("#divDatosBeneficiario").html("<font color='blue'>NOMBRE DEL PACIENTE: </font>" + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> EDAD: </font>" + response.edadBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> SEXO: </font>" + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");		
 			$("#divDatosSolicitudBeneficiario").html("<font color='blue'> TIPO SOLICITUD: </font>" +tipoSolicitud[response.tipoSolicitudCirugiaProgramada]+"<font color='blue'> FECHA DE ELABORACIÓN: </font>2017-10-14");
 			//$("#idSolicitud").val();
+			var tablaProc1="";
+			var tablaProc2="";
+			var tablaProc3="";
+			if (response.cirugiaSolicitadaUno!=null){
+				$("#divIcdCirugia").html("<font color='darkblue'>Diagnóstico de Ingreso: </font>"+  response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
+				if (response.cirugiaSolicitadaUno.procedimientoUno!=null){
+					tablaProc1="<font color='darkblue'>Procedimiento 1: </font>"+  response.cirugiaSolicitadaUno.procedimientoUno.cpt.descripcion;
+					tablaProc1 += "<table border=1><tr><th>Monto por Fase</th><th>Honorarios Médicos</th><th>Honorarios Ayudante 1 </th><th>Honorarios Ayudante 2</th><th>Honorarios Anestesiólogo</th></tr>";
+					tablaProc1 += "<tr><td>Dictaminados</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoDictaminados+"</td></tr>";
+					tablaProc1 += "<tr><td>Negociados</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosNegociados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoNegociados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosNegociados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoNegociados+"</td></tr>";
+					tablaProc1 += "</table>"
+					$("#divProcedimiento1Dictaminar").html(tablaProc1);
+				} 
+				if (response.cirugiaSolicitadaUno.procedimientoDos!=null){
+					tablaProc2="<font color='darkblue'>Procedimiento 2: </font>"+  response.cirugiaSolicitadaUno.procedimientoDos.cpt.descripcion;
+					tablaProc2 += "<table><tr><td>Honorarios Médicos</td><td>Honorarios Ayudante 1 Dictaminados</td><td>Honorarios Ayudante 2 Dictaminados</td><td>Honorarios Anestesiólogo Dictaminados</td></tr>";
+					tablaProc2 += "<tr><td>"+ response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados+"</td></tr>";
+					tablaProc2 += "</table>"
+					$("#divProcedimiento2Dictaminar").html(tablaProc2);	
+				}	
+				$("#divProcedimiento1Dictaminar").html(tablaProc1);
+				if (response.cirugiaSolicitadaUno.procedimientoTres!=null)
+					$("#divProcedimiento3Dictaminar").html("<font color='darkblue'>Procedimiento 3: </font>"+response.cirugiaSolicitadaUno.procedimientoTres.cpt.descripcion);
+			}			
+			tablaProc1="";
+			tablaProc2="";
+			tablaProc3="";
 			getCirugiaSolicitadaGridProcedimientos(response.cirugiaSolicitadaUno);
 			getCirugiaSolicitadaGridInsumos(response.insumos);
 		},
@@ -39,73 +66,6 @@ function cargarSolicitud(){
 			// console.log(response)
 		}
 	});	
-}
-
-
-function cargarIcdCpt(){			  	
-	/*	$(window).resize(function() {
-	        $( "#gridIcd" ).dialog( "option", "position", { my: "top", at: "top", of: window } );
-		});*/		
-		$.ajax({
-			method:"post",
-			async:false,
-			url: "mvc/icd/geticds"
-	   	}).done(function(data) {
-	   		//console.log(data)
-	   		$("#tablaGridIcds").DataTable( {
-	        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
-	        "data": data,"bDestroy": false
-	   		});
-	   	});
-	   	$.ajax({
-				method:"post",
-				async:false,
-			  	url: "mvc/cpt/getcpts"
-		   	}).done(function(data) {   		   		   			   			   		   	
-		   		$("#tablaGridCpts").DataTable( {
-		        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
-		        "data": data,"bDestroy": false
-		 });
-	});
-}
-
-function loadWindowIcd(numIcd){
-	$( "#icdSelHidden").val(numIcd);
-	$( "#gridIcd" ).dialog({
-		 resizable: false,
-	      height: 700,
-	      width: 1200,
-	      position: { my: "top", at: "top", of: window },
-	      modal: true		     
-	});					
-}
-
-function loadWindowCpt(numCpt){
-	$( "#cptSelHidden").val(numCpt);
-	$( "#gridCpt" ).dialog({
-		 resizable: false,
-	      height: 700,
-	      width: 1200,
-	      position: { my: "top", at: "top", of: window },
-	      modal: true		     
-	});					
-}
-
-function selectIcd(valor,valor2){
-	$( "#idIcd1"+$( "#icdSelHidden").val()).val(valor);
-	$( "#icd"+$( "#icdSelHidden").val()).val(valor2);
-	$( "#gridIcd" ).dialog('close');		 
-}
-
-
-function selectCpt(valor,valor2){
-	$( "#idCpt1"+$( "#cptSelHidden").val()).val(valor);
-	$( "#cpt"+$( "#cptSelHidden").val()).val(valor2);
-	$( "#gridCpt" ).dialog('close');		 
-}
-
-function nextTab(id){
-	$( "#accordion" ).accordion({ active: id });
 }
 
 function cargarGrid(){	
@@ -128,10 +88,10 @@ function cargarGrid(){
 	        	{ name: "autorizado", type: "checkbox", title:'¿Autorizado?', width: 60, validate: "required" },
 	            /*{ name: "cpt.autorizado", type: "select", title:'¿autorizado?', items: db.opciones, valueField: "Id", textField: "opcion",
 	                validate: { message: "Country should be specified", validator: function(value) { return value > 0; } } },]*/
-	            { name: "honorariosMedicosDictaminados", type: "text",  title:'Honorarios Médicos', width: 60, validate: "required" },
-	            { name: "honorariosAyudanteUnoDictaminados", type: "text",  title:'Honorarios Ayudante 1', width: 60, validate: "required" },
-	            { name: "honorariosAyudanteDosDictaminados", type: "text",  title:'Honorarios Ayudante 2', width: 60, validate: "required" },
-	            { name: "honorariosAnestesiologoDictaminados", type: "text",  title:'Honorarios Anestesiólogo', width: 60, validate: "required" }/*,
+	            { name: "honorariosMedicosAutorizados", type: "text",  title:'Honorarios Médicos', width: 60, validate: "required" },
+	            { name: "honorariosAyudanteUnoAutorizados", type: "text",  title:'Honorarios Ayudante 1', width: 60, validate: "required" },
+	            { name: "honorariosAyudanteDosAutorizados", type: "text",  title:'Honorarios Ayudante 2', width: 60, validate: "required" },
+	            { name: "honorariosAnestesiologoAutorizados", type: "text",  title:'Honorarios Anestesiólogo', width: 60, validate: "required" }/*,
 	            {
 	                type: "control",
 	                modeSwitchButton: false,
@@ -157,9 +117,9 @@ function cargarGrid(){
 //
 	    $("#detailsForm").validate({
 	        rules: {
-	        	honorariosMedicosDictaminados: "required",
-	        	honorariosAyudanteUnoDictaminados: "required",	        	
-	        	honorariosAnestesiologoDictaminados: "required",
+	        	honorariosMedicosAutorizados: "required",
+	        	honorariosAyudanteUnoAutorizados: "required",	        	
+	        	honorariosAnestesiologoAutorizados: "required",
 	            autorizado: "required"
 	        },
 	        messages: {
@@ -181,10 +141,10 @@ function cargarGrid(){
 	        $("#procedimiento").val(procedimiento.cpt.descripcion);
 	        $("#autorizado").val(procedimiento.autorizado);
 	        $("#idProcedimientoSolicitado").val(procedimiento.idProcedimientoSolicitado);
-	        $("#honorariosMedicosDictaminados").val(procedimiento.honorariosMedicosDictaminados);
-	        $("#honorariosAyudanteUnoDictaminados").val(procedimiento.honorariosAyudanteUnoDictaminados);
-	        $("#honorariosAyudanteDosDictaminados").val(procedimiento.honorariosAyudanteDosDictaminados);
-	        $("#honorariosAnestesiologoDictaminados").val(procedimiento.honorariosAnestesiologoDictaminados);
+	        $("#honorariosMedicosAutorizados").val(procedimiento.honorariosMedicosAutorizados);
+	        $("#honorariosAyudanteUnoAutorizados").val(procedimiento.honorariosAyudanteUnoAutorizados);
+	        $("#honorariosAyudanteDosAutorizados").val(procedimiento.honorariosAyudanteDosAutorizados);
+	        $("#honorariosAnestesiologoAutorizados").val(procedimiento.honorariosAnestesiologoAutorizados);
 	        
 	        formSubmitHandler = function() {
 	            saveprocedimiento(procedimiento, dialogType === "Add");
@@ -198,10 +158,10 @@ function cargarGrid(){
 	        $.extend(procedimiento, {	        			        		      
 		        autorizado:$("#autorizado").val(),
 		        idProcedimientoSolicitado : $("#idProcedimientoSolicitado").val(),
-		        honorariosMedicosDictaminados: $("#honorariosMedicosDictaminados").val(),
-		        honorariosAyudanteUnoDictaminados: $("#honorariosAyudanteUnoDictaminados").val(),
-		        honorariosAyudanteDosDictaminados: $("#honorariosAyudanteDosDictaminados").val(),
-		        honorariosAnestesiologoDictaminados: $("#honorariosAnestesiologoDictaminados").val()
+		        honorariosMedicosAutorizados: $("#honorariosMedicosAutorizados").val(),
+		        honorariosAyudanteUnoAutorizados: $("#honorariosAyudanteUnoAutorizados").val(),
+		        honorariosAyudanteDosAutorizados: $("#honorariosAyudanteDosAutorizados").val(),
+		        honorariosAnestesiologoAutorizados: $("#honorariosAnestesiologoAutorizados").val()
 	        });
 
 	        $("#jsGrid").jsGrid(isNew ? "insertItem" : "updateItem", procedimiento);
@@ -308,15 +268,15 @@ function getCirugiaSolicitadaGridProcedimientos(cirugiaProgramada){
         		async:false,
         		data : {
         			"idProcedimientoSolicitado" :  updatingProcedimiento.idProcedimientoSolicitado,
-        			"honorariosMedicosDictaminados" : updatingProcedimiento.honorariosMedicosDictaminados,
-        			"honorariosAyudanteUnoDictaminados" : updatingProcedimiento.honorariosAyudanteUnoDictaminados,
-        			"honorariosAyudanteDosDictaminados" : updatingProcedimiento.honorariosAyudanteDosDictaminados,
-        			"honorariosAnestesiologoDictaminados" : updatingProcedimiento.honorariosAnestesiologoDictaminados,
+        			"honorariosMedicosAutorizados" : updatingProcedimiento.honorariosMedicosAutorizados,
+        			"honorariosAyudanteUnoAutorizados" : updatingProcedimiento.honorariosAyudanteUnoAutorizados,
+        			"honorariosAyudanteDosAutorizados" : updatingProcedimiento.honorariosAyudanteDosAutorizados,
+        			"honorariosAnestesiologoAutorizados" : updatingProcedimiento.honorariosAnestesiologoAutorizados,
         			"autorizado" : autorizado
         		},
         		dataType : 'json',
         		type : 'post',
-				url: "mvc/solicitud/aceptar_rechazar_procedimiento"		  
+				url: "mvc/autorizador/aceptar_rechazar_procedimiento"		  
 				})
 				  .done(function( data ) {
 					mensaje("Se guardaron los cambios con éxito");
@@ -375,6 +335,8 @@ function cargarGridInsumos(){
 	            /*{ name: "cpt.autorizado", type: "select", title:'¿autorizado?', items: db.opciones, valueField: "Id", textField: "opcion",
 	                validate: { message: "Country should be specified", validator: function(value) { return value > 0; } } },]*/
 	            { name: "monto", type: "text",  title:'Monto Solicitado', width: 150, validate: "required" },
+	            { name: "montoNegociado", type: "text",  title:'Monto Negociado', width: 150, validate: "required" },
+	            { name: "montoAutorizado", type: "text",  title:'Monto Autorizado', width: 150, validate: "required" },
 	            { name: "autorizado", type: "checkbox",  title:'¿Autorizado?', width: 150, validate: "required" }/*,
 	            {
 	                type: "control",
@@ -515,30 +477,13 @@ function actualizarMontoFinal(){
 	
 }
 
-function finalizarDictamen() {
+function finalizarAutorizacion() {
     $( "#dialog-confirm" ).dialog({
       resizable: false,
       height: "auto",
       width: 400,
       modal: true,
-      buttons: {
-    	  "Regresar Solicitud": function() {
-      		$( "#dialog-confirm3" ).dialog({
-      	      resizable: false,
-      	      height: 500,
-      	      width: 700,
-      	      modal: true,
-      	      buttons: {
-      	        "CONFIRMAR": function() {  	        
-      	          $( this ).dialog( "close" );
-      	        },
-      	        "CANCELAR": function() {
-      	          $( this ).dialog( "close" );
-      	        }
-      	      }
-      	    }); 	
-         $( this ).dialog( "close" );
-    	 },
+      buttons: {    	  
         "Rechazar Solicitud": function() {
         		$( "#dialog-confirm2" ).dialog({
         	      resizable: false,
@@ -575,7 +520,7 @@ function aceptarSolicitud(){
 			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val()			
 		},
 		dataType : 'json',
-		url : 'mvc/solicitud/cambiarstatusdictaminada',
+		url : 'mvc/autorizar/cambiarstatusautorizada',
 		type : 'post',
 		beforeSend : function() {
 			$("#loading").show();			
