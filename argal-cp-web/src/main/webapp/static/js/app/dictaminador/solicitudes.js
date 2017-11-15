@@ -5,7 +5,7 @@ $(document).ready(function() {
 			"status" : 0,			
 		},
 		dataType : 'json',
-		url : 'mvc/solicitud/getsolicitudesdictaminador',
+		url : 'mvc/dictaminador/getsolicitudesdictaminador',
 		type : 'post',
 		beforeSend : function() {
 			// $("#resultado").html("Procesando, espere por favor..."),

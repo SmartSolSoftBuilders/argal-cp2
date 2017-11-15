@@ -27,9 +27,9 @@ function cargarSolicitud(){
 		success : function(response) {
 			console.log(response)
 			var tipoSolicitud=["","CORTA ESTANCIA","PROGRAMADA"];
-			$("#divDatosTitular").html("<font color='darkblue'>NOMBRE DEL TITULAR: </font>" + response.nombreTitularSolicitudCirugiaProgramada + " " + response.apPTitularSolicitudCirugiaProgramada + " " + response.apMTitularSolicitudCirugiaProgramada + "<font color='blue'> Empresa: </font>" + response.empresa.nombreEmpresa + "<font color='blue'> Num Nómina/Cve: </font>" + response.numNominaBeneficiarioSolicitudCirugiaProgramada + " ");
-			$("#divDatosBeneficiario").html("<font color='blue'>NOMBRE DEL PACIENTE: </font>" + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> EDAD: </font>" + response.edadBeneficiarioSolicitudCirugiaProgramada + "<font color='blue'> SEXO: </font>" + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");		
-			$("#divDatosSolicitudBeneficiario").html("<font color='blue'> TIPO SOLICITUD: </font>" +tipoSolicitud[response.tipoSolicitudCirugiaProgramada]+"<font color='blue'> FECHA DE ELABORACIÓN: </font>2017-10-14");
+			$("#divDatosTitular").html("<font color='darkblue'>NOMBRE DEL TITULAR: </font>" + response.nombreTitularSolicitudCirugiaProgramada + " " + response.apPTitularSolicitudCirugiaProgramada + " " + response.apMTitularSolicitudCirugiaProgramada + "<font color='darkblue'> Empresa: </font>" + response.empresa.nombreEmpresa + "<font color='darkblue'> Num Nómina/Cve: </font>" + response.numNominaBeneficiarioSolicitudCirugiaProgramada + " ");
+			$("#divDatosBeneficiario").html("<font color='darkblue'>NOMBRE DEL PACIENTE: </font>" + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + "<font color='darkblue'> EDAD: </font>" + response.edadBeneficiarioSolicitudCirugiaProgramada + "<font color='darkblue'> SEXO: </font>" + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");		
+			$("#divDatosSolicitudBeneficiario").html("<font color='darkblue'> TIPO SOLICITUD: </font>" +tipoSolicitud[response.tipoSolicitudCirugiaProgramada]+"<font color='darkblue'> FECHA DE ELABORACIÓN: </font>2017-10-14");
 			//$("#idSolicitud").val();
 			getCirugiaSolicitadaGridProcedimientos(response.cirugiaSolicitadaUno);
 			getCirugiaSolicitadaGridInsumos(response.insumos);
@@ -41,73 +41,6 @@ function cargarSolicitud(){
 	});	
 }
 
-
-function cargarIcdCpt(){			  	
-	/*	$(window).resize(function() {
-	        $( "#gridIcd" ).dialog( "option", "position", { my: "top", at: "top", of: window } );
-		});*/		
-		$.ajax({
-			method:"post",
-			async:false,
-			url: "mvc/icd/geticds"
-	   	}).done(function(data) {
-	   		//console.log(data)
-	   		$("#tablaGridIcds").DataTable( {
-	        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
-	        "data": data,"bDestroy": false
-	   		});
-	   	});
-	   	$.ajax({
-				method:"post",
-				async:false,
-			  	url: "mvc/cpt/getcpts"
-		   	}).done(function(data) {   		   		   			   			   		   	
-		   		$("#tablaGridCpts").DataTable( {
-		        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
-		        "data": data,"bDestroy": false
-		 });
-	});
-}
-
-function loadWindowIcd(numIcd){
-	$( "#icdSelHidden").val(numIcd);
-	$( "#gridIcd" ).dialog({
-		 resizable: false,
-	      height: 700,
-	      width: 1200,
-	      position: { my: "top", at: "top", of: window },
-	      modal: true		     
-	});					
-}
-
-function loadWindowCpt(numCpt){
-	$( "#cptSelHidden").val(numCpt);
-	$( "#gridCpt" ).dialog({
-		 resizable: false,
-	      height: 700,
-	      width: 1200,
-	      position: { my: "top", at: "top", of: window },
-	      modal: true		     
-	});					
-}
-
-function selectIcd(valor,valor2){
-	$( "#idIcd1"+$( "#icdSelHidden").val()).val(valor);
-	$( "#icd"+$( "#icdSelHidden").val()).val(valor2);
-	$( "#gridIcd" ).dialog('close');		 
-}
-
-
-function selectCpt(valor,valor2){
-	$( "#idCpt1"+$( "#cptSelHidden").val()).val(valor);
-	$( "#cpt"+$( "#cptSelHidden").val()).val(valor2);
-	$( "#gridCpt" ).dialog('close');		 
-}
-
-function nextTab(id){
-	$( "#accordion" ).accordion({ active: id });
-}
-
 function cargarGrid(){	
 	$("#jsGrid").jsGrid({
 	        height: "70%",
@@ -116,10 +49,10 @@ function cargarGrid(){
 	        autoload: true,
 	        paging: true,
 	        deleteConfirm: function(item) {
-	            return "The procedimiento \"" + item.Name + "\" will be removed. Are you sure?";
+	            return "Procedimiento \"" + item.Name + "\" will be removed. Are you sure?";
 	        },
 	        rowClick: function(args) {
-	            showDetailsDialog("Edit", args.item);
+	            showDetailsDialog("Dictaminar", args.item);
 	        },
 	        controller: db,
 	        fields: [
@@ -181,16 +114,30 @@ function cargarGrid(){
 	        $("#procedimiento").val(procedimiento.cpt.descripcion);
 	        $("#autorizado").val(procedimiento.autorizado);
 	        $("#idProcedimientoSolicitado").val(procedimiento.idProcedimientoSolicitado);
-	        $("#honorariosMedicosDictaminados").val(procedimiento.honorariosMedicosDictaminados);
-	        $("#honorariosAyudanteUnoDictaminados").val(procedimiento.honorariosAyudanteUnoDictaminados);
-	        $("#honorariosAyudanteDosDictaminados").val(procedimiento.honorariosAyudanteDosDictaminados);
-	        $("#honorariosAnestesiologoDictaminados").val(procedimiento.honorariosAnestesiologoDictaminados);
+	        
+	        if (procedimiento.honorariosMedicosDictaminados=="" || procedimiento.honorariosMedicosDictaminados==null)
+	        	$("#honorariosMedicosDictaminados").val(parseFloat($("#honorariosBase").val())*1);
+	        else
+	        	$("#honorariosMedicosDictaminados").val(procedimiento.honorariosMedicosDictaminados);
+	        
+	        if (procedimiento.honorariosAyudanteUnoDictaminados=="" || procedimiento.honorariosAyudanteUnoDictaminados==null)
+	        	$("#honorariosAyudanteUnoDictaminados").val(parseFloat($("#honorariosBase").val())*0.20);
+	        else
+	        	$("#honorariosAyudanteUnoDictaminados").val(procedimiento.honorariosAyudanteUnoDictaminados);	        
+	        if (procedimiento.honorariosAyudanteDosDictaminados=="" || procedimiento.honorariosAyudanteDosDictaminados==null)
+	        	$("#honorariosAyudanteDosDictaminados").val(parseFloat($("#honorariosBase").val())*0.15);
+	        else
+	        	$("#honorariosAyudanteDosDictaminados").val(procedimiento.honorariosAyudanteDosDictaminados);
+	        if (procedimiento.honorariosAnestesiologoDictaminados=="" || procedimiento.honorariosAnestesiologoDictaminados==null)
+	        	$("#honorariosAnestesiologoDictaminados").val(parseFloat($("#honorariosBase").val())*0.30);
+	        else
+	        	$("#honorariosAnestesiologoDictaminados").val(procedimiento.honorariosAnestesiologoDictaminados);
 	        
 	        formSubmitHandler = function() {
 	            saveprocedimiento(procedimiento, dialogType === "Add");
 	        };
 
-	        $("#detailsDialog").dialog("option", "title", dialogType + " procedimiento")
+	        $("#detailsDialog").dialog("option", "title", dialogType + " Procedimiento")
 	                .dialog("open");
 	    };
 
@@ -245,7 +192,7 @@ function getCirugiaSolicitadaGridInsumos(insumos){
 	        		},
 	        		dataType : 'json',
 	        		type : 'post',
-					url: "mvc/solicitud/aceptar_rechazar_insumo"		  
+					url: "mvc/dictaminador/aceptar_rechazar_insumo"		  
 					})
 					  .done(function( data ) {
 						mensaje("Se guardaron los cambios con éxito");									   
@@ -316,7 +263,7 @@ function getCirugiaSolicitadaGridProcedimientos(cirugiaProgramada){
         		},
         		dataType : 'json',
         		type : 'post',
-				url: "mvc/solicitud/aceptar_rechazar_procedimiento"		  
+				url: "mvc/dictaminador/aceptar_rechazar_procedimiento"		  
 				})
 				  .done(function( data ) {
 					mensaje("Se guardaron los cambios con éxito");
@@ -575,7 +522,7 @@ function aceptarSolicitud(){
 			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val()			
 		},
 		dataType : 'json',
-		url : 'mvc/solicitud/cambiarstatusdictaminada',
+		url : 'mvc/dictaminador/cambiarstatusdictaminada',
 		type : 'post',
 		beforeSend : function() {
 			$("#loading").show();			

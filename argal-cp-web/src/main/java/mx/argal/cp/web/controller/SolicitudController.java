@@ -170,14 +170,7 @@ public class SolicitudController {
 		System.out.println("<OTIKA>get tipo cirugia!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
 		return this.solicitudServicio.obtenerSolicitudesAll(solicitudCirugiaProgramada);    	  
 	}
-	
-	@RequestMapping(value="/getsolicitudesdictaminador",method = RequestMethod.POST)
-    @ResponseBody
-    public List obtenerSolicitudesDictaminador(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
-		System.out.println("<OTIKA>get sols dict!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
-		return this.solicitudServicio.obtenerSolicitudesDictaminador(solicitudCirugiaProgramada);    	  
-	}
-
+		
 	@RequestMapping(value="/getsolicitudesnegociador",method = RequestMethod.POST)
     @ResponseBody
     public List obtenerSolicitudesNegociador(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
@@ -206,20 +199,7 @@ public class SolicitudController {
 		}
 		return true;    	  
 	}
-	
-	@RequestMapping(value="/cambiarstatusdictaminada",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean cambiarStatusDictaminada(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
-		System.out.println("<OTIKA>Cambiar status dictaminada!!!");
-		try {
-			this.solicitudServicio.cambiarStatusByParams(solicitudCirugiaProgramada,4);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return true;    	  
-	}
-	
+			
 	@RequestMapping(value="/negociar_procedimiento",method = RequestMethod.POST)
     @ResponseBody
     public Boolean negociarProcedimiento(@ModelAttribute(value="procedimiento") ProcedimientoSolicitado procedimientoSolicitado, HttpServletRequest request){
@@ -233,29 +213,5 @@ public class SolicitudController {
 		return true;    	  
 	}
 	
-	@RequestMapping(value="/aceptar_rechazar_procedimiento",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean aceptarRechazarProcedimiento(@ModelAttribute(value="procedimiento") ProcedimientoSolicitado procedimientoSolicitado, HttpServletRequest request){
-		System.out.println("<OTIKA>Aceptar/Rechazar Procedimiento!!!");
-		try {
-			this.solicitudServicio.aceptarRechazarProcedimiento(procedimientoSolicitado);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return true;    	  
-	}
 	
-	@RequestMapping(value="/aceptar_rechazar_insumo",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean aceptarRechazarInsumo(@ModelAttribute(value="insumo") Insumo insumo, HttpServletRequest request){
-		System.out.println("<OTIKA>Aceptar/Rechazar Insumo!!!");
-		try {
-			this.solicitudServicio.aceptarRechazarInsumo(insumo);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return true;    	  
-	}
 }
