@@ -12,6 +12,6 @@
 			<li><a href="#">Editar</a></li>
 			<li><a href="#">Cambiar Password</a></li>
 		</ul></li>
-	<li><a href="#">Bienvenido: <c:out value='${usuario.username}'/></a></li>
+	<li><a href="#">Bienvenido:<c:out value="${usuario.username}"/></a></li>
 	<li><a href="#" onclick="window.location.href='/argal-cp-web/logout';">Salir</a></li>		
 </ul>

@@ -1,81 +1,171 @@
+<body style="margin:0; padding:0;" bgcolor="#F0F0F0" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <center>
 	Por favor revise bien los Datos. Si está seguro de la información, de click en enviar para procesar la solicitud:					
 </center>
-<p><!-- ######## This is a comment, visible only in the source editor  ######## --></p>
-<p>&nbsp;</p>
-<h2 style="color: #4485b8;"><span style="text-decoration: underline;">Solicitud de Cirug&iacute;a Programada</span></h2>
-<p><strong>M&eacute;dico Tratante: <input type="text" id="medTratShow" name="medTratShow" value="medico" style="border:0;background-color: white;" readonly/></strong></p>
-<h4 style="color: #4485b8;">1) Datos del Beneficiario:</h4>
-<table style="height: 70px; width: 1008px;">
-<tbody>
-<tr style="height: 23px;">
-<td style="width: 182px; height: 23px;"><strong>Titular:</strong><input type="text" id="titularShow" name="titularShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 197px; height: 23px;"><strong>Paciente:</strong><input type="text" id="pacienteShow" name="pacienteShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 228px; height: 23px;"><strong>Empresa:</strong><input type="text" id="empresaShow" name="empresaShow" value="" style="border:0;background-color: white;" readonly/></td>
-</tr>
-<tr style="height: 23px;">
-<td style="width: 182px; height: 23px;"><strong>Edad:</strong><input type="text" id="edadShow" name="edadShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 197px; height: 23px;"><strong>Sexo:&nbsp;</strong><input type="text" id="sexoBenefShow" name="sexoBenefShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 228px; height: 23px;"><strong>N&oacute;mina/Cve:</strong><input type="text" id="nominaShow" name="nominaShow" value="" style="border:0;background-color: white;" readonly/></td>
-</tr>
-<tr style="height: 23px;">
-<td style="width: 182px; height: 23px;"><strong>Tipo Cirug&iacute;a:</strong><input type="text" id="tipoCirugiaShow" name="tipoCirugiaShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 197px; height: 23px;">&nbsp;</td>
-<td style="width: 228px; height: 23px;">&nbsp;</td>
-</tr>
-</tbody>
-</table>
-<h4 style="color: #4485b8;">2) Cirug&iacute;a Solicitada:</h4>
-<h4><strong style="font-size: 14px;">Diagn&oacute;stico de Ingreso:</strong><span style="font-size: 14px;">&nbsp;<input type="text" id="icdShow" name="icdShow" value="" style="border:0;background-color: white;" readonly/></span></h4>
-<p><strong>Fundamentos del diagn&oacute;stico:&nbsp;</strong><input type="text" id="fundamentosdiagShow" name="fundamentosdiagShow" value="" style="border:0;background-color: white;" readonly/></p>
-<p style="text-align: center;"><span style="color: #0000ff;">Procedimiento(s) Solicitado(s):</span></p>
-<center><table class="editorDemoTable" style="vertical-align: top; height: 129px; width: 597px;">
-<thead>
-<tr>
-<td style="width: 208px;">Procedimiento 1</td>
-<td style="width: 205px;">Procedimiento 2</td>
-<td style="width: 183px;">Procedimiento 3</td>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="width: 208px;"><input type="text" id="cpt1Show" name="cpt1Show" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 205px;"><input type="text" id="cpt2Show" name="cpt2Show" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 183px;"><input type="text" id="cpt3Show" name="cpt3Show" value="" style="border:0;background-color: white;" readonly/></td>
-</tr>
-</tbody>
-</table>
-</center>
-<p><strong>Otras Enfermedades:&nbsp;</strong><input type="text" id="otrasEnfShow" name="otrasEnfShow" value="" style="border:0;background-color: white;" readonly/></p>
-<h4 style="color: #4485b8;">3) Programaci&oacute;n de la Cirug&iacute;a:</h4>
-<table style="height: 70px; width: 1008px;">
-<tbody>
-<tr style="height: 23px;">
-<td style="width: 182px; height: 23px;"><strong>Fecha de Programación:</strong>&nbsp;<input type="text" id="fechaProgShow" name="fechaProgShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 197px; height: 23px;"><strong>Hospital:</strong>&nbsp;<input type="text" id="hospitalShow" name="hospitalShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 228px; height: 23px;"><strong>Tiempo Cirug&iacute;a:</strong>&nbsp;<input type="text" id="tiempoCirugiaShow" name="tiempoCirugiaShow" value="" style="border:0;background-color: white;" readonly/></td>
-</tr>
-<tr style="height: 23px;">
-<td style="width: 182px; height: 23px;"><strong>Tiempo Sala Recuperaci&oacute;n:</strong><input type="text" id="tiempoSalaRecuperacionShow" name="tiempoSalaRecuperacionShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 197px; height: 23px;"><strong>Resultados Preoperatorios:&nbsp;</strong><input type="text" id="resultadosPreoperatoriosShow" name="resultadosPreoperatoriosShow" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 228px; height: 23px;"><strong>Describir Resultados:</strong><input type="text" id="descResultadosPreoperatoriosShow" name="descResultadosPreoperatoriosShow" value="" style="border:0;background-color: white;" readonly/></td>
-</tr>
-</tbody>
-</table>
-<h4 style="color: #4485b8;">4)Documentación:</h4>
-<h4 style="color: #4485b8;">5)Riesgos y Personal Requerido:</h4>
-<p><strong>Riesgos:</strong><input type="text" id="riesgosShow" name="riesgosShow" value="" style="border:0;background-color: white;" readonly/></p>
-<table style="height: 70px; width: 1008px;">
-<tbody>
-<tr style="height: 23px;">
-<td style="width: 182px; height: 23px;"><strong>Nombre del Ayudante 1:</strong>&nbsp;<input type="text" id="ayudante1Show" name="ayudante1Show" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 197px; height: 23px;"><strong>Nombre del Ayudante 2:</strong>&nbsp;<input type="text" id="ayudante2Show" name="ayudante2Show" value="" style="border:0;background-color: white;" readonly/></td>
-<td style="width: 228px; height: 23px;"><strong>Nombre del Anestesiólogo:</strong>&nbsp;<input type="text" id="anestesiologoShow" name="anestesiologoShow" value="" style="border:0;background-color: white;" readonly/></td>
-</tr>
-</tbody>
-</table>
-<h4 style="color: #4485b8;">6)Insumos Solicitados:</h4>
-<input type="text" id="insumosShow" name="insumosShow" value="" style="border:0;background-color: white;" readonly/>
-<center>
-	<button type="button" onclick="enviarSolicitud();" style="background: none;border: none;"><img src="static/img/enviar.png" width="100px" /></button>					
-</center>
+<!-- 100% background wrapper (grey background) -->
+<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#F0F0F0">
+  <tr>
+    <td align="center" valign="top" bgcolor="#F0F0F0" style="background-color: #F0F0F0;">
+
+      <br>
+
+      <!-- 600px container (white background) -->
+      <table border="0" width="600" cellpadding="0" cellspacing="0" class="container">
+        <tr>
+          <td class="container-padding header" align="left">
+			<h2 style="color: #4485b8;"><span style="text-decoration: underline;">Solicitud de Cirug&iacute;a Programada</span></h2>
+          </td>
+        </tr>
+        <tr>
+          <td class="container-padding content" align="left">
+            <br>
+				<div class="title"><h5><img src="static/img/benef.png" width="25px" />1) Registro del Paciente</h5></div>
+			<br>
+
+			<div class="body-text">
+  				<div id="divMedicoTratante"></div>
+				<div id="divDatosTitular"></div>
+				<div id="divDatosBeneficiario"></div>	
+				<div id="divDatosSolicitudBeneficiario"></div>					
+			</div>
+
+          </td>          
+        </tr>
+        <tr>
+          <td class="container-padding content" align="left">
+            <br>
+				<div class="title"><h5><img src="static/img/surgery.png" width="25px" />2) Datos de la cirugía</h5></div>
+			<br>
+			<div class="body-text">
+  				<div id="divIcdCirugia"></div>
+				<div id="divProcedimiento1Solicitado"></div>
+				<div id="divProcedimiento2Solicitado"></div>	
+				<div id="divProcedimiento3Solicitado"></div>
+				<div id="divFundamentosCirugiaShow"></div>					
+			</div>
+
+          </td>          
+        </tr>
+        <tr>
+          <td class="container-padding content" align="left">
+            <br>
+				<div class="title"><h5><img src="static/img/schedule.png" width="25px" />3)Programación</h5></div>
+			<br>
+			<div class="body-text">
+  				<div id="divFechaProgramacionShow"></div>
+  				<div id="divHospShow"></div>  				
+				<div id="divHorasShow"></div>
+				<div id="divResultados"></div>	
+				<div id="divFundamentosResultados"></div>					
+			</div>
+
+          </td>          
+        </tr>
+        <tr>
+          <td class="container-padding content" align="left">
+            <br>
+				<div class="title"><h5><img src="static/img/documents.png" width="25px" />4)Documentación</h5></div>
+			<br>
+			<div class="body-text">
+  				<table width="550" border="0" cellpadding="0" cellspacing="0" align="left" class="force-row" style="width: 542px;">
+		          <tr>
+		            <td class="col" valign="top">
+		              <table border="0" cellpadding="0" cellspacing="0" class="img-wrapper">
+		                <tr>
+		                  <td><img src="static/img/laboratorios_preop.png" border="0" alt="" width="108" height="40" hspace="0" vspace="0" style="max-width:100%; " class="image"></td>
+		                </tr>
+		              </table>
+		              <table border="0" cellpadding="0" cellspacing="0">
+		                <tr align="center">
+		                  	<td align="center"><img src="static/img/buscar-filtrar.png" onclick ="window.open('static/img/factura1.pdf','_blank', 'width=400,height=600');" border="0" alt="" width="50" height="50" hspace="0" vspace="0" style="max-width:100%; " class="image"></td>
+		                </tr>
+		              </table>	            
+		            </td>	          	       
+		          	<td class="col" valign="top">
+		              <table border="0" cellpadding="0" cellspacing="0" class="img-wrapper">
+		                <tr>
+		                  <td><img src="static/img/electrocardiograma.png" border="0" alt="" width="108" height="40"  hspace="0" vspace="0" style="max-width:100%; " class="image"></td>
+		                </tr>
+		              </table>
+		              <table border="0" cellpadding="0" cellspacing="0">
+		                <tr align="center">
+		                  	<td align="center"><img src="static/img/buscar-filtrar.png" border="0" alt="" width="40" height="40" hspace="0" vspace="0" style="max-width:100%; " class="image" onclick ="window.open('static/img/factura1.pdf','_blank', 'width=400,height=600');"></td>
+		                </tr>
+		              </table>		              
+		            </td>
+		            <td class="col" valign="top">
+		              <table border="0" cellpadding="0" cellspacing="0" class="img-wrapper">
+		                <tr>
+		                  <td><img src="static/img/documentos_interp.png" border="0" alt="" width="108" height="40"  hspace="0" vspace="0" style="max-width:100%; " class="image"></td>
+		                </tr>
+		              </table>
+		              <table border="0" cellpadding="0" cellspacing="0">
+		                <tr align="center">
+		                  	<td align="center"><img src="static/img/buscar-filtrar.png" border="0" alt="" width="40" height="40" hspace="0" vspace="0" style="max-width:100%; " class="image" onclick ="window.open('static/img/factura1.pdf','_blank', 'width=400,height=600');"></td>
+		                </tr>
+		              </table>
+		              <div class="col-copy"></div>
+		              <br>
+		            </td>
+		            <td class="col" valign="top">
+		              <table border="0" cellpadding="0" cellspacing="0" class="img-wrapper">
+		                <tr>
+		                  <td><img src="static/img/documentos_interp.png" border="0" alt="" width="108" height="40"  hspace="0" vspace="0" style="max-width:100%; " class="image"></td>
+		                </tr>
+		              </table>
+		              <table border="0" cellpadding="0" cellspacing="0">
+		                <tr align="center">
+		                  	<td align="center"><img src="static/img/buscar-filtrar.png" border="0" alt="" width="40" height="40" hspace="0" vspace="0" style="max-width:100%; " class="image" onclick ="window.open('static/img/factura1.pdf','_blank', 'width=400,height=600');"></td>
+		                </tr>
+		              </table>
+		              <div class="col-copy"></div>
+		              <br>
+		            </td>
+		          </tr>
+	        	</table>					
+			</div>
+          </td>          
+        </tr>
+        <tr>
+          <td class="container-padding content" align="left">
+            <br>
+				<div class="title"><h5><img src="static/img/person.png" width="25px" />5)Riesgos y Personal Adicional Requerido</h5></div>
+			<br>
+			<div class="body-text">
+  				<div id="divRiesgosShow"></div>
+				<div id="divAyudante1Show"></div>
+				<div id="divAyudante2Show"></div>
+				<div id="divAnestesiologoShow"></div>					
+			</div>
+
+          </td>          
+        </tr>
+        <tr>
+          <td class="container-padding content" align="left">
+            <br>
+				<div class="title"><h5><img src="static/img/insumo.png" width="25px" />6)Insumos</h5></div>
+			<br>
+			<div class="body-text">
+  				<div id="divInsumosShow"></div>								
+			</div>
+
+          </td>          
+        </tr>
+        <tr>
+          <td class="container-padding footer-text" align="left">
+            <br><br>
+            Si está seguro de la información, por favor de clic en el botón ENVIAR (la solicitud será enviada y no podrá ser editada)
+            <br><br>
+			<center>
+				<button type="button" onclick="enviarSolicitud();" style="background: none;border: none;"><img src="static/img/enviar.png" width="100px" /></button>					
+			</center>            
+          </td>
+        </tr>
+      </table><!--/600px container -->
+
+
+    </td>
+  </tr>
+</table><!--/100% background wrapper-->
+
+</body>

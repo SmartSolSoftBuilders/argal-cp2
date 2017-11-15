@@ -103,7 +103,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 				solicitudReturn.add(format1.format(solicitudes.get(i).getFechaSolicitudElaboracion()));
 				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
 				if (solicitudes.get(i).getStatus()==1){
-					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Seguir Capturando</a>" + "<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Eliminar</a>");
+					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Seguir Capturando</a>" + "<a href='#' onclick='eliminarSolicitud(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\"><img src='static/img/eliminar_icon.png' width=20 height=20></a>");
 				}
 				
 				if (solicitudes.get(i).getStatus()==6){

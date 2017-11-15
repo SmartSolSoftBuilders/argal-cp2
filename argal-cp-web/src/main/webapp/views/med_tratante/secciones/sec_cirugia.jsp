@@ -333,10 +333,10 @@
 			</table>		
 		</div>
 	</div>	
-	<div id="gridIcd" style="display: none;">
+	<div id="gridIcd"  title="Seleccione un ICD" style="display: none;">
 		<jsp:include page="../../icd/grid_icds.jsp"></jsp:include>		
 	</div>
-	<div id="gridCpt" style="display: none;">
+	<div id="gridCpt"  title="Seleccione un CPT" style="display: none;">
 		<jsp:include page="../../cpt/grid_cpts.jsp"></jsp:include>		
 	</div>
 </div>

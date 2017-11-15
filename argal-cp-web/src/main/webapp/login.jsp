@@ -23,20 +23,20 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title"><!--Sign in to continue to Bootsnipp--></h1>
+            <h1 class="text-center login-title">Cirugias Programadas</h1>
             <div class="account-wall">
-                <img class="profile-img" src="static/img/login.png" alt=""/>
+                <img class="profile-img" src="static/img/logoArgal2.png" alt=""/>
                 <form class="form-signin" name="loginform" action="j_spring_security_check" method="post">   
                 	<p>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </p>
                             
-                <input type="text" class="form-control" placeholder="Email" id="j_username" name="j_username" onkeyup="javascript:this.value=this.value.toUpperCase();" required autofocus/>
-                <input type="password" class="form-control" name="j_password" id="j_password" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Password" required/>
-                <button class="btn btn-lg btn-primary btn-block" type="submit"/>
-                    Sign in</button>
-                <label class="checkbox pull-left">
-                    <input type="checkbox" value="remember-me">
-                    Remember me
-                </label>                
+	                <input type="text" class="form-control" placeholder="Email" id="j_username" name="j_username" onkeyup="javascript:this.value=this.value.toUpperCase();" required autofocus/>
+	                <input type="password" class="form-control" name="j_password" id="j_password" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Password" required/>
+	                <button class="btn btn-lg btn-primary btn-block" type="submit">
+	                    Sign in</button>
+	                <label class="checkbox pull-left">
+	                    <input type="checkbox" value="remember-me"/>
+	                    Remember me
+	                </label>                
                 </form>
             </div>            
         </div>

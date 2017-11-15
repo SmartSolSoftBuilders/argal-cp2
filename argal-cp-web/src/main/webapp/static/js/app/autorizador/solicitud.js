@@ -2,13 +2,13 @@ var db;
 var dbInsumos;
 
 $(document).ready(function() {    
-  if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!=""){	  
-	  cargarSolicitud($("#idSolicitud").val());
-	  cargarGrid();
-	  cargarGridInsumos();	  
-	  $( ".jsgrid-grid-body" ).css( "height", "auto" );
-  }
-  $("#loadingMain").hide();
+	if ($("#idSolicitud").val()!=null && $("#idSolicitud").val()!=""){	  
+		cargarSolicitud($("#idSolicitud").val());
+		cargarGrid();
+		cargarGridInsumos();	  
+		$( ".jsgrid-grid-body" ).css( "height", "auto" );
+	}
+	$("#loadingMain").hide();
 });
 
 function cargarSolicitud(){
@@ -314,7 +314,6 @@ function getCirugiaSolicitadaGridProcedimientos(cirugiaProgramada){
 
 }
 
-
 function cargarGridInsumos(){
 	  $("#jsGridInsumos").html("");
 	  $("#jsGridInsumos").jsGrid({
@@ -346,7 +345,7 @@ function cargarGridInsumos(){
 	                headerTemplate: function() {
 	                    return $("<button>").attr("type", "button").text("Add")
 	                            .on("click", function () {
-	                            	actualizarMontosGrid();
+	                            	actualizarMontosGrid();		
 	                                showDetailsDialog("Add", {});
 	                            });
 	                }
@@ -409,7 +408,6 @@ function cargarGridInsumos(){
 	    };
 
 }
-
 
 function mensajeRedirect(msj){
 	$( "#mensajeDialogo").html(msj);
@@ -491,7 +489,6 @@ function finalizarAutorizacion() {
       }
     });
  }
-
 
 function aceptarSolicitud(){
 	$.ajax({

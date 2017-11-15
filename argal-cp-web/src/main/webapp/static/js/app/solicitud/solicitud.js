@@ -257,62 +257,65 @@ function cargarSolicitudShow(){
 		success : function(response) {
 			console.log(response)
 			$("#loading").hide();
-			$("#contenidoSolicitud").show();			
-			$("#medTratShow").val(response.medicoTratante.nombreMedicoTratante + " " +response.medicoTratante.appMedicoTratante +" "+response.medicoTratante.apmMedicoTratante);
-			$("#titularShow").val(response.nombreTitularSolicitudCirugiaProgramada + " " +response.apPTitularSolicitudCirugiaProgramada +" "+response.apMTitularSolicitudCirugiaProgramada);
-			$("#pacienteShow").val(response.nombreBeneficiarioSolicitudCirugiaProgramada + " " +response.apPBeneficiarioSolicitudCirugiaProgramada +" "+response.apMBeneficiarioSolicitudCirugiaProgramada);
-			$("#empresaShow").val(response.empresa.nombreEmpresa);
-			$("#edadShow").val(response.edadBeneficiarioSolicitudCirugiaProgramada);
-			$("#sexoBenefShow").val(response.sexoBeneficiarioSolicitudCirugiaProgramada);
-			$("#nominaShow").val(response.numNominaBeneficiarioSolicitudCirugiaProgramada);
-			var tipoCirugia=["","AMBULATORIA","HOSPITALIZACION"];
-			$("#tipoCirugiaShow").val(tipoCirugia[response.tipoSolicitudCirugiaProgramada]);
-			$("#otrasEnfShow").val("");
-			if (response.cirugiaSolicitadaUno!=null){	
-				$("#icdShow").val(response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
-				$("#fundamentosdiagShow").val(response.cirugiaSolicitadaUno.fundamentosDiagnostico);
+			$("#contenidoSolicitud").show();
+			var tipoSolicitud=["","CORTA ESTANCIA","PROGRAMADA"];
+			var resultadosPreoperatorios=["ANORMALES","NORMALES"];
+			$("#divDatosTitular").html("<font color='darkblue'>NOMBRE DEL TITULAR: </font>" + response.nombreTitularSolicitudCirugiaProgramada + " " + response.apPTitularSolicitudCirugiaProgramada + " " + response.apMTitularSolicitudCirugiaProgramada + "<font color='darkblue'> Empresa: </font>" + response.empresa.nombreEmpresa + "<font color='darkblue'> Num Nómina/Cve: </font>" + response.numNominaBeneficiarioSolicitudCirugiaProgramada + " ");
+			$("#divDatosBeneficiario").html("<font color='darkblue'>NOMBRE DEL PACIENTE: </font>" + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + "<font color='darkblue'> EDAD: </font>" + response.edadBeneficiarioSolicitudCirugiaProgramada + "<font color='darkblue'> SEXO: </font>" + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");		
+			$("#divDatosSolicitudBeneficiario").html("<font color='darkblue'> TIPO SOLICITUD: </font>" +tipoSolicitud[response.tipoSolicitudCirugiaProgramada]+"<font color='darkblue'> FECHA DE ELABORACIÓN: </font>2017-10-14");
+			
+			var tablaProc1="";
+			var tablaProc2="";
+			var tablaProc3="";
+			if (response.cirugiaSolicitadaUno!=null){
+				$("#divIcdCirugia").html("<font color='darkblue'>Diagnóstico de Ingreso: </font>"+  response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
 				if (response.cirugiaSolicitadaUno.procedimientoUno!=null){
-					$("#cpt1Show").val(response.cirugiaSolicitadaUno.procedimientoUno.cpt.descripcion);
-				}
+					tablaProc1="<font color='darkblue'>Procedimiento 1: </font>"+  response.cirugiaSolicitadaUno.procedimientoUno.cpt.descripcion;
+					$("#divProcedimiento1Solicitado").html(tablaProc1);
+				} 
 				if (response.cirugiaSolicitadaUno.procedimientoDos!=null){
-					$("#cpt2Show").val(response.cirugiaSolicitadaUno.procedimientoDos.cpt.descripcion);
-				}
-				if (response.cirugiaSolicitadaUno.procedimiento!=null){
-					$("#cpt3Show").val(response.cirugiaSolicitadaUno.procedimientoTres.cpt.descripcion);
-				}
-				if (response.cirugiaSolicitadaUno.otrasEnfUno!=null){
-					$("#otrasEnfShow").val($("#otrasEnfShow").val()+response.cirugiaSolicitadaUno.otrasEnfUno.descripcion);					
-				}
-				if (response.cirugiaSolicitadaUno.otrasEnfDos!=null){
-					$("#otrasEnfShow").val($("#otrasEnfShow").val()+","+response.cirugiaSolicitadaUno.otrasEnfDos.descripcion);					
-				}
-				if (response.cirugiaSolicitadaUno.otrasEnfTres!=null){
-					$("#otrasEnfShow").val($("#otrasEnfShow").val()+","+response.cirugiaSolicitadaUno.otrasEnfTres.descripcion);					
-				}
-				if (response.cirugiaSolicitadaUno.otrasEnfCuatro!=null){
-					$("#otrasEnfShow").val($("#otrasEnfShow").val()+","+response.cirugiaSolicitadaUno.otrasEnfCuatro.descripcion);					
-				}				
+					tablaProc2="<font color='darkblue'>Procedimiento 2: </font>"+  response.cirugiaSolicitadaUno.procedimientoDos.cpt.descripcion;
+					$("#divProcedimiento2Solicitado").html(tablaProc2);	
+				}	
+				$("#divProcedimiento1Solicitado").html(tablaProc1);
+				if (response.cirugiaSolicitadaUno.procedimientoTres!=null)
+					$("#divProcedimiento3Solicitado").html("<font color='darkblue'>Procedimiento 3: </font>"+response.cirugiaSolicitadaUno.procedimientoTres.cpt.descripcion);
+				$("#divFundamentosCirugiaShow").html("<font color='darkblue'>Fundamentos del Diagnóstico: </font>"+  response.cirugiaSolicitadaUno.fundamentosDiagnostico);
 			}
 			
-			$("#fechaProgShow").val(response.fechaSolicitudCirugiaProgramada);
-			if(response.hospital!=null)
-				$("#hospitalShow").val(response.hospital.nombreHospital);
-			$("#tiempoCirugiaShow").val(response.tiempoCirugia);
-			$("#tiempoSalaRecuperacionShow").val(response.tiempoSalaRecuperacion);
-			$("#resultadosPreoperatoriosShow").val(response.resultadosPreoperatorios);
-			$("#descResultadosPreoperatoriosShow").val(response.resultadosPreoperatorios);
+			$("#divFechaProgramacionShow").html("<font color='darkblue'>Fecha de Programación: </font>"+  response.fechaSolicitudCirugiaProgramada);
+			if (response.hospital!=null)
+				$("#divHospShow").html("<font color='darkblue'>Hospital: </font>"+  response.hospital.nombreHospital);
+			else
+				$("#divHospShow").html("<font color='darkblue'>Hospital: </font>");
+			$("#divHorasShow").html("<font color='darkblue'>Tiempo Cirugía(hrs): </font>"+  response.tiempoCirugia+"<font color='darkblue'>		Tiempo Sala de Recuperación (hrs): </font>"+  response.tiempoSalaRecuperacion);
+			if (response.resultadosPreoperatorios!=null)
+				$("#divResultados").html("<font color='darkblue'>Resultados Preoperatorios: </font>"+  resultadosPreoperatorios[response.resultadosPreoperatorios]);
+			else
+				$("#divResultados").html("<font color='darkblue'>Resultados Preoperatorios: </font>");
+			$("#divFundamentosResultados").html("<font color='darkblue'>Describir Resultados Preoperatorios: </font>"+  response.describirResultadosPreoperatorios);		
+			var riesgos="";
 			if (response.riesgosQuirurgicosUno==1)
-				$("#riesgosShow").val(response.riesgosQuirurgicosUno);
+				riesgos+="I";
 			if (response.riesgosQuirurgicosDos==1)
-				$("#riesgosShow").val($("#riesgosShow").val()+","+response.riesgosQuirurgicosDos);
-			$("#ayudante1Show").val(response.nombreAyudanteUno);
-			$("#ayudante2Show").val(response.nombreAyudanteDos);
-			$("#anestesiologoShow").val(response.nombreAnestesiologo);
-			$("#insumosShow").val("");
+				riesgos+=",II";
+			if (response.riesgosQuirurgicosTres==1)
+				riesgos+=",III";
+			if (response.riesgosQuirurgicosCuatro==1)
+				riesgos+=",IV";
+			$("#divRiesgosShow").html("<font color='darkblue'>Riesgos: </font>"+ riesgos);			
+			$("#divAyudante1Show").html("<font color='darkblue'>Nombre del Ayudante 1: </font>"+  response.nombreAyudanteUno);
+			$("#divAyudante2Show").html("<font color='darkblue'>Nombre del Ayudante 2: </font>"+  response.nombreAyudanteDos);
+			$("#divAnestesiologoShow").html("<font color='darkblue'>Nombre del Anestesiólogo: </font>"+  response.nombreAnestesiologo);
+			var tablaInsumos="";			
 			if (response.insumos!=null){
-				for (i=0;i<insumos.length;i++)
-					$("#insumosShow").val($("#insumosShow").val()+response.insumos[i].descripcion + " Monto Solicitado:$"+response.insumos[i].monto);
-			}							
+				tablaInsumos += "<table border=1><tr><th>Insumo Requerido</th><th>Cantidad Solicitada</th></tr><tr>";
+				for (i=0; i<response.insumos.length;i++){
+					tablaInsumos += "<td>"+response.insumos[i].descripcion+"</td>"+"<td>$"+response.insumos[i].monto+"</td>";
+				}
+				tablaInsumos += "</tr></table>";
+			}
+			$("#divInsumosShow").html(tablaInsumos);
 		},
 		error : function(response) {
 			alert("error cargando la solicitud!")
@@ -448,7 +451,7 @@ function cargarIcdCpt(){
 	   		//console.log(data)
 	   		$("#tablaGridIcds").DataTable( {
 	        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
-	        "data": data,"bDestroy": false
+	        "data": data,"pageLength": 30,"bDestroy": false
 	   		});
 	   	});
 	   	$.ajax({
@@ -458,7 +461,7 @@ function cargarIcdCpt(){
 		   	}).done(function(data) {   		   		   			   			   		   	
 		   		$("#tablaGridCpts").DataTable( {
 		        "lengthMenu": [[15, 30, 150, -1], [15, 30, 150, "All"]],
-		        "data": data,"bDestroy": false
+		        "data": data,"pageLength": 30,"bDestroy": false
 		 });
 	});
 }

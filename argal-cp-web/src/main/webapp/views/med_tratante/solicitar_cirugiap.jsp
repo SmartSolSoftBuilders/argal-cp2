@@ -8,7 +8,6 @@
 <script src="static/js/lib/form/additional-methods.js"></script>
 <script src="static/js/app/solicitud/solicitud.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet" href="static/css/v2.0/jquery.dataTables.min.css" />
 <div id="loading">
 	<img src="static/img/loading1.gif" width="20%" />
@@ -49,7 +48,7 @@
 		</tr>
 	</table>	
 	
-	<div id="accordionSolicitud">
+	<div id="accordionSolicitud" style="width:97%;">
 		<h3><img src="static/img/benef.png" width="25px" />1) Registro del Paciente</h3>
 		 <div>	   
 			<jsp:include page="secciones/sec_beneficiario.jsp"></jsp:include>			
@@ -70,7 +69,7 @@
 			<jsp:include page="secciones/sec_documentacion.jsp"></jsp:include>				
 		</div>	
 		
-		<h3><img src="static/img/person.png" width="25px" />5)Riesgos y Personal Requerido Adicional</h3>
+		<h3><img src="static/img/person.png" width="25px" />5)Riesgos y Personal Adicional Requerido</h3>
 		<div>	    
 			<jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>				
 		</div>
