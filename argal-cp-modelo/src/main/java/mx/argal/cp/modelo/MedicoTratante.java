@@ -9,6 +9,7 @@ public class MedicoTratante extends BaseModelo {
 	private String appMedicoTratante;
 	private String apmMedicoTratante;
 	private Integer idTUsuario;
+	
 	public Integer getIdMedicoTratante() {
 		return idMedicoTratante;
 	}

@@ -25,3 +25,18 @@ $(document).ready(function() {
 		}
 	});	
 });
+
+function showDetalleMotivoRechazo(motivo){
+	$("#mensajeDialogo").html(motivo.replace(/_/g," "));
+	$( "#dialog-mensaje" ).dialog({
+		  resizable: false,
+	      height: 500,
+	      width: 700,
+	      modal: true,
+	      buttons: {
+	        Ok: function() {
+	          $( this ).dialog( "close" );	   
+	        }
+	     }
+	});
+}

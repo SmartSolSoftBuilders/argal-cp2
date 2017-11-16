@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import mx.argal.cp.modelo.Autorizador;
 import mx.argal.cp.modelo.CirugiaSolicitada;
+import mx.argal.cp.modelo.Dictaminador;
 import mx.argal.cp.modelo.Insumo;
+import mx.argal.cp.modelo.Negociador;
 import mx.argal.cp.modelo.ProcedimientoSolicitado;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 
@@ -34,5 +37,13 @@ public interface SolicitudDao {
 	public Integer aceptarRechazarInsumo(Insumo insumo);
 	public Integer negociarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);
 	public Integer aceptarRechazarAutorizarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);
+	public Integer asignarSolicitudADictamiandor(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public Integer asignarSolicitudANegociador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public Integer asignarSolicitudAAutorizador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public List<SolicitudCirugiaProgramada> obtenerSolicitudesByDictaminador(Dictaminador dictaminador);
+	public List<SolicitudCirugiaProgramada> obtenerSolicitudesByNegociador(Negociador negociador);
+	public List<SolicitudCirugiaProgramada> obtenerSolicitudesByAutorizador(Autorizador autorizador);
+	public Integer guardarMotivoRechazoSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+
 	
 }

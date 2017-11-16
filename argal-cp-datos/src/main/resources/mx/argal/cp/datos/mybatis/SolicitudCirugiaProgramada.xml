@@ -30,8 +30,12 @@
 		<result property="nombreAyudanteUno" column="NOMBRE_AYUDANTE_1"/>
 		<result property="nombreAyudanteDos" column="NOMBRE_AYUDANTE_2"/>
 		<result property="nombreAnestesiologo" column="NOMBRE_ANESTESIOLOGO"/>
-		<result property="autorizado" column="AUTORIZADO"/>				
+		<result property="autorizado" column="AUTORIZADO"/>
+		<result property="motivoRechazo" column="MOTIVO_RECHAZO"/>				
 		<association property="medicoTratante" column="ID_MEDICO_TRATANTE" javaType="MedicoTratante" select="selectMedicoTratante"/>
+		<association property="dictaminador" column="ID_DICTAMINADOR" javaType="Dictaminador" select="selectDictaminador"/>
+		<association property="negociador" column="ID_NEGOCIADOR" javaType="Negociador" select="selectNegociador"/>
+		<association property="autorizador" column="ID_AUTORIZADOR" javaType="Autorizador" select="selectAutorizador"/>
 		<association property="empresa" column="ID_EMPRESA" javaType="Empresa" select="selectEmpresa"/>
 		<association property="hospital" column="ID_HOSPITAL" javaType="Hospital" select="selectHospital"/>		
 		<association property="cirugiaSolicitadaUno" column="ID_CIRUGIA_SOLICITADA_1" javaType="CirugiaSolicitada" select="selectCirugiaSolicitadaUno"/>
@@ -44,6 +48,27 @@
 	    <result property="nombreMedicoTratante" column="NOMBRE_MEDICO_TRATANTE"/>
 	    <result property="appMedicoTratante" column="APP_MEDICO_TRATANTE"/>
 	    <result property="apmMedicoTratante" column="APM_MEDICO_TRATANTE"/>
+	</resultMap>
+	
+	<resultMap id="dictaminadorResult" type="Dictaminador">
+	    <id property="idDictaminador" column="ID_DICTAMIANDOR" />
+	    <result property="nombreDictaminador" column="NOMBRE_DICTAMIANDOR"/>
+	    <result property="appDictaminador" column="APP_DICTAMIANDOR"/>
+	    <result property="apmDictaminador" column="APM_DICTAMIANDOR"/>
+	</resultMap>
+	
+	<resultMap id="negociadorResult" type="Negociador">
+	    <id property="idNegociador" column="ID_NEGOCIADOR" />
+	    <result property="nombreNegociador" column="NOMBRE_NEGOCIADOR"/>
+	    <result property="appNegociador" column="APP_NEGOCIADOR"/>
+	    <result property="apmNegociador" column="APM_NEGOCIADOR"/>
+	</resultMap>
+	
+	<resultMap id="autorizadorResult" type="Autorizador">
+	    <id property="idAutorizador" column="ID_AUTORIZADOR" />
+	    <result property="nombreAutorizador" column="NOMBRE_AUTORIZADOR"/>
+	    <result property="appAutorizador" column="APP_AUTORIZADOR"/>
+	    <result property="apmAutorizador" column="APM_AUTORIZADOR"/>
 	</resultMap>
 	
 	<resultMap id="empresaResult" type="Empresa">
@@ -141,6 +166,18 @@
 		select * from "MEDICO_TRATANTE" where "ID_MEDICO_TRATANTE"=#{idMedicoTratante} 	
 	</select>
 	
+	<select id="selectDictaminador" parameterType="int" resultMap="dictaminadorResult" resultType="Dictaminador">		 
+		select * from "DICTAMINADOR" where "ID_DICTAMINADOR"=#{idDictaminador} 	
+	</select>
+	
+	<select id="selectNegociador" parameterType="int" resultMap="negociadorResult" resultType="Negociador">		 
+		select * from "NEGOCIADOR" where "ID_NEGOCIADOR"=#{idNegociador} 	
+	</select>
+	
+	<select id="selectAutorizador" parameterType="int" resultMap="autorizadorResult" resultType="Autorizador">		 
+		select * from "AUTORIZADOR" where "ID_AUTORIZADOR"=#{idAutorizador} 	
+	</select>
+	
 	<select id="selectEmpresa" parameterType="int" resultMap="empresaResult" resultType="Empresa">		 
 		select * from "EMPRESA" where "ID_EMPRESA"=#{idEmpresa} 	
 	</select>
@@ -169,6 +206,21 @@
 		select * from "SOLICITUD_CIRUGIA_PROGRAMADA" where "ID_MEDICO_TRATANTE"=
 		(select "ID_MEDICO_TRATANTE" FROM "MEDICO_TRATANTE" WHERE "id_t_usuario"=#{idMedicoTratante});
 	</select>
+	
+	<select id="obtenerSolicitudesByDictaminador" parameterType="Dictaminador" resultMap="solicitudCirugiaProgramadaResult">
+		select * from "SOLICITUD_CIRUGIA_PROGRAMADA" where "ID_DICTAMINADOR"=
+		(select "ID_DICTAMINADOR" FROM "DICTAMINADOR" WHERE "id_t_usuario"=#{idDictaminador});
+	</select>
+	
+	<select id="obtenerSolicitudesByNegociador" parameterType="Negociador" resultMap="solicitudCirugiaProgramadaResult">
+		select * from "SOLICITUD_CIRUGIA_PROGRAMADA" where "ID_NEGOCIADOR"=
+		(select "ID_NEGOCIADOR" FROM "NEGOCIADOR" WHERE "id_t_usuario"=#{idNegociador});
+	</select>
+	
+	<select id="obtenerSolicitudesByAutorizador" parameterType="Autorizador" resultMap="solicitudCirugiaProgramadaResult">
+		select * from "SOLICITUD_CIRUGIA_PROGRAMADA" where "ID_AUTORIZADOR"=
+		(select "ID_AUTORIZADOR" FROM "AUTORIZADOR" WHERE "id_t_usuario"=#{idAutorizador});
+	</select>	
 	
 	<select id="obtenerSolicitudesByStatus" parameterType="map" resultMap="solicitudCirugiaProgramadaResult">	
 		<if test="status != 0">
@@ -423,6 +475,26 @@
 	<update id="guardarInsumoAutorizado" parameterType="Insumo">
 		UPDATE "INSUMO" SET "MONTO_AUTORIZADO"=#{montoAutorizado},"AUTORIZADO"=#{autorizado} 
 			WHERE "ID_INSUMO"=#{idInsumo}
-	</update>	
+	</update>
 	
+	<update id="asignarSolicitudADictamiandor" parameterType="ProcedimientoSolicitado">
+		UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_DICTAMINADOR"=#{dictaminador.idDictaminador}			
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
+	</update>
+	
+	<update id="asignarSolicitudANegociador" parameterType="ProcedimientoSolicitado">
+		UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_NEGOCIADOR"=#{negociador.idNegociador}			
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
+	</update>
+	
+	<update id="asignarSolicitudAAutorizador" parameterType="ProcedimientoSolicitado">
+		UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "ID_AUTORIZADOR"=#{autorizador.idAutorizador}			
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
+	</update>
+	
+	<update id="guardarMotivoRechazoSolicitud" parameterType="ProcedimientoSolicitado">
+		UPDATE "SOLICITUD_CIRUGIA_PROGRAMADA" SET "MOTIVO_RECHAZO"=#{motivoRechazo}			
+			WHERE "ID_SOLICITUD_CIRUGIA_PROGRAMADA"=#{idSolicitudCirugiaProgramada}
+	</update>		
+				
 </mapper>

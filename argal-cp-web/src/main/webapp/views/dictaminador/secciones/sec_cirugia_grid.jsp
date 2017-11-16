@@ -1,5 +1,6 @@
-<div id="jsGrid">
+<div id="divIcdCirugia"></div>
 
+<div id="jsGrid">
 </div>
 
 <div id="detailsDialog">
@@ -39,5 +40,3 @@
         </div>
     </form>
 </div>
-
-Test

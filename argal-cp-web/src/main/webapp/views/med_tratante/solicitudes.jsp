@@ -60,3 +60,11 @@
        </tbody>
      </table>
 </form>
+
+
+<div id="dialog-mensaje" title="Aviso" style="display:none;">
+  <p>
+    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+    <div id="mensajeDialogo"></div>
+  </p>
+</div>

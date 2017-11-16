@@ -1,6 +1,7 @@
 package mx.argal.cp.servicios;
 
 import mx.argal.cp.dao.SolicitudDao;
+
 import mx.argal.cp.dao.UsuarioDao;
 import mx.argal.cp.modelo.CirugiaSolicitada;
 import mx.argal.cp.modelo.Insumo;
@@ -8,7 +9,7 @@ import mx.argal.cp.modelo.MedicoTratante;
 import mx.argal.cp.modelo.ProcedimientoSolicitado;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.modelo.Usuario;
-
+import mx.argal.cp.modelo.Dictaminador;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		List solicitudesReturn = new ArrayList();
 		List solicitudReturn = new ArrayList();
 		System.out.println(solicitudes);
-		String status[] = {"","CAPTURANDO","SOLICITUD DE INFORMACIÓN","POR AUTORIZAR","POR AUTORIZAR","POR AUTORIZAR","AUTORIZADA"};
+		String status[] = {"","CAPTURANDO","POR AUTORIZAR","SOLICITUD DE INFORMACIÓN","POR AUTORIZAR","POR AUTORIZAR","POR AUTORIZAR","AUTORIZADA"};
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");          
 		try{
 			for (int i=0;i<solicitudes.size();i++){		
@@ -101,10 +102,14 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 				else
 					solicitudReturn.add("");
 				solicitudReturn.add(format1.format(solicitudes.get(i).getFechaSolicitudElaboracion()));
-				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
-				if (solicitudes.get(i).getStatus()==1){
+				if (solicitudes.get(i).getStatus()==3)
+					solicitudReturn.add(status[solicitudes.get(i).getStatus()]+"<img src='static/img/alertaAmarilla.png' onclick ='showDetalleMotivoRechazo(\""+solicitudes.get(i).getMotivoRechazo().replace(" ", "_")+"\")' width=20 height=20/>");
+				else
+					solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
+				//1 en elaboración, 3 solicitud de información
+				if (solicitudes.get(i).getStatus()==1 || solicitudes.get(i).getStatus()==3){
 					solicitudReturn.add("<a href='#' onclick='loadPageData(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Seguir Capturando</a>" + "<a href='#' onclick='eliminarSolicitud(100,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\"><img src='static/img/eliminar_icon.png' width=20 height=20></a>");
-				}
+				} 
 				
 				if (solicitudes.get(i).getStatus()==6){
 					solicitudReturn.add("Carta Autorización:<img  src=\"static/img/pdf-icon.png\" onclick =\"window.open('static/img/cartaaut.pdf','_blank', 'width=800,height=800');\" width=\"25px\"/>\n");
@@ -167,54 +172,6 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		return solicitudesReturn;
 	}
 	
-	@Override
-	public List obtenerSolicitudesDictaminador(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
-		// TODO Auto-generated method stub
-		List<SolicitudCirugiaProgramada> solicitudes = this.solicitudDao.obtenerSolicitudesByStatus(solicitudCirugiaProgramada.getStatus());
-		List solicitudesReturn = new ArrayList();
-		List solicitudReturn = new ArrayList();
-		System.out.println(solicitudes);
-		String status[] = {"","","RECIBIDA","NEGOCIADA","RECHAZADA","ACEPTADA"};		
-		try{
-			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-			for (int i=0;i<solicitudes.size();i++){		
-				if (solicitudes.get(i).getStatus()==2) {
-					solicitudReturn = new ArrayList();
-					solicitudReturn.add(solicitudes.get(i).getIdSolicitudCirugiaProgramada());
-					solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
-					if (solicitudes.get(i).getHospital()!=null) 
-						solicitudReturn.add(solicitudes.get(i).getHospital().getNombreHospital());			
-					else
-						solicitudReturn.add("Sin información");
-					String procedimientos ="";
-					if (solicitudes.get(i).getCirugiaSolicitadaUno()!=null){
-						if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno()!=null) 
-							procedimientos += solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno().getCpt().getDescripcion();
-						if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos()!=null) 
-							procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos().getCpt().getDescripcion();
-						if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres()!=null) 
-							procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres().getCpt().getDescripcion();
-						solicitudReturn.add(procedimientos);
-					}
-					else
-						solicitudReturn.add("Error en la solicitud!");
-					solicitudReturn.add(format1.format(solicitudes.get(i).getFechaSolicitudElaboracion()));
-					solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
-					if (solicitudes.get(i).getStatus()==2){
-						solicitudReturn.add("<a href='#' onclick='loadPageData(200,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Dictaminar</a>");
-					}
-					else{
-						solicitudReturn.add("-");
-					}
-					solicitudesReturn.add(solicitudReturn);
-					}
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return solicitudesReturn;
-	}
 
 	@Override
 	public Integer guardarSolicitudCirugias(CirugiaSolicitada cirugiaSolicitada) {
@@ -303,8 +260,16 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 
 	@Override
 	public Integer cambiarStatusByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada,Integer status) {
-		// TODO Auto-generated method stub				
-		return this.solicitudDao.cambiarStatusByParams(solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada(), status);
+		// TODO Auto-generated method stub		
+		Integer resp =  this.solicitudDao.cambiarStatusByParams(solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada(), status);
+		if (status==2) {
+			//Se buscará un dictaminador disponible para asignarle la solicitud			
+			Dictaminador dictaminador = new Dictaminador();
+			dictaminador.setIdDictaminador(1);
+			solicitudCirugiaProgramada.setDictaminador(dictaminador);			
+			this.solicitudDao.asignarSolicitudADictamiandor(solicitudCirugiaProgramada);
+		}
+		return resp;
 	}
 
 	@Override
@@ -433,6 +398,25 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 	public Integer autorizarRechazarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado) {
 		// TODO Auto-generated method stub
 		return this.solicitudDao.aceptarRechazarAutorizarProcedimiento(procedimientoSolicitado);
+	}
+
+	@Override
+	public Boolean asignarSolicitudADictamiandor(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
+		// TODO Auto-generated method stub
+		this.solicitudDao.asignarSolicitudADictamiandor(solicitudCirugiaProgramada);
+		return true;
+	}
+	
+	@Override
+	public Boolean asignarSolicitudANegociador(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Boolean asignarSolicitudAAutorizador(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

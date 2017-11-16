@@ -6,7 +6,8 @@
         <div class="details-form-field">
             <label for="insumo">Insumo:</label>
             <input id="idInsumo" name="idInsumo" type="hidden" readonly/>            
-            <input id="descripcionInsumo" name="descripcionInsumo" type="text" readonly/> Solicitado:$<input id="montoInsumo" name="montoInsumo" type="text" readonly/>
+            <textarea id="descripcionInsumo" name="descripcionInsumo" readonly></textarea><br>
+            Solicitado:$<input id="montoInsumo" name="montoInsumo" type="text" readonly/>
         </div>        
         <div class="details-form-field">
             <label for="autorizadoInsumo">¿Autorizar?:</label>

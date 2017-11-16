@@ -140,14 +140,15 @@ a[x-apple-data-detectors] {
 <div class="title"><h4><img src="static/img/schedule.png" width="25px" />Programación de la cirugía</h4></div>
 <jsp:include page="secciones/sec_programacion.jsp"></jsp:include>
 
-<div class="title"><h4><img src="static/img/person.png" width="25px" />Riesgos y Personal Requerido Adicional</h4></div>
+<div class="title"><h4><img src="static/img/person.png" width="25px" />Riesgos y Personal Adicional Requerido</h4></div>
 <jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>	
 
 <div class="title"><h4><img src="static/img/supplies.jpg" width="25px" height="35px" />Presupuesto de Insumos</h4></div>
 <jsp:include page="secciones/sec_insumos.jsp"></jsp:include>
 
 <div class="subtitle" style="font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:600;color:#2469A0">
-	Si ha validado todo, de clic en Finalizar Dictamen:<button type="button" onclick="finalizarDictamen();" class="btn btn-primary">Finalizar Dictamen</button>
+	Si ha validado todo, de clic en Finalizar Dictamen:<br>
+	<button type="button" onclick="finalizarDictamen();" class="btn btn-primary">Finalizar Dictamen</button>
 </div>
 
 <div class="body-text" style="font-family:Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:left;color:#333333">
@@ -198,7 +199,7 @@ a[x-apple-data-detectors] {
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿SEGURO QUE DESEA REGRESAR LA SOLICITUD?</p>
   <p>La solicitud será regresada al Médico Tratante con el status "INFORMACIÓN INCOMPLETA"</p>
 	Motivo por el cual regresa la solicitud:  
-	<br><textarea style=" width: 596px; " rows="8" cols="100"></textarea>
+	<br><textarea id="motivoRechazo" name="motivoRechazo" style=" width: 596px; " rows="8" cols="100" onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
 </div>
 
 </body>

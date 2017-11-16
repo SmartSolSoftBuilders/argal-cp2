@@ -31,6 +31,9 @@ public interface SolicitudServicio {
 	public List obtenerSolicitudesNegociador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public Integer negociarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);
 	public List obtenerSolicitudesAutorizador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
-	public Integer autorizarRechazarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);
-	public List obtenerSolicitudesDictaminador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);	
+	public Integer autorizarRechazarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);	
+	public Boolean asignarSolicitudADictamiandor(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public Boolean asignarSolicitudANegociador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	public Boolean asignarSolicitudAAutorizador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
+	
 }

@@ -34,9 +34,13 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	private String nombreAyudanteUno;
 	private String nombreAyudanteDos;
 	private String nombreAnestesiologo;
+	private String motivoRechazo;
 	private CirugiaSolicitada cirugiaSolicitadaUno;
 	private CirugiaSolicitada cirugiaSolicitadaDos;
 	private List<Insumo> insumos;
+	private Dictaminador dictaminador;
+	private Negociador negociador;
+	private Autorizador autorizador;
 			
 	public Integer getIdSolicitudCirugiaProgramada() {
 		return idSolicitudCirugiaProgramada;
@@ -230,10 +234,37 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 	public void setApMTitularSolicitudCirugiaProgramada(String apMTitularSolicitudCirugiaProgramada) {
 		this.apMTitularSolicitudCirugiaProgramada = apMTitularSolicitudCirugiaProgramada;
 	}
+	
 
+	public Dictaminador getDictaminador() {
+		return dictaminador;
+	}
+	public void setDictaminador(Dictaminador dictaminador) {
+		this.dictaminador = dictaminador;
+	}
+	public Negociador getNegociador() {
+		return negociador;
+	}
+	public void setNegociador(Negociador negociador) {
+		this.negociador = negociador;
+	}
+	public Autorizador getAutorizador() {
+		return autorizador;
+	}
+	public void setAutorizador(Autorizador autorizador) {
+		this.autorizador = autorizador;
+	}		
+	public String getMotivoRechazo() {
+		return motivoRechazo;
+	}
+	public void setMotivoRechazo(String motivoRechazo) {
+		this.motivoRechazo = motivoRechazo;
+	}
+	
 	public SolicitudCirugiaProgramada(){
 		
 	}
+
 	public SolicitudCirugiaProgramada(Integer idSolicitudCirugiaProgramada,
 			String nombreBeneficiarioSolicitudCirugiaProgramada, String apPBeneficiarioSolicitudCirugiaProgramada,
 			String apMBeneficiarioSolicitudCirugiaProgramada, String nombreTitularSolicitudCirugiaProgramada,
@@ -245,8 +276,9 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 			String describirResultadosPreoperatorios, String empresaBeneficiarioSolicitudCirugiaProgramada,
 			MedicoTratante medicoTratante, Empresa empresa, Hospital hospital, Integer riesgosQuirurgicosUno,
 			Integer riesgosQuirurgicosDos, Integer riesgosQuirurgicosTres, Integer riesgosQuirurgicosCuatro,
-			String nombreAyudanteUno, String nombreAyudanteDos, String nombreAnestesiologo,
-			CirugiaSolicitada cirugiaSolicitadaUno, CirugiaSolicitada cirugiaSolicitadaDos, List<Insumo> insumos) {
+			String nombreAyudanteUno, String nombreAyudanteDos, String nombreAnestesiologo, String motivoRechazo,
+			CirugiaSolicitada cirugiaSolicitadaUno, CirugiaSolicitada cirugiaSolicitadaDos, List<Insumo> insumos,
+			Dictaminador dictaminador, Negociador negociador, Autorizador autorizador) {
 		super();
 		this.idSolicitudCirugiaProgramada = idSolicitudCirugiaProgramada;
 		this.nombreBeneficiarioSolicitudCirugiaProgramada = nombreBeneficiarioSolicitudCirugiaProgramada;
@@ -277,9 +309,13 @@ public class SolicitudCirugiaProgramada extends BaseModelo {
 		this.nombreAyudanteUno = nombreAyudanteUno;
 		this.nombreAyudanteDos = nombreAyudanteDos;
 		this.nombreAnestesiologo = nombreAnestesiologo;
+		this.motivoRechazo = motivoRechazo;
 		this.cirugiaSolicitadaUno = cirugiaSolicitadaUno;
 		this.cirugiaSolicitadaDos = cirugiaSolicitadaDos;
 		this.insumos = insumos;
+		this.dictaminador = dictaminador;
+		this.negociador = negociador;
+		this.autorizador = autorizador;
 	}
-
+		
 }

@@ -12,6 +12,7 @@ import mx.argal.seguridad.modelo.RolSeguridad;
 import mx.argal.seguridad.modelo.UsuarioSeguridad;
 import mx.argal.seguridad.servicios.MttoSeguridadServicio;
 import mx.argal.seguridad.util.SeguridadUtil;
+import mx.argal.cp.modelo.Dictaminador;
 import mx.argal.cp.modelo.MedicoTratante;
 import mx.argal.cp.servicios.MedicoTratanteServicio;
 import mx.argal.cp.servicios.UsuarioServicio;
@@ -29,23 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Controller encargado de devolver la vista principal o index de la aplicación.
- * 
- * El path colocado en la anotación @RequestMappig corresponde a la cofiguración dentro
- * del archivo web.xml
- * 
- * <pre>
- * {@code
- *   <welcome-file-list>
- *       <welcome-file>mvc/index</welcome-file>
- *   </welcome-file-list>   
- * }
- * </pre>
- * 
- * @author SmartSolutions
- *
- */
 @Controller
 @RequestMapping("/index")
 public class IndexController {
@@ -94,7 +78,15 @@ public class IndexController {
 			request.getSession().setAttribute("idMedicoTratanteSession",medicoTratante.getIdTUsuario());
     		return new ModelAndView("main", "usuario", usuario);
     	}
-    	if ( rol.equals(ROLE_DICTAMINADOR) || rol.equals(ROLE_NEGOCIADOR) || rol.equals(ROLE_AUTORIZADOR)) {    		
+    	
+    	if ( rol.equals(ROLE_DICTAMINADOR)) {    	    		
+    		Dictaminador dictaminador = new Dictaminador();    		
+    		dictaminador.setIdTUsuario(mttoSeguridadServicio.consultarUsuariosByUser(usuario).get(0).getId().intValue());
+    		System.out.println("Buscando medtrat"+dictaminador.getIdTUsuario());
+			request.getSession().setAttribute("idDictaminadorSession",dictaminador.getIdTUsuario());
+    		return new ModelAndView("main", "usuario", usuario);
+    	}
+    	if (rol.equals(ROLE_NEGOCIADOR) || rol.equals(ROLE_AUTORIZADOR)) {    		
     		return new ModelAndView("main", "usuario", usuario);
     	}
     	    	    	    	  

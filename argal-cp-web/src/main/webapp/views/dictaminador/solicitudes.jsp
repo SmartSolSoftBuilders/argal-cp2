@@ -8,7 +8,7 @@
 <script src="static/js/app/dictaminador/solicitudes.js"></script>
 <link rel="stylesheet" href="static/css/v2.0/jquery.dataTables.min.css" />
 <form>
-	<h2>Cirugías Programadas</h2>
+	<h2>Dictaminar Cirugías Programadas</h2>
 	<br>
 	<table id="solicitudesTable" class="display" cellspacing="0" width="100%">
         <thead>
@@ -18,7 +18,7 @@
                 <th>HOSPITAL</th>
                 <th>PROCEDIMIENTO(S)</th>
                 <th>FECHA ELABORACIÓN</th>
-                <th>ESTATUS</th>
+                <th>MÉDICO TRATANTE</th>
                 <th>ACCIONES</th>                
             </tr>
         </thead> 

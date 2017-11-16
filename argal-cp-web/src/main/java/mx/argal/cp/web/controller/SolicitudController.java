@@ -198,20 +198,6 @@ public class SolicitudController {
 			e.printStackTrace();
 		}
 		return true;    	  
-	}
-			
-	@RequestMapping(value="/negociar_procedimiento",method = RequestMethod.POST)
-    @ResponseBody
-    public Boolean negociarProcedimiento(@ModelAttribute(value="procedimiento") ProcedimientoSolicitado procedimientoSolicitado, HttpServletRequest request){
-		System.out.println("<OTIKA>Aceptar/Rechazar Procedimiento!!!");
-		try {
-			this.solicitudServicio.negociarProcedimiento(procedimientoSolicitado);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return true;    	  
-	}
-	
+	}					
 	
 }

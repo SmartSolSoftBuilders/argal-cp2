@@ -31,6 +31,7 @@ function cargarSolicitud(){
 			$("#divDatosBeneficiario").html("<font color='darkblue'>NOMBRE DEL PACIENTE: </font>" + response.nombreBeneficiarioSolicitudCirugiaProgramada + " " + response.apPBeneficiarioSolicitudCirugiaProgramada + " " + response.apMBeneficiarioSolicitudCirugiaProgramada + "<font color='darkblue'> EDAD: </font>" + response.edadBeneficiarioSolicitudCirugiaProgramada + "<font color='darkblue'> SEXO: </font>" + response.sexoBeneficiarioSolicitudCirugiaProgramada + " ");		
 			$("#divDatosSolicitudBeneficiario").html("<font color='darkblue'> TIPO SOLICITUD: </font>" +tipoSolicitud[response.tipoSolicitudCirugiaProgramada]+"<font color='darkblue'> FECHA DE ELABORACIÓN: </font>2017-10-14");
 			//$("#idSolicitud").val();
+			$("#divIcdCirugia").html("<font color='darkblue'>Diagnóstico de Ingreso: </font>"+  response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
 			getCirugiaSolicitadaGridProcedimientos(response.cirugiaSolicitadaUno);
 			getCirugiaSolicitadaGridInsumos(response.insumos);
 		},
@@ -313,7 +314,7 @@ function cargarGridInsumos(){
 	            return "The Insumo \"" + item.Name + "\" will be removed. Are you sure?";
 	        },
 	        rowClick: function(args) {
-	            showDetailsInsumosDialog("Edit", args.item);
+	            showDetailsInsumosDialog("Dictaminar", args.item);
 	        },
 	        controller: dbInsumos,
 	        fields: [
@@ -476,8 +477,9 @@ function finalizarDictamen() {
       	      width: 700,
       	      modal: true,
       	      buttons: {
-      	        "CONFIRMAR": function() {  	        
-      	          $( this ).dialog( "close" );
+      	        "CONFIRMAR": function() {  	  
+      	        	solicitarInformacionSolicitud();
+      	        	$( this ).dialog( "close" );
       	        },
       	        "CANCELAR": function() {
       	          $( this ).dialog( "close" );
@@ -493,8 +495,10 @@ function finalizarDictamen() {
           	      width: 700,
         	      modal: true,
         	      buttons: {
-        	        "CONFIRMAR": function() {  	        
-        	          $( this ).dialog( "close" );
+        	        "CONFIRMAR": function() {
+        	        	//cambiarstatusinfoincompleta
+        	        	rechazarSolicitud();
+        	        	$( this ).dialog( "close" );
         	        },
         	        "CANCELAR": function() {
         	          $( this ).dialog( "close" );
@@ -514,6 +518,57 @@ function finalizarDictamen() {
     });
  }
 
+
+function rechazarSolicitud(){
+	$.ajax({
+		async : false,
+		data : {
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),
+			"motivoRechazo" : $("#motivoRechazo").val()
+		},
+		dataType : 'json',
+		url : 'mvc/dictaminador/rechazarsolicitud',
+		type : 'post',
+		beforeSend : function() {
+			$("#loading").show();			
+		},
+		success : function(response) {
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();
+			mensajeRedirect("La solicitud fué rechazada con éxito!");        						
+			// console.log(response)
+		},
+		error : function(response) {
+			alert("error!")
+			// console.log(response)
+		}
+	});			
+}
+function solicitarInformacionSolicitud(){
+	$.ajax({
+		async : false,
+		data : {
+			"idSolicitudCirugiaProgramada" : $("#idSolicitud").val(),
+			"motivoRechazo" : $("#motivoRechazo").val()
+		},
+		dataType : 'json',
+		url : 'mvc/dictaminador/cambiarstatusinfoincompleta',
+		type : 'post',
+		beforeSend : function() {
+			$("#loading").show();			
+		},
+		success : function(response) {
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();
+			mensajeRedirect("La solicitud fué respondida con éxito!");        						
+			// console.log(response)
+		},
+		error : function(response) {
+			alert("error!")
+			// console.log(response)
+		}
+	});			
+}
 
 function aceptarSolicitud(){
 	$.ajax({
