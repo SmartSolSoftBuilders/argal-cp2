@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <ul class="nav">
-	<li class="active"><a href="#"><img
+	<li class="active"><a href="/"><img
 			src="static/img/logoArgal2.png" width="200px" height="150px" /></a></li>
-	<li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>	
+	<li><a href=""><i class="icon-home icon-white"></i> Home</a></li>
 	<li><a href="#" onclick="loadPage('views/autorizador/solicitudes')">Ver
 			Solicitudes</a></li>
 	<li class="dropdown"><a class="dropdown-toggle"

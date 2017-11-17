@@ -288,12 +288,12 @@
 	
 	<update id="actualizarMontoDictaminado" parameterType="CirugiaSolicitada">
 		UPDATE "CIRUGIA_SOLICITADA"
-			SET "MONTO_DICTAMINADO"=#{montoDictaminado} where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+			SET "MONTO_DICTAMINADO"=#{montoDictaminado},"MONTO_NEGOCIADO"=#{montoDictaminado} where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
 	</update>
 	
 	<update id="actualizarMontoNegociado" parameterType="CirugiaSolicitada">
 		UPDATE "CIRUGIA_SOLICITADA"
-			SET "MONTO_NEGOCIADO"=#{montoNegociado} where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+			SET "MONTO_NEGOCIADO"=#{montoNegociado},"MONTO_AUTORIZADO"=#{montoNegociado} where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
 	</update>
 	
 	<update id="actualizarMontoAutorizado" parameterType="CirugiaSolicitada">
@@ -468,7 +468,11 @@
 		UPDATE "PROCEDIMIENTO_SOLICITADO" SET "AUTORIZADO"=#{autorizado}, "HONORARIOS_MED_DICTAMINADOS"=#{honorariosMedicosDictaminados},
 			"HONORARIOS_AY1_DICTAMINADOS"=#{honorariosAyudanteUnoDictaminados},
 			"HONORARIOS_AY2_DICTAMINADOS"=#{honorariosAyudanteDosDictaminados},
-			"HONORARIOS_ANE_DICTAMINADOS"=#{honorariosAnestesiologoDictaminados} 
+			"HONORARIOS_ANE_DICTAMINADOS"=#{honorariosAnestesiologoDictaminados},
+			"HONORARIOS_MED_NEGOCIADOS"=#{honorariosMedicosDictaminados},
+			"HONORARIOS_AY1_NEGOCIADOS"=#{honorariosAyudanteUnoDictaminados},
+			"HONORARIOS_AY2_NEGOCIADOS"=#{honorariosAyudanteDosDictaminados},
+			"HONORARIOS_ANE_NEGOCIADOS"=#{honorariosAnestesiologoDictaminados} 
 				WHERE "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado}
 	</update>
 	
@@ -476,7 +480,11 @@
 		UPDATE "PROCEDIMIENTO_SOLICITADO" SET "HONORARIOS_MED_NEGOCIADOS"=#{honorariosMedicosNegociados},
 			"HONORARIOS_AY1_NEGOCIADOS"=#{honorariosAyudanteUnoNegociados},
 			"HONORARIOS_AY2_NEGOCIADOS"=#{honorariosAyudanteDosNegociados},
-			"HONORARIOS_ANE_NEGOCIADOS"=#{honorariosAnestesiologoNegociados} 
+			"HONORARIOS_ANE_NEGOCIADOS"=#{honorariosAnestesiologoNegociados},
+			"HONORARIOS_MED_AUTORIZADOS"=#{honorariosMedicosNegociados},
+			"HONORARIOS_AY1_AUTORIZADOS"=#{honorariosAyudanteUnoNegociados},
+			"HONORARIOS_AY2_AUTORIZADOS"=#{honorariosAyudanteDosNegociados},
+			"HONORARIOS_ANE_AUTORIZADOS"=#{honorariosAnestesiologoNegociados}			 
 				WHERE "ID_PROCEDIMIENTO_SOLICITADO"=#{idProcedimientoSolicitado}
 	</update>
 		

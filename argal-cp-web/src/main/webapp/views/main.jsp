@@ -26,8 +26,12 @@
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
  	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-  
+  <link rel="stylesheet" href="static/css/v2.0/jquery.dataTables.min.css" /> 
  <script>
+ 	$(document).ready(function() {
+	    $('#example').DataTable();
+	} );
+ 	
  	function loadPage(pagina){
  		$("#mainContent").html("");
  		$("#loadingMain").show();
@@ -77,7 +81,21 @@
     	Por favor espere....<br><img src="static/img/loading1.gif"/>    
 </div>
 <div id="mainContent">
-	 
+	<h4>Bienvenido al Sistema de Cirugías Programadas</h4>
+	<h5>NOTIFICACIONES</h5>
+	 <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>#Folio Notificación</th>
+                <th>Mensaje</th>
+                <th>Categoría</th>
+                <th>Fecha Recepción</th>
+                <th>Emitida Por</th>                
+            </tr>
+        </thead>
+        <tfoot>        
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

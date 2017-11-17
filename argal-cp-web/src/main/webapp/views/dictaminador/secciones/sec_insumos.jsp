@@ -1,3 +1,5 @@
+<h5>A continuación indique los montos que ha negociado:</h5>
+
 <div id="jsGridInsumos">
 </div>
  

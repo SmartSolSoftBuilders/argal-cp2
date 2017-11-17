@@ -6,8 +6,18 @@
 <div id="divProcedimiento2Negociar"></div>
 <div id="divProcedimiento3Negociar"></div>
 
+<h5>A continuación indique los montos que desee autorizar:</h5>
 <div id="jsGrid">
 </div>
+
+<div class="title"><h4><img src="static/img/hosp_receipt.png" width="25px" height="35px" />Presupuesto Hospitalario</h4></div>
+<br><font color="darkblue">Costo Promedio de la Cirugía para el Diagnóstico de Ingreso:</font>
+<input type="hidden" class="form-control" id="idCirugiaSolicitada1" name="idCirugiaSolicitada1"  value="20000.00" readonly required>
+<input type="hidden" class="form-control" id="costoPromedio" name="costoPromedio"  value="20000.00" readonly required>
+<div id="costoPromedioShow"/>
+<br><font color="darkblue">Costo a Autorizar de la Cirugía para el Diagnóstico de Ingreso:</font>
+<input type="text" class="form-control" id="montoAutorizado" name="montoAutorizado" required onchange="guardarmontoAutorizado();">
+
 
 <div id="detailsDialog">
     <form id="detailsForm">

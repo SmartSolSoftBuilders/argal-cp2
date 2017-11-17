@@ -38,18 +38,19 @@ function cargarSolicitud(){
 				$("#divIcdCirugia").html("<font color='darkblue'>Diagnóstico de Ingreso: </font>"+  response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
 				if (response.cirugiaSolicitadaUno.procedimientoUno!=null){
 					tablaProc1="<font color='darkblue'>Procedimiento 1: </font>"+  response.cirugiaSolicitadaUno.procedimientoUno.cpt.descripcion;
-					tablaProc1 += "<table border=1><tr><th>Monto por Fase</th><th>Honorarios Médicos</th><th>Honorarios Ayudante 1 </th><th>Honorarios Ayudante 2</th><th>Honorarios Anestesiólogo</th></tr>";
-					tablaProc1 += "<tr><td>Dictaminados</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoDictaminados+"</td></tr>";
-					tablaProc1 += "<tr><td>Negociados</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosNegociados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoNegociados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosNegociados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoNegociados+"</td></tr>";
+					tablaProc1 += "<table style='border: 2px solid black;'><tr style='color:darkblue;'><th>Fase</th><th style=' border: 1px solid black;'>Honorarios Médicos</th><th style=' border: 1px solid black;'>Honorarios Ayudante 1 </th><th style=' border: 1px solid black;'>Honorarios Ayudante 2</th><th>Honorarios Anestesiólogo</th></tr>";
+					tablaProc1 += "<tr style=' border: 1px solid black;'><td style=' border: 1px solid black;'>DICTAMEN</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosDictaminados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoDictaminados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosDictaminados)+"</td><td>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoDictaminados)+"</td></tr>";
+					tablaProc1 += "<tr style=' border: 1px solid black;'><td style=' border: 1px solid black;'>NEGOCIACIÓN</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosNegociados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoNegociados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosNegociados)+"</td><td>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoNegociados)+"</td></tr>";
 					tablaProc1 += "</table>"
 					$("#divProcedimiento1Dictaminar").html(tablaProc1);
 				} 
 				if (response.cirugiaSolicitadaUno.procedimientoDos!=null){
 					tablaProc2="<font color='darkblue'>Procedimiento 2: </font>"+  response.cirugiaSolicitadaUno.procedimientoDos.cpt.descripcion;
-					tablaProc2 += "<table><tr><td>Honorarios Médicos</td><td>Honorarios Ayudante 1 Dictaminados</td><td>Honorarios Ayudante 2 Dictaminados</td><td>Honorarios Anestesiólogo Dictaminados</td></tr>";
-					tablaProc2 += "<tr><td>"+ response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados+"</td><td>"+ response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados+"</td></tr>";
+					tablaProc2 += "<table style='border: 2px solid black;'><tr style='color:darkblue;'><th>Fase</th><th style=' border: 1px solid black;'>Honorarios Médicos</th><th style=' border: 1px solid black;'>Honorarios Ayudante 1 </th><th style=' border: 1px solid black;'>Honorarios Ayudante 2</th><th style=' border: 1px solid black;'>Honorarios Anestesiólogo</th></tr>";
+					tablaProc2 += "<tr style=' border: 1px solid black;'><td style=' border: 1px solid black;'>DICTAMEN</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosDictaminados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteUnoDictaminados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteDosDictaminados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoDos.honorariosAnestesiologoDictaminados)+"</td></tr>";
+					tablaProc2 += "<tr style=' border: 1px solid black;'><td style=' border: 1px solid black;'>NEGOCIACIÓN</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosNegociados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteUnoNegociados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteDosNegociados)+"</td><td style=' border: 1px solid black;'>"+ formatMoneda(response.cirugiaSolicitadaUno.procedimientoDos.honorariosAnestesiologoNegociados)+"</td></tr>";
 					tablaProc2 += "</table>"
-					$("#divProcedimiento2Dictaminar").html(tablaProc2);	
+					$("#divProcedimiento2Dictaminar").html(tablaProc2);										
 				}	
 				$("#divProcedimiento1Dictaminar").html(tablaProc1);
 				if (response.cirugiaSolicitadaUno.procedimientoTres!=null)
@@ -58,10 +59,23 @@ function cargarSolicitud(){
 			tablaProc1="";
 			tablaProc2="";
 			tablaProc3="";
+			
+			$("#costoPromedioShow").html(formatMoneda(""+$("#costoPromedio").val()));
+			if (response.cirugiaSolicitadaUno!=null){
+				if (response.cirugiaSolicitadaUno.montoDictaminado!=null)
+					$("#montoAutorizado").val(formatMoneda(response.cirugiaSolicitadaUno.montoDictaminado));
+				else
+					$("#montoAutorizado").val(formatMoneda(""+$("#montoAutorizado").val()));
+			}
+			else
+				$("#montoAutorizado").val(formatMoneda(""+$("#montoAutorizado").val()));
+			$("#costoTotal").html(formatMoneda(calcularMontoCirugia(response)));
+			
 			getCirugiaSolicitadaGridProcedimientos(response.cirugiaSolicitadaUno);
 			getCirugiaSolicitadaGridInsumos(response.insumos);
 		},
 		error : function(response) {
+			$("#loading").hide();
 			alert("error!")
 			// console.log(response)
 		}
@@ -107,8 +121,9 @@ function cargarGrid(){
 	    });
 
 	    $("#detailsDialog").dialog({
-	        autoOpen: false,
-	        width: 400,
+	     	autoOpen: false,
+	        modal:true,
+	        position: { my: "center top", at: "center center", of: window },
 	        close: function() {
 	            $("#detailsForm").validate().resetForm();
 	            $("#detailsForm").find(".error").removeClass("error");
@@ -230,18 +245,6 @@ function getCirugiaSolicitadaGridInsumos(insumos){
 }
 
 function getCirugiaSolicitadaGridProcedimientos(cirugiaProgramada){	
-	/*var cirugiaProgramada;
-	$.ajax({
-		  async:false,
-		  url: "mvc/solicitud/getcirugiabyid?id="+id,		  
-		})
-		  .done(function( data ) {
-		    if ( console && console.log ) {
-		    	console.log("Cirugia Obtenida");
-		      console.log(data);
-		      cirugiaProgramada=data;
-		    }
-    });*/
 	console.log(cirugiaProgramada);
     db = {
         loadData: function(filter) {
@@ -354,8 +357,9 @@ function cargarGridInsumos(){
 	    });
 
 	    $("#detailsInsumosDialog").dialog({
-	        autoOpen: false,
-	        width: 400,
+	     	autoOpen: false,
+	        modal:true,
+	        position: { my: "center top", at: "center center", of: window },
 	        close: function() {
 	            $("#detailsInsumosForm").validate().resetForm();
 	            $("#detailsInsumosForm").find(".error").removeClass("error");
@@ -509,7 +513,8 @@ function aceptarSolicitud(){
 			// console.log(response)
 		},
 		error : function(response) {
-			alert("error!")
+			$("#loading").hide();
+			loadingMain
 			// console.log(response)
 		}
 	});	
@@ -526,4 +531,63 @@ function mensajeRedirect(msj){
 	        }
 	     }
 	});
+}
+
+function formatMoneda(num) {
+	console.log(num)
+	if (num==null || num=="")
+		return "$0.0";
+    var p = parseFloat(num).toFixed(2).split(".");
+    return "$" + p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+        return  num=="-" ? acc : num + (i && !(i % 3) ? "," : "") + acc;
+    }, "") + "." + p[1];
+}
+
+function calcularMontoCirugia(solicitud){
+	var cirugiaSolicitadaUno = solicitud.cirugiaSolicitadaUno;
+	var montoCalculado=0;
+	if (cirugiaSolicitadaUno==null)
+		return montoCalculado;
+	if (cirugiaSolicitadaUno.procedimientoUno!=null){
+		if (cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosAutorizados!=null && cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosAutorizados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosAutorizados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoAutorizados!=null && cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoAutorizados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoAutorizados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosAutorizados!=null && cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosAutorizados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosAutorizados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoAutorizados!=null && cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoAutorizados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoAutorizados);
+		}
+	} 
+	if (cirugiaSolicitadaUno.procedimientoDos!=null){
+		if (cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosAutorizados!=null && cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosAutorizados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosAutorizados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteUnoAutorizados!=null && cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteUnoAutorizados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteUnoAutorizados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteDosAutorizados!=null && cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteDosAutorizados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteDosAutorizados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoDos.honorariosAnestesiologoAutorizados!=null && cirugiaSolicitadaUno.procedimientoDos.honorariosAnestesiologoAutorizados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.honorariosAnestesiologoAutorizados);
+		}
+	}
+	if ($("#montoAutorizado").val()!="" && $("#montoAutorizado").val()!=null){
+		montoCalculado +=parseFloat ( $("#montoAutorizado").val().replace("$","").replace(/,/g,"") );		
+	}
+	//Insumos
+	var insumos = solicitud.insumos;
+	if (insumos!=null){
+		for (i=0;i<insumos.length;i++){
+			if (insumos[i].monto!=null && insumos[i].monto!="" && insumos[i].autorizado=="1"){
+				montoCalculado +=parseFloat (insumos[i].monto);
+			}
+		}
+	}
+	console.log(montoCalculado)
+	return montoCalculado;
 }

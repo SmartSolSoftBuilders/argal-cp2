@@ -140,7 +140,7 @@ a[x-apple-data-detectors] {
 <div class="title"><h4><img src="static/img/schedule.png" width="25px" />Programación de la cirugía</h4></div>
 <jsp:include page="secciones/sec_programacion.jsp"></jsp:include>
 
-<div class="title"><h4><img src="static/img/person.png" width="25px" />Riesgos y Personal Requerido Adicional</h4></div>
+<div class="title"><h4><img src="static/img/person.png" width="25px" />Riesgos y Personal Adicional Requerido</h4></div>
 <jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>	
 
 <div class="title"><h4><img src="static/img/supplies.jpg" width="25px" height="35px" />Presupuesto de Insumos</h4></div>

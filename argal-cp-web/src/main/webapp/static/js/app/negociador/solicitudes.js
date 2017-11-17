@@ -5,7 +5,7 @@ $(document).ready(function() {
 			"status" : 4,			
 		},
 		dataType : 'json',
-		url : 'mvc/solicitud/getsolicitudesnegociador',
+		url : 'mvc/negociador/getsolicitudesnegociador',
 		type : 'post',
 		beforeSend : function() {
 			// $("#resultado").html("Procesando, espere por favor..."),

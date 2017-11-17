@@ -19,6 +19,7 @@ import mx.argal.cp.modelo.MedicoTratante;
 import mx.argal.cp.modelo.Negociador;
 import mx.argal.cp.modelo.ProcedimientoSolicitado;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
+import mx.argal.cp.servicios.NegociadorServicio;
 import mx.argal.cp.servicios.SolicitudServicio;
 import mx.argal.cp.servicios.UsuarioServicio;
 
@@ -61,7 +62,7 @@ public class NegociadorController {
 	public final String ROLE_CLIENTE="ROLE_CLIENTE";
 	
 	@Autowired
-	public SolicitudServicio solicitudServicio;
+	public NegociadorServicio negociadorServicio;
 			
 	@RequestMapping(value="/getsolicitudesnegociador",method = RequestMethod.POST)
     @ResponseBody
@@ -71,7 +72,7 @@ public class NegociadorController {
 		Negociador negociador = new Negociador();
 		negociador.setIdNegociador(Integer.parseInt(request.getSession().getAttribute("idNegociadorSession").toString()));
 		solicitudCirugiaProgramada.setNegociador(negociador);
-		return this.solicitudServicio.obtenerSolicitudesNegociador(solicitudCirugiaProgramada);    	  
+		return this.negociadorServicio.obtenerSolicitudesNegociador(solicitudCirugiaProgramada);    	  
 	}
 
 	@RequestMapping(value="/cambiarstatusnegociada",method = RequestMethod.POST)
@@ -79,7 +80,7 @@ public class NegociadorController {
     public Boolean cambiarStatusDictaminada(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
 		System.out.println("<OTIKA>Cambiar status negociada!!!");
 		try {
-			this.solicitudServicio.cambiarStatusByParams(solicitudCirugiaProgramada,5);
+			this.negociadorServicio.cambiarStatusByParams(solicitudCirugiaProgramada,5);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -92,7 +93,7 @@ public class NegociadorController {
     public Boolean negociarProcedimiento(@ModelAttribute(value="procedimiento") ProcedimientoSolicitado procedimientoSolicitado, HttpServletRequest request){
 		System.out.println("<OTIKA>Negociar Procedimiento!!!");
 		try {
-			this.solicitudServicio.negociarProcedimiento(procedimientoSolicitado);
+			this.negociadorServicio.negociarProcedimiento(procedimientoSolicitado);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -105,7 +106,21 @@ public class NegociadorController {
     public Boolean aceptarRechazarProcedimiento(@ModelAttribute(value="insumo") Insumo insumo, HttpServletRequest request){
 		System.out.println("<OTIKA>negociando insumo!!!");
 		try {
-			Integer resp=this.solicitudServicio.guardarInsumoNegociado(insumo);
+			Integer resp=this.negociadorServicio.guardarInsumoNegociado(insumo);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return true;    	  
+	}
+	
+	@RequestMapping(value="/actualizarmontonegociado",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean actualizarMontoNegociado(@ModelAttribute(value="cirugiaSolicitada") CirugiaSolicitada cirugiaSolicitada, HttpServletRequest request){
+		System.out.println("<OTIKA>guardar monto cirugia!!!");
+		try {
+			//Valor 1 dictamiando
+			this.negociadorServicio.actualizarMonto(cirugiaSolicitada,2);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -117,7 +132,7 @@ public class NegociadorController {
     @ResponseBody
     public SolicitudCirugiaProgramada getSolicitudById(@ModelAttribute(value="solicitudCirugiaProgramada") SolicitudCirugiaProgramada solicitudCirugiaProgramada){
 		System.out.println("<OTIKA>getSolicitud!!!"+solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada());    	    	
-    	return this.solicitudServicio.getSolicitudById(solicitudCirugiaProgramada);    	  
+    	return this.negociadorServicio.getSolicitudById(solicitudCirugiaProgramada);    	  
 	}
 		
 }

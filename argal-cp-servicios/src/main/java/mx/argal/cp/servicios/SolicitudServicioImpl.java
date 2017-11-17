@@ -277,13 +277,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		// TODO Auto-generated method stub
 		return this.solicitudDao.aceptarRechazarProcedimiento(procedimientoSolicitado);
 	}
-	
-	@Override
-	public Integer negociarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado) {
-		// TODO Auto-generated method stub
-		return this.solicitudDao.negociarProcedimiento(procedimientoSolicitado);
-	}
-	
+		
 	@Override
 	public Integer aceptarRechazarInsumo(Insumo insumo) {
 		return this.solicitudDao.aceptarRechazarInsumo(insumo);
@@ -293,59 +287,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 	public Integer guardarInsumoAutorizado(Insumo insumo) {
 		return this.solicitudDao.guardarInsumoAutorizado(insumo);
 	}
-	
-	@Override
-	public Integer guardarInsumoNegociado(Insumo insumo) {
-		return this.solicitudDao.guardarInsumoNegociado(insumo);
-	}
-	
-	@Override
-	public List obtenerSolicitudesNegociador(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
-		// TODO Auto-generated method stub
-		List<SolicitudCirugiaProgramada> solicitudes = this.solicitudDao.obtenerSolicitudesByStatus(solicitudCirugiaProgramada.getStatus());
-		List solicitudesReturn = new ArrayList();
-		List solicitudReturn = new ArrayList();
-		System.out.println(solicitudes);
-		String status[] = {"","","RECIBIDA","NEGOCIADA","EN NEGOCIACIÓN","ACEPTADA"};		
-		try{
-			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-			for (int i=0;i<solicitudes.size();i++){		
-				solicitudReturn = new ArrayList();
-				solicitudReturn.add(solicitudes.get(i).getIdSolicitudCirugiaProgramada());
-				solicitudReturn.add(solicitudes.get(i).getApPBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getApMBeneficiarioSolicitudCirugiaProgramada() + " " + solicitudes.get(i).getNombreBeneficiarioSolicitudCirugiaProgramada());
-				if (solicitudes.get(i).getHospital()!=null) 
-					solicitudReturn.add(solicitudes.get(i).getHospital().getNombreHospital());			
-				else
-					solicitudReturn.add("Sin información");
-				String procedimientos ="";
-				if (solicitudes.get(i).getCirugiaSolicitadaUno()!=null){
-					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno()!=null) 
-						procedimientos += solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoUno().getCpt().getDescripcion();
-					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos()!=null) 
-						procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoDos().getCpt().getDescripcion();
-					if (solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres()!=null) 
-						procedimientos += ", "+solicitudes.get(i).getCirugiaSolicitadaUno().getProcedimientoTres().getCpt().getDescripcion();
-					solicitudReturn.add(procedimientos);
-				}
-				else
-					solicitudReturn.add("Error en la solicitud!");
-				solicitudReturn.add(format1.format(solicitudes.get(i).getFechaSolicitudElaboracion()));
-				solicitudReturn.add(status[solicitudes.get(i).getStatus()]);
-				if (solicitudes.get(i).getStatus()==4){
-					solicitudReturn.add("<a href='#' onclick='loadPageData(300,"+solicitudes.get(i).getIdSolicitudCirugiaProgramada()+")'\">Negociar</a>");
-				}
-				else{
-					solicitudReturn.add("-");
-				}
-				solicitudesReturn.add(solicitudReturn);
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return solicitudesReturn;
-	}
-
+			
 	@Override
 	public List obtenerSolicitudesAutorizador(SolicitudCirugiaProgramada solicitudCirugiaProgramada) {
 		// TODO Auto-generated method stub
@@ -354,7 +296,7 @@ public class SolicitudServicioImpl implements SolicitudServicio {
 		List solicitudesReturn = new ArrayList();
 		List solicitudReturn = new ArrayList();
 		System.out.println(solicitudes);
-		String status[] = {"","","RECIBIDA","NEGOCIADA","EN NEGOCIACIÓN","POR AUTORIZAR"};		
+		String status[] = {"","","RECIBIDA","NEGOCIADA","EN NEGOCIACIÓN","POR AUTORIZAR","AUTORIZADA"};		
 		try{
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 			for (int i=0;i<solicitudes.size();i++){		

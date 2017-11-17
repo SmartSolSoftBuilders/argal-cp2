@@ -1,3 +1,5 @@
+<h5>A continuación indique los montos que desee autorizar:</h5>
+
 <div id="jsGridInsumos">
 </div>
  
@@ -23,15 +25,13 @@
     </form>
 </div>
 
-<label for="total" class="control-label">Costo Promedio del Evento por el ICD:</label>
-<input type="text" class="form-control" id="costoPromedio" name="costoPromedio"  value="20000" required>
 <div class="form-group">
 	<table>
 		<tr>
 			<td>
 				<div class="control-group">
-					<label for="total" class="control-label">Costo Total del Evento:</label>
-					<input type="text" class="form-control" id="costoTotal" name="costoTotal" required>							
+					<label for="total" class="control-label"><font color="darkblue">Costo Total de la Cirugía:</font></label>
+					<div id="costoTotal">							
 				</div>
 			</td>
 		</tr>

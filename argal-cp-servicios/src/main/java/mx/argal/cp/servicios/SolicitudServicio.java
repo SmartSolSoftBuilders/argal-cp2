@@ -25,11 +25,8 @@ public interface SolicitudServicio {
 	public Integer guardarInsumo(Insumo insumo);	
 	public Integer cambiarStatusByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada, Integer status);
 	public Integer aceptarRechazarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);
-	public Integer aceptarRechazarInsumo(Insumo insumo);
-	public Integer guardarInsumoNegociado(Insumo insumo);
-	public Integer guardarInsumoAutorizado(Insumo insumo);
-	public List obtenerSolicitudesNegociador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
-	public Integer negociarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);
+	public Integer aceptarRechazarInsumo(Insumo insumo);	
+	public Integer guardarInsumoAutorizado(Insumo insumo);	
 	public List obtenerSolicitudesAutorizador(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
 	public Integer autorizarRechazarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);	
 	public Boolean asignarSolicitudADictamiandor(SolicitudCirugiaProgramada solicitudCirugiaProgramada);

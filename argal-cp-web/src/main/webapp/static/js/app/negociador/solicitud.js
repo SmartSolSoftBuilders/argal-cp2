@@ -54,7 +54,21 @@ function cargarSolicitud(){
 				if (response.cirugiaSolicitadaUno.procedimientoTres!=null)
 					$("#divProcedimiento3Negociar").html("<font color='darkblue'>Procedimiento 3: </font>"+response.cirugiaSolicitadaUno.procedimientoTres.cpt.descripcion);
 			}			
-			$("#costoTotal").html(calcularMontoCirugia(response.cirugiaSolicitadaUno));
+			$("#divIcdCirugia").html("<font color='darkblue'>Diagnóstico de Ingreso: </font>"+  response.cirugiaSolicitadaUno.diagnosticoIngreso.descripcion);
+			console.log("costo prom:"+$("#costoPromedio").val())
+			$("#costoPromedioShow").html(formatMoneda(parseFloat($("#costoPromedio").val())));
+			console.log("costo prom2")
+			if (response.cirugiaSolicitadaUno!=null){
+				if (response.cirugiaSolicitadaUno.montoAutorizado!=null && response.cirugiaSolicitadaUno.montoAutorizado!="")
+					$("#montoNegociado").val(formatMoneda(parseFloat(response.cirugiaSolicitadaUno.montoAutorizado)));
+				else
+					$("#montoNegociado").val(formatMoneda(parseFloat($("#costoPromedio").val())));
+			}
+			else{
+				$("#montoAutorizado").val(formatMoneda(parseFloat($("#costoPromedio").val())));
+			}
+			console.log("costo prom3")
+			$("#costoTotal").html(formatMoneda(parseFloat(calcularMontoCirugia(response))));
 			getCirugiaSolicitadaGridProcedimientos(response.cirugiaSolicitadaUno);
 			getCirugiaSolicitadaGridInsumos(response.insumos);
 		},
@@ -267,6 +281,8 @@ function getCirugiaSolicitadaGridProcedimientos(cirugiaProgramada){
     ];
 
     db.procedimientos = new Array();
+    if (cirugiaProgramada!=null)
+    	$("#idCirugiaSolicitada1").val(cirugiaProgramada.idCirugiaSolicitada);
     if (cirugiaProgramada.procedimientoUno!=null)
     	db.procedimientos.push(cirugiaProgramada.procedimientoUno);
     if (cirugiaProgramada.procedimientoDos!=null)
@@ -289,7 +305,7 @@ function cargarGridInsumos(){
 	            return "The Insumo \"" + item.Name + "\" will be removed. Are you sure?";
 	        },
 	        rowClick: function(args) {
-	            showDetailsInsumosDialog("Edit", args.item);
+	            showDetailsInsumosDialog("Negociar", args.item);
 	        },
 	        controller: dbInsumos,
 	        fields: [
@@ -332,8 +348,8 @@ function cargarGridInsumos(){
 	    	console.log(insumo)
 	    	$("#idInsumo").val(insumo.idInsumo);
 	        $("#descripcionInsumo").val(insumo.descripcion);
-	    	$("#montoNegociado").val(insumo.montoNegociado);
-	    	$("#monto").val(insumo.monto);
+	    	$("#montoInsumoNegociado").val(insumo.montoNegociado);
+	    	$("#montoInsumo").val(insumo.monto);
 	        formSubmitHandler2 = function() {
 	            saveInsumo(insumo, dialogType === "Add");
 	        };
@@ -344,8 +360,8 @@ function cargarGridInsumos(){
 
 	    var saveInsumo = function(insumo, isNew) {
 	        $.extend(insumo, {	        			        		      		        
-	        	monto: $("#montoNegociado").val(),
-	        	montoNegociado: $("#montoNegociado").val(),
+	        	monto: $("#montoInsumo").val(),
+	        	montoNegociado: $("#montoInsumoNegociado").val(),
 		        descripcion: $("#descripcionInsumo").val()		        
 	        });
 
@@ -381,6 +397,34 @@ function mensaje(msj){
 	     }
 	});
 }
+
+function guardarmontoNegociado(){
+	$.ajax({
+		async : false,
+		data : {
+			"idCirugiaSolicitada" : $("#idCirugiaSolicitada1").val(),
+			"montoNegociado" : ($("#montoNegociado").val().replace("$","")).replace(/,/g,"")
+		},
+		dataType : 'json',
+		url : 'mvc/negociador/actualizarmontonegociado',
+		type : 'post',
+		beforeSend : function() {
+			$("#loading").show();			
+		},
+		success : function(response) {
+			$("#loading").hide();
+			$("#contenidoSolicitud").show();
+			mensaje("El monto del costo hospitalario fué actualizado con éxito!");
+			cargarSolicitud($("#idSolicitud").val());
+			// console.log(response)
+		},
+		error : function(response) {
+			alert("error!")
+			// console.log(response)
+		}
+	});	
+}
+
 
 function actualizarHonorarios(id){
 	var monto = parseFloat($("#honorariosBase").val());	
@@ -460,7 +504,7 @@ function mensajeRedirect(msj){
 }
 
 function formatMoneda(num) {
-	if (num==null)
+	if (num==null || num=="")
 		return "$0.0";
     var p = num.toFixed(2).split(".");
     return "$" + p[0].split("").reverse().reduce(function(acc, num, i, orig) {
@@ -468,17 +512,51 @@ function formatMoneda(num) {
     }, "") + "." + p[1];
 }
 
-function calcularMontoCirugia(cirugiaSolicitadaUno){
-	var montoCalculado=0.00;
-	if (cirugiaSolicitadaUno!=null)
+function calcularMontoCirugia(solicitud){
+	var cirugiaSolicitadaUno = solicitud.cirugiaSolicitadaUno;
+	var montoCalculado=0;
+	if (cirugiaSolicitadaUno==null)
 		return montoCalculado;
 	if (cirugiaSolicitadaUno.procedimientoUno!=null){
-		if (cirugiaSolicitadaUno.procedimientoUno.montoDictaminado!=null || cirugiaSolicitadaUno.procedimientoUno.montoDictaminado!="")
-			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.montoDictaminado);				
+		if (cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosNegociados!=null && cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosNegociados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.honorariosMedicosNegociados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoNegociados!=null && cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoNegociados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteUnoNegociados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosNegociados!=null && cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosNegociados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.honorariosAyudanteDosNegociados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoNegociados!=null && cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoNegociados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoUno.honorariosAnestesiologoNegociados);
+		}
 	} 
 	if (cirugiaSolicitadaUno.procedimientoDos!=null){
-		if (cirugiaSolicitadaUno.procedimientoDos.montoDictaminado!=null || cirugiaSolicitadaUno.procedimientoDos.montoDictaminado!="")
-			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.montoDictaminado);
+		if (cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosNegociados!=null && cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosNegociados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.honorariosMedicosNegociados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteUnoNegociados!=null && cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteUnoNegociados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteUnoNegociados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteDosNegociados!=null && cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteDosNegociados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.honorariosAyudanteDosNegociados);
+		}
+		if (cirugiaSolicitadaUno.procedimientoDos.honorariosAnestesiologoNegociados!=null && cirugiaSolicitadaUno.procedimientoDos.honorariosAnestesiologoNegociados!=""){			
+			montoCalculado += parseFloat(cirugiaSolicitadaUno.procedimientoDos.honorariosAnestesiologoNegociados);
+		}
 	}
+	if ($("#montoDictaminado").val()!="" && $("#montoNegociado").val()!=null){
+		montoCalculado +=parseFloat ( $("#montoNegociado").val().replace("$","").replace(/,/g,"") );		
+	}
+	//Insumos
+	var insumos = solicitud.insumos;
+	if (insumos!=null){
+		for (i=0;i<insumos.length;i++){
+			if (insumos[i].monto!=null && insumos[i].monto!="" && insumos[i].autorizado=="1"){
+				montoCalculado +=parseFloat (insumos[i].monto);
+			}
+		}
+	}
+	console.log(" monto negociado:" + montoCalculado);
 	return montoCalculado;
 }
