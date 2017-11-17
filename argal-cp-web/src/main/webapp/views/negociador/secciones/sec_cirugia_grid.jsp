@@ -2,7 +2,7 @@
 <div id="divProcedimiento1Negociar"></div>
 <div id="divProcedimiento2Negociar"></div>
 <div id="divProcedimiento3Negociar"></div>
-
+<h5>A continuación indique los montos que ha negociado:</h5>
 <div id="jsGrid">
 </div>
 

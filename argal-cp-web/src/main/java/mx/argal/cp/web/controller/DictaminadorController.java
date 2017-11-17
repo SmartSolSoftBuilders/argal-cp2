@@ -53,6 +53,20 @@ public class DictaminadorController {
 		solicitudCirugiaProgramada.setDictaminador(dictaminador);
 		return this.dictaminadorServicio.obtenerSolicitudesDictaminador(solicitudCirugiaProgramada);    	  
 	}
+		
+	@RequestMapping(value="/actualizarmontodictaminado",method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean actualizarMontoDictaminado(@ModelAttribute(value="cirugiaSolicitada") CirugiaSolicitada cirugiaSolicitada, HttpServletRequest request){
+		System.out.println("<OTIKA>guardar monto cirugia!!!");
+		try {
+			//Valor 1 dictamiando
+			this.dictaminadorServicio.actualizarMonto(cirugiaSolicitada,1);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return true;    	  
+	}
 	
 	@RequestMapping(value="/cambiarstatusinfoincompleta",method = RequestMethod.POST)
     @ResponseBody

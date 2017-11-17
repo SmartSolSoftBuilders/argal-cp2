@@ -3,6 +3,15 @@
 <div id="jsGrid">
 </div>
 
+<div class="title"><h4><img src="static/img/hosp_receipt.png" width="25px" height="35px" />Presupuesto Hospitalario</h4></div>
+<br><font color="darkblue">Costo Promedio de la Cirugía para el Diagnóstico de Ingreso:</font>
+<input type="hidden" class="form-control" id="idCirugiaSolicitada1" name="idCirugiaSolicitada1"  value="20000.00" readonly required>
+<input type="hidden" class="form-control" id="costoPromedio" name="costoPromedio"  value="20000.00" readonly required>
+<div id="costoPromedioShow"/>
+<br><font color="darkblue">Costo a Dictaminar de la Cirugía para el Diagnóstico de Ingreso:</font>
+<input type="text" class="form-control" id="montoDictaminado" name="montoDictaminado" required onchange="guardarmontoDictaminado();">
+
+
 <div id="detailsDialog">
     <form id="detailsForm">
         <div class="details-form-field">

@@ -107,7 +107,10 @@
 	<resultMap id="cirugiaSolicitadaResult" type="CirugiaSolicitada">
 	    	<id property="idCirugiaSolicitada" column="ID_CIRUGIA_SOLICITADA" />
 	    	<result property="fundamentosDiagnostico" column="FUNDAMENTOS_DIAGNOSTICO"/>
-	    	<result property="numCirugia" column="NUM_CIRUGIA"/>	    		    	
+	    	<result property="numCirugia" column="NUM_CIRUGIA"/>	    	
+	    	<result property="montoDictaminado" column="MONTO_DICTAMINADO"/>
+	    	<result property="montoNegociado" column="MONTO_NEGOCIADO"/>
+	    	<result property="montoAutorizado" column="MONTO_AUTORIZADO"/>	    		    		    	
 	    	<association property="diagnosticoIngreso" column="ID_DIAGNOSTICO_INGRESO" javaType="Icd" select="selectIcd"/>	    		    	
 	    	<association property="procedimientoUno" column="ID_PROCEDIMIENTO_1" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoUno"/>
 	    	<association property="procedimientoDos" column="ID_PROCEDIMIENTO_2" javaType="ProcedimientoSolicitado" select="selectProcedimientoSolicitadoDos"/>
@@ -116,7 +119,7 @@
 	    	<association property="otrasEnfDos" column="ID_ICD_OTRASENF_2" javaType="Icd" select="selectIcd"/>
 	    	<association property="otrasEnfTres" column="ID_ICD_OTRASENF_3" javaType="Icd" select="selectIcd"/>
 	    	<association property="otrasEnfCuatro" column="ID_ICD_OTRASENF_4" javaType="Icd" select="selectIcd"/>
-	    	<association property="otrasEnfCinco" column="ID_ICD_OTRASENF_5" javaType="Icd" select="selectIcd"/>		    		    
+	    	<association property="otrasEnfCinco" column="ID_ICD_OTRASENF_5" javaType="Icd" select="selectIcd"/>	    			    		    
 	</resultMap>
 	
 	<resultMap id="procedimientoSolicitadoResult" type="ProcedimientoSolicitado">
@@ -282,6 +285,21 @@
   		</selectKey>	  		
   			INSERT INTO "PROCEDIMIENTO_SOLICITADO"("ID_PROCEDIMIENTO_SOLICITADO", "ID_CPT","NUM_PROCEDIMIENTO") VALUES (#{idProcedimientoSolicitado},#{id},#{numProcedimiento});  					
 	</insert>
+	
+	<update id="actualizarMontoDictaminado" parameterType="CirugiaSolicitada">
+		UPDATE "CIRUGIA_SOLICITADA"
+			SET "MONTO_DICTAMINADO"=#{montoDictaminado} where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+	</update>
+	
+	<update id="actualizarMontoNegociado" parameterType="CirugiaSolicitada">
+		UPDATE "CIRUGIA_SOLICITADA"
+			SET "MONTO_NEGOCIADO"=#{montoNegociado} where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+	</update>
+	
+	<update id="actualizarMontoAutorizado" parameterType="CirugiaSolicitada">
+		UPDATE "CIRUGIA_SOLICITADA"
+			SET "MONTO_AUTORIZADO"=#{montoAutorizado} where "ID_CIRUGIA_SOLICITADA"=#{idCirugiaSolicitada};
+	</update>
 		
 	<update id="guardarAsignarProcedimientos" parameterType="CirugiaSolicitada">
 		<if test="procedimientoUno.idProcedimientoSolicitado!=null">		

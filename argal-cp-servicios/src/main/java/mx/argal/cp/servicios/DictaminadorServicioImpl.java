@@ -6,6 +6,7 @@ import mx.argal.cp.dao.UsuarioDao;
 import mx.argal.cp.modelo.CirugiaSolicitada;
 import mx.argal.cp.modelo.Insumo;
 import mx.argal.cp.modelo.MedicoTratante;
+import mx.argal.cp.modelo.Negociador;
 import mx.argal.cp.modelo.ProcedimientoSolicitado;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.modelo.Usuario;
@@ -78,15 +79,14 @@ public class DictaminadorServicioImpl implements DictaminadorServicio {
 	public Integer cambiarStatusByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada,Integer status) {
 		// TODO Auto-generated method stub		
 		Integer resp =  this.solicitudDao.cambiarStatusByParams(solicitudCirugiaProgramada.getIdSolicitudCirugiaProgramada(), status);
-		if (status==2) {
+		if (status==4) {
 			//Se buscará un dictaminador disponible para asignarle la solicitud			
-			Dictaminador dictaminador = new Dictaminador();
-			dictaminador.setIdDictaminador(1);
-			solicitudCirugiaProgramada.setDictaminador(dictaminador);			
-			this.solicitudDao.asignarSolicitudADictamiandor(solicitudCirugiaProgramada);
+			Negociador negociador = new Negociador();
+			negociador.setIdNegociador(1);			
+			solicitudCirugiaProgramada.setNegociador(negociador);			
+			this.solicitudDao.asignarSolicitudANegociador(solicitudCirugiaProgramada);
 		}
-		if (status==3) {
-			//Se buscará un dictaminador disponible para asignarle la solicitud								
+		if (status==3) {								
 			this.solicitudDao.guardarMotivoRechazoSolicitud(solicitudCirugiaProgramada);
 		}
 		return resp;
@@ -101,6 +101,12 @@ public class DictaminadorServicioImpl implements DictaminadorServicio {
 	@Override
 	public Integer aceptarRechazarInsumo(Insumo insumo) {
 		return this.solicitudDao.aceptarRechazarInsumo(insumo);
+	}
+
+	@Override
+	public Integer actualizarMonto(CirugiaSolicitada cirugiaSolicitada, int i) {
+		// TODO Auto-generated method stub
+		return this.solicitudDao.actualizarMontoDictaminado(cirugiaSolicitada);
 	}
 
 }

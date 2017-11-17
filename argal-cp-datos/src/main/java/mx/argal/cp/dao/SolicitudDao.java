@@ -44,6 +44,8 @@ public interface SolicitudDao {
 	public List<SolicitudCirugiaProgramada> obtenerSolicitudesByNegociador(Negociador negociador);
 	public List<SolicitudCirugiaProgramada> obtenerSolicitudesByAutorizador(Autorizador autorizador);
 	public Integer guardarMotivoRechazoSolicitud(SolicitudCirugiaProgramada solicitudCirugiaProgramada);
-
+	public Integer actualizarMontoDictaminado(CirugiaSolicitada cirugiaSolicitada);
+	public Integer actualizarMontoNegociado(CirugiaSolicitada cirugiaSolicitada);
+	public Integer actualizarMontoAutorizado(CirugiaSolicitada cirugiaSolicitada);
 	
 }

@@ -15,5 +15,6 @@ public interface DictaminadorServicio {
 	public Integer cambiarStatusByParams(SolicitudCirugiaProgramada solicitudCirugiaProgramada, Integer status);
 	public Integer aceptarRechazarProcedimiento(ProcedimientoSolicitado procedimientoSolicitado);
 	public Integer aceptarRechazarInsumo(Insumo insumo);
+	public Integer actualizarMonto(CirugiaSolicitada cirugiaSolicitada, int i);
 		
 }

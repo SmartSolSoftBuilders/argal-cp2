@@ -12,8 +12,10 @@ import mx.argal.seguridad.modelo.RolSeguridad;
 import mx.argal.seguridad.modelo.UsuarioSeguridad;
 import mx.argal.seguridad.servicios.MttoSeguridadServicio;
 import mx.argal.seguridad.util.SeguridadUtil;
+import mx.argal.cp.modelo.Autorizador;
 import mx.argal.cp.modelo.Dictaminador;
 import mx.argal.cp.modelo.MedicoTratante;
+import mx.argal.cp.modelo.Negociador;
 import mx.argal.cp.servicios.MedicoTratanteServicio;
 import mx.argal.cp.servicios.UsuarioServicio;
 
@@ -77,8 +79,7 @@ public class IndexController {
     		medicoTratante=this.medicoTratanteServicio.obtenerMedicoTratanteByIdTUs(medicoTratante);
 			request.getSession().setAttribute("idMedicoTratanteSession",medicoTratante.getIdTUsuario());
     		return new ModelAndView("main", "usuario", usuario);
-    	}
-    	
+    	}    
     	if ( rol.equals(ROLE_DICTAMINADOR)) {    	    		
     		Dictaminador dictaminador = new Dictaminador();    		
     		dictaminador.setIdTUsuario(mttoSeguridadServicio.consultarUsuariosByUser(usuario).get(0).getId().intValue());
@@ -86,7 +87,18 @@ public class IndexController {
 			request.getSession().setAttribute("idDictaminadorSession",dictaminador.getIdTUsuario());
     		return new ModelAndView("main", "usuario", usuario);
     	}
-    	if (rol.equals(ROLE_NEGOCIADOR) || rol.equals(ROLE_AUTORIZADOR)) {    		
+    	if ( rol.equals(ROLE_NEGOCIADOR)) {    	    		
+    		Negociador negociador = new Negociador();
+    		negociador.setIdTUsuario(mttoSeguridadServicio.consultarUsuariosByUser(usuario).get(0).getId().intValue());
+    		System.out.println("Buscando negociador"+negociador.getIdTUsuario());
+			request.getSession().setAttribute("idNegociadorSession",negociador.getIdTUsuario());
+    		return new ModelAndView("main", "usuario", usuario);
+    	}
+    	if (rol.equals(ROLE_AUTORIZADOR)) {    		
+    		Autorizador autorizador = new Autorizador();
+    		autorizador.setIdTUsuario(mttoSeguridadServicio.consultarUsuariosByUser(usuario).get(0).getId().intValue());
+    		System.out.println("Buscando autorizador"+autorizador.getIdTUsuario());
+			request.getSession().setAttribute("idAutorizadorSession",autorizador.getIdTUsuario());
     		return new ModelAndView("main", "usuario", usuario);
     	}
     	    	    	    	  

@@ -59,22 +59,22 @@
 			<jsp:include page="secciones/sec_cirugia.jsp"></jsp:include>			
 		</div>				
 		
-		<h3><img src="static/img/schedule.png" width="25px" />3)Programación</h3>
+		<h3><img src="static/img/schedule.png" width="25px" />3) Programación</h3>
 		<div>
 			<jsp:include page="secciones/sec_programacion.jsp"></jsp:include>				
 		</div>
 			
-		<h3><img src="static/img/documents.png" width="25px" />4)Documentación</h3>
+		<h3><img src="static/img/documents.png" width="25px" />4) Documentación</h3>
 		<div>	   
 			<jsp:include page="secciones/sec_documentacion.jsp"></jsp:include>				
 		</div>	
 		
-		<h3><img src="static/img/person.png" width="25px" />5)Riesgos y Personal Adicional Requerido</h3>
+		<h3><img src="static/img/person.png" width="25px" />5) Riesgos y Personal Adicional Requerido</h3>
 		<div>	    
 			<jsp:include page="secciones/sec_riesgos_personal.jsp"></jsp:include>				
 		</div>
 		
-		<h3><img src="static/img/insumo.png" width="25px" />6)Insumos</h3>
+		<h3><img src="static/img/insumo.png" width="25px" />6) Insumos</h3>
 		<div>	   			
 			<div id="jsGridInsumos"></div>								
 		</div>

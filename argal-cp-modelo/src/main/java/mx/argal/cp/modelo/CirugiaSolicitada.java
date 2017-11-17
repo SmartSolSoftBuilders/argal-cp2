@@ -15,9 +15,11 @@ public class CirugiaSolicitada extends BaseModelo {
 	private Icd otrasEnfDos;
 	private Icd otrasEnfTres;
 	private Icd otrasEnfCuatro;
-	private Icd otrasEnfCinco;
-	
-	private Integer numCirugia;	
+	private Icd otrasEnfCinco;	
+	private Integer numCirugia;
+	private Double montoDictaminado;
+	private Double montoNegociado;
+	private Double montoAutorizado;
 	
 	public Integer getIdCirugiaSolicitada() {
 		return idCirugiaSolicitada;
@@ -91,14 +93,32 @@ public class CirugiaSolicitada extends BaseModelo {
 	public void setOtrasEnfCinco(Icd otrasEnfCinco) {
 		this.otrasEnfCinco = otrasEnfCinco;
 	}
-	
-	public CirugiaSolicitada(){		
+	public Double getMontoDictaminado() {
+		return montoDictaminado;
+	}
+	public void setMontoDictaminado(Double montoDictaminado) {
+		this.montoDictaminado = montoDictaminado;
+	}
+	public Double getMontoNegociado() {
+		return montoNegociado;
+	}
+	public void setMontoNegociado(Double montoNegociado) {
+		this.montoNegociado = montoNegociado;
+	}
+	public Double getMontoAutorizado() {
+		return montoAutorizado;
+	}
+	public void setMontoAutorizado(Double montoAutorizado) {
+		this.montoAutorizado = montoAutorizado;
 	}
 	
+	public CirugiaSolicitada(){		
+	}	
 	public CirugiaSolicitada(Integer idCirugiaSolicitada, Icd diagnosticoIngreso,
 			ProcedimientoSolicitado procedimientoUno, ProcedimientoSolicitado procedimientoDos,
 			ProcedimientoSolicitado procedimientoTres, String fundamentosDiagnostico, Icd otrasEnfUno, Icd otrasEnfDos,
-			Icd otrasEnfTres, Icd otrasEnfCuatro, Icd otrasEnfCinco, Integer numCirugia) {
+			Icd otrasEnfTres, Icd otrasEnfCuatro, Icd otrasEnfCinco, Integer numCirugia, Double montoDictaminado,
+			Double montoNegociado, Double montoAutorizado) {
 		super();
 		this.idCirugiaSolicitada = idCirugiaSolicitada;
 		this.diagnosticoIngreso = diagnosticoIngreso;
@@ -112,5 +132,9 @@ public class CirugiaSolicitada extends BaseModelo {
 		this.otrasEnfCuatro = otrasEnfCuatro;
 		this.otrasEnfCinco = otrasEnfCinco;
 		this.numCirugia = numCirugia;
+		this.montoDictaminado = montoDictaminado;
+		this.montoNegociado = montoNegociado;
+		this.montoAutorizado = montoAutorizado;
 	}
+		
 }

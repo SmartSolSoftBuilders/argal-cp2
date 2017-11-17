@@ -13,8 +13,10 @@ import mx.argal.seguridad.servicios.MttoSeguridadServicio;
 import mx.argal.seguridad.util.SeguridadUtil;
 import mx.argal.cp.modelo.CirugiaSolicitada;
 import mx.argal.cp.modelo.Cpt;
+import mx.argal.cp.modelo.Dictaminador;
 import mx.argal.cp.modelo.Insumo;
 import mx.argal.cp.modelo.MedicoTratante;
+import mx.argal.cp.modelo.Negociador;
 import mx.argal.cp.modelo.ProcedimientoSolicitado;
 import mx.argal.cp.modelo.SolicitudCirugiaProgramada;
 import mx.argal.cp.servicios.SolicitudServicio;
@@ -64,7 +66,11 @@ public class NegociadorController {
 	@RequestMapping(value="/getsolicitudesnegociador",method = RequestMethod.POST)
     @ResponseBody
     public List obtenerSolicitudesNegociador(@ModelAttribute(value="solicitud") SolicitudCirugiaProgramada solicitudCirugiaProgramada, HttpServletRequest request){
-		System.out.println("<OTIKA>getsols negociador!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());    	    	
+		System.out.println("<OTIKA>getsols negociador!!!"+ solicitudCirugiaProgramada.getTipoSolicitudCirugiaProgramada());
+		System.out.println("<OTIKA>getSolicitud!!!"+ request.getSession().getAttribute("idNegociadorSession").toString());    	    	
+		Negociador negociador = new Negociador();
+		negociador.setIdNegociador(Integer.parseInt(request.getSession().getAttribute("idNegociadorSession").toString()));
+		solicitudCirugiaProgramada.setNegociador(negociador);
 		return this.solicitudServicio.obtenerSolicitudesNegociador(solicitudCirugiaProgramada);    	  
 	}
 
