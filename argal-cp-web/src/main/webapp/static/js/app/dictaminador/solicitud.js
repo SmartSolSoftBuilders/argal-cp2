@@ -92,6 +92,8 @@ function cargarGrid(){
 
 	    $("#detailsDialog").dialog({
 	        autoOpen: false,
+	        modal:true,
+	        position: { my: "center top", at: "center center", of: window },
 	        width: 400,
 	        close: function() {
 	            $("#detailsForm").validate().resetForm();
@@ -353,6 +355,8 @@ function cargarGridInsumos(){
 
 	    $("#detailsInsumosDialog").dialog({
 	        autoOpen: false,
+	        modal:true,
+	        position: { my: "center top", at: "center center", of: window },
 	        width: 400,
 	        close: function() {
 	            $("#detailsInsumosForm").validate().resetForm();
